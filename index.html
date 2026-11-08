@@ -1,33 +1,154 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>LTop</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;color:#fff;font-family:Arial;overflow:hidden}
-.header{position:fixed;top:0;width:100%;text-align:center;padding:12px;z-index:10;font-size:22px;font-weight:bold;background:linear-gradient(#000,transparent)}
-.header span{color:#fe2c55}
-.feed{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory}
-.video-box{height:100vh;scroll-snap-align:start;position:relative;display:flex;align-items:center;justify-content:center}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#000;color:#fff;overflow:hidden}
+header{position:fixed;top:0;width:100%;text-align:center;padding:12px;z-index:10;background:linear-gradient(#000,transparent);font-size:28px;font-weight:900}
+header b{color:#fff} header span{color:#fe2c55}
+.page{display:none;height:100vh;padding-top:55px;padding-bottom:65px;overflow-y:auto}
+.page.active{display:block}
+.videoBox{position:relative;height:calc(100vh - 120px);background:#111;display:flex;align-items:center;justify-content:center;overflow:hidden}
 video{width:100%;height:100%;object-fit:cover}
-.info{position:absolute;bottom:90px;left:12px;right:70px}
-.info b{font-size:18px}
-.info p{font-size:14px;margin-top:6px;color:#ddd}
-.actions{position:absolute;right:10px;bottom:100px;display:flex;flex-direction:column;gap:18px;text-align:center}
-.actions div{background:#222;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px}
-.actions small{font-size:12px}
-.bottom{position:fixed;bottom:0;width:100%;display:flex;justify-content:space-around;padding:12px;background:#000;border-top:1px solid #222;font-size:14px}
-.bottom b{color:#fe2c55}
+.actions{position:absolute;right:10px;bottom:20px;display:flex;flex-direction:column;gap:18px;align-items:center;z-index:5}
+.act{width:52px;height:52px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;border:none;cursor:pointer}
+.act small{display:block;font-size:12px;text-align:center;margin-top:2px;color:#fff}
+.info{position:absolute;left:10px;bottom:20px;z-index:5;max-width:75%}
+.info h3{font-size:18px}
+.info p{font-size:13px;color:#ddd;margin-top:4px}
+nav{position:fixed;bottom:0;width:100%;height:60px;background:#000;display:flex;justify-content:space-around;align-items:center;border-top:1px solid #222;z-index:20}
+nav button{background:none;border:none;color:#fff;font-size:16px;cursor:pointer}
+nav button.active{color:#fe2c55;font-weight:bold}
+nav .plus{font-size:26px;background:#fff;color:#000;width:45px;border-radius:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;padding:2px}
+.grid video{width:100%;aspect-ratio:9/16;object-fit:cover;background:#222}
+.box{padding:15px}
+input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:none;outline:none}
+.btn{width:100%;padding:13px;background:#fe2c55;color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:bold}
+.profile{text-align:center;padding:20px}
+.avatar{width:90px;height:90px;border-radius:50%;background:#fe2c55;display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 10px}
+.msg{background:#1a1a1a;padding:12px;border-radius:12px;margin:10px}
 </style>
 </head>
 <body>
-<div class="header">L<span>Top</span></div>
-<div class="feed">
-<div class="video-box"><video src="https://cdn.coverr.co/videos/coverr-dancing-in-the-street-1564/1080p.mp4" autoplay muted loop playsinline></video><div class="info"><b>@l_top_official</b><p>Welcome to LTop 🔥 #foryou #viral</p></div><div class="actions"><div>❤️</div><small>12.5K</small><div>💬</div><small>850</small><div>↗️</div><small>Share</small></div></div>
-<div class="video-box"><video src="https://cdn.coverr.co/videos/coverr-a-man-skateboarding-1586/1080p.mp4" autoplay muted loop playsinline></video><div class="info"><b>@peshawar_boy</b><p>Peshawar vibes 😎 #LTop</p></div><div class="actions"><div>❤️</div><small>8.2K</small><div>💬</div><small>412</small><div>↗️</div><small>Share</small></div></div>
-<div class="video-box"><video src="https://cdn.coverr.co/videos/coverr-girl-dancing-in-neon-lights-1605/1080p.mp4" autoplay muted loop playsinline></video><div class="info"><b>@dance_queen</b><p>New dance challenge! Try it 🔥</p></div><div class="actions"><div>❤️</div><small>25K</small><div>💬</div><small>1.2K</small><div>↗️</div><small>Share</small></div></div>
+<header><b>L</b><span>Top</span></header>
+
+<!-- HOME -->
+<div id="home" class="page active">
+  <div class="videoBox">
+    <video id="mainVideo" src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" loop playsinline onclick="this.paused?this.play():this.pause()"></video>
+    <div class="actions">
+      <div><button class="act" onclick="like(this)">❤️</button><small id="likeCount">12.5K</small></div>
+      <div><button class="act" onclick="showComment()">💬</button><small>850</small></div>
+      <div><button class="act" onclick="shareApp()">↗️</button><small>Share</small></div>
+    </div>
+    <div class="info"><h3>@l_top_official</h3><p>Welcome to LTop 🔥 #foryou #viral</p><p style="color:#fe2c55">▶ Tap video to Play / Pause</p></div>
+  </div>
+  <div class="box"><button class="btn" onclick="nextVideo()">⏭ Next Video</button></div>
 </div>
-<div class="bottom"><b>Home</b><span>Discover</span><span>+</span><span>Inbox</span><span>Me</span></div>
+
+<!-- DISCOVER -->
+<div id="discover" class="page">
+  <div class="box"><h2>🔍 Discover</h2><p>Trending Videos</p></div>
+  <div class="grid" id="discoverGrid"></div>
+</div>
+
+<!-- UPLOAD -->
+<div id="upload" class="page">
+  <div class="box">
+    <h2>➕ Upload Video</h2>
+    <p>Apni video chuno:</p>
+    <input type="file" id="fileInput" accept="video/*" onchange="previewVideo(event)">
+    <video id="preview" controls style="width:100%;border-radius:12px;display:none;margin:10px 0"></video>
+    <input id="caption" placeholder="Caption likho... #foryou">
+    <button class="btn" onclick="postVideo()">Post Karo 🚀</button>
+    <p id="postMsg" style="margin-top:10px;color:#25F4EE"></p>
+  </div>
+</div>
+
+<!-- INBOX -->
+<div id="inbox" class="page">
+  <div class="box"><h2>💬 Inbox</h2></div>
+  <div class="msg"><b>@sara_khan</b><p>Wow amazing video! 🔥</p></div>
+  <div class="msg"><b>@ali_123</b><p>Follow back please 🙏</p></div>
+  <div class="msg"><b>@l_top_official</b><p>Welcome to LTop ❤️</p></div>
+</div>
+
+<!-- ME -->
+<div id="me" class="page">
+  <div class="profile">
+    <div class="avatar">U</div>
+    <h2>@l_top_official</h2>
+    <p>10 Following | 1.2K Followers | 12.5K Likes</p>
+    <br><button class="btn" onclick="alert('Profile Edit Soon!')">Edit Profile</button>
+  </div>
+  <div class="box"><h3>My Videos</h3></div>
+  <div class="grid" id="myGrid"></div>
+</div>
+
+<nav>
+  <button id="btn-home" class="active" onclick="showPage('home','btn-home')">Home</button>
+  <button id="btn-discover" onclick="showPage('discover','btn-discover')">Discover</button>
+  <button class="plus" onclick="showPage('upload','btn-upload')">+</button>
+  <button id="btn-inbox" onclick="showPage('inbox','btn-inbox')">Inbox</button>
+  <button id="btn-me" onclick="showPage('me','btn-me')">Me</button>
+</nav>
+
+<script>
+let videos=[
+"https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+"https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+"https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+"https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
+];
+let vi=0; let likes=12500;
+function showPage(id,btn){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+ if(btn) document.getElementById(btn).classList.add('active');
+ if(id==='home'){let v=document.getElementById('mainVideo'); v.play();}
+}
+function nextVideo(){
+ vi=(vi+1)%videos.length;
+ let v=document.getElementById('mainVideo');
+ v.src=videos[vi]; v.play();
+}
+function like(el){
+ likes++; document.getElementById('likeCount').innerText=(likes/1000).toFixed(1)+'K';
+ el.style.background='#fe2c55'; alert('Liked ❤️');
+}
+function showComment(){
+ let c=prompt('Comment likho:');
+ if(c) alert('Comment Post Ho Gaya: '+c);
+}
+function shareApp(){
+ let link=location.href;
+ if(navigator.share){navigator.share({title:'LTop',url:link});}
+ else{prompt('Link copy karo:',link);}
+}
+function previewVideo(e){
+ let f=e.target.files[0]; if(!f) return;
+ let p=document.getElementById('preview');
+ p.src=URL.createObjectURL(f); p.style.display='block'; p.play();
+}
+function postVideo(){
+ let cap=document.getElementById('caption').value;
+ document.getElementById('postMsg').innerText='Video Post Ho Gayi! 🎉 Caption: '+cap;
+ alert('Video Post Ho Gayi! 🎉');
+ showPage('home','btn-home');
+}
+// Fill grids
+let g=document.getElementById('discoverGrid');
+let m=document.getElementById('myGrid');
+videos.forEach(v=>{
+ let vd=document.createElement('video'); vd.src=v; vd.muted=true; vd.onclick=()=>{showPage('home','btn-home'); let mv=document.getElementById('mainVideo'); mv.src=v; mv.play();};
+ g.appendChild(vd);
+ let vd2=vd.cloneNode(); vd2.onclick=vd.onclick; m.appendChild(vd2);
+});
+</script>
 </body>
 </html>
