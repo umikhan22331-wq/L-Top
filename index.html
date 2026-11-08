@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LTop</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;color:#fff;font-family:Arial;overflow:hidden}
+.header{position:fixed;top:0;width:100%;text-align:center;padding:12px;z-index:10;font-size:22px;font-weight:bold;background:linear-gradient(#000,transparent)}
+.header span{color:#fe2c55}
+.feed{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory}
+.video-box{height:100vh;scroll-snap-align:start;position:relative;display:flex;align-items:center;justify-content:center}
+video{width:100%;height:100%;object-fit:cover}
+.info{position:absolute;bottom:90px;left:12px;right:70px}
+.info b{font-size:18px}
+.info p{font-size:14px;margin-top:6px;color:#ddd}
+.actions{position:absolute;right:10px;bottom:100px;display:flex;flex-direction:column;gap:18px;text-align:center}
+.actions div{background:#222;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px}
+.actions small{font-size:12px}
+.bottom{position:fixed;bottom:0;width:100%;display:flex;justify-content:space-around;padding:12px;background:#000;border-top:1px solid #222;font-size:14px}
+.bottom b{color:#fe2c55}
+</style>
+</head>
+<body>
+<div class="header">L<span>Top</span></div>
+<div class="feed">
+<div class="video-box"><video src="https://cdn.coverr.co/videos/coverr-dancing-in-the-street-1564/1080p.mp4" autoplay muted loop playsinline></video><div class="info"><b>@l_top_official</b><p>Welcome to LTop 🔥 #foryou #viral</p></div><div class="actions"><div>❤️</div><small>12.5K</small><div>💬</div><small>850</small><div>↗️</div><small>Share</small></div></div>
+<div class="video-box"><video src="https://cdn.coverr.co/videos/coverr-a-man-skateboarding-1586/1080p.mp4" autoplay muted loop playsinline></video><div class="info"><b>@peshawar_boy</b><p>Peshawar vibes 😎 #LTop</p></div><div class="actions"><div>❤️</div><small>8.2K</small><div>💬</div><small>412</small><div>↗️</div><small>Share</small></div></div>
+<div class="video-box"><video src="https://cdn.coverr.co/videos/coverr-girl-dancing-in-neon-lights-1605/1080p.mp4" autoplay muted loop playsinline></video><div class="info"><b>@dance_queen</b><p>New dance challenge! Try it 🔥</p></div><div class="actions"><div>❤️</div><small>25K</small><div>💬</div><small>1.2K</small><div>↗️</div><small>Share</small></div></div>
+</div>
+<div class="bottom"><b>Home</b><span>Discover</span><span>+</span><span>Inbox</span><span>Me</span></div>
+</body>
+</html>
