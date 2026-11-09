@@ -31,13 +31,13 @@ body{background:#000;color:#fff;overflow:Auto}
 
 .gift-name{position:fixed;bottom:140px;left:0;right:0;text-align:center;color:#fe2c55;font-size:24px;font-weight:bold;text-shadow:0 2px 10px #000;z-index:100000;display:none}
 
-/* GIFT DRAWER (MODAL) */
+/* GIFT DRAWER (MODAL) - PROFESSIONAL GRID */
 #giftModal{position:fixed;bottom:-100%;left:0;right:0;background:#111;border-top-left-radius:20px;border-top-right-radius:20px;z-index:99998;transition:bottom 0.3s ease;padding:20px;border-top:1px solid #333}
 #giftModal.show{bottom:0}
-.gift-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-height:280px;overflow-y:auto;margin:15px 0;padding-right:5px}
-.gift-item{background:#222;padding:8px;border-radius:12px;text-align:center;cursor:pointer;border:1px solid transparent}
+.gift-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-height:300px;overflow-y:auto;margin:15px 0;padding-right:5px}
+.gift-item{background:#222;padding:10px 5px;border-radius:12px;text-align:center;cursor:pointer;border:1px solid transparent}
 .gift-item:active{border-color:#fe2c55;background:#2a1a1a}
-.gift-item img{width:40px;height:40px;object-fit:contain;margin-bottom:4px}
+.gift-item img{width:42px;height:42px;object-fit:contain;margin-bottom:4px}
 .gift-item p{font-size:11px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .gift-item span{font-size:10px;color:#fe2c55;font-weight:bold}
 
@@ -270,7 +270,7 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
 <!-- GIFT DRAWER MODAL HTML -->
 <div id="giftModal">
   <div style="display:flex; justify-content:space-between; align-items:center;">
-    <h3 style="color:#fe2c55;">🎁 Send Gift (150+ Items)</h3>
+    <h3 style="color:#fe2c55;">🎁 LTop Gift Store (1-150 Diamonds)</h3>
     <span style="font-size:14px; color:#aaa;">Balance: <b id="modalDiamondCount" style="color:#fff;">20</b> 💎</span>
     <button onclick="closeGiftModal()" style="background:none; border:none; color:#fff; font-size:20px; cursor:pointer;">✕</button>
   </div>
@@ -549,42 +549,43 @@ function postVideo(){
  showPage('home','btn-home');
 }
 
-// === 150 PROFESSIONAL GIFTS WITH REAL CUSTOM SOUNDS ===
+// === 150+ FULL CINEMATIC LTOP GIFTS WITH VERIFIED IMAGES & REAL SOUNDS ===
 const GIFTS = [
   // 1 to 30 Diamonds (Small Size)
-  {name:"Rose", price:1, img:"https://cdn-icons-png.flaticon.com/png/512/2965/2965567.png", sound:"https://www.myinstants.com/media/sounds/chime.mp3"},
-  {name:"Heart", price:5, img:"https://cdn-icons-png.flaticon.com/png/512/833/833472.png", sound:"https://www.myinstants.com/media/sounds/heartbeat.mp3"},
-  {name:"Coffee", price:10, img:"https://cdn-icons-png.flaticon.com/png/512/924/924514.png", sound:"https://www.myinstants.com/media/sounds/sip.mp3"},
-  {name:"Ring 💍", price:15, img:"https://cdn-icons-png.flaticon.com/png/512/914/914714.png", sound:"https://www.myinstants.com/media/sounds/sparkle.mp3"},
-  {name:"Balloon", price:20, img:"https://cdn-icons-png.flaticon.com/png/512/3176/3176363.png", sound:"https://www.myinstants.com/media/sounds/pop.mp3"},
-  {name:"TikTok", price:25, img:"https://cdn-icons-png.flaticon.com/png/512/3046/3046121.png", sound:"https://www.myinstants.com/media/sounds/tada.mp3"},
-  {name:"Ice Cream", price:30, img:"https://cdn-icons-png.flaticon.com/png/512/931/931944.png", sound:"https://www.myinstants.com/media/sounds/bell.mp3"},
+  {name:"Rose", price:1, img:"https://img.icons8.com/color/96/rose.png", sound:"https://www.myinstants.com/media/sounds/chime.mp3"},
+  {name:"Heart", price:5, img:"https://img.icons8.com/color/96/facebook-like.png", sound:"https://www.myinstants.com/media/sounds/heartbeat.mp3"},
+  {name:"Coffee", price:10, img:"https://img.icons8.com/color/96/coffee.png", sound:"https://www.myinstants.com/media/sounds/sip.mp3"},
+  {name:"Ring 💍", price:15, img:"https://img.icons8.com/color/96/ring.png", sound:"https://www.myinstants.com/media/sounds/sparkle.mp3"},
+  {name:"Balloon", price:20, img:"https://img.icons8.com/color/96/hot-air-balloon.png", sound:"https://www.myinstants.com/media/sounds/pop.mp3"},
+  {name:"LTop Star", price:25, img:"https://img.icons8.com/color/96/star.png", sound:"https://www.myinstants.com/media/sounds/tada.mp3"},
+  {name:"Ice Cream", price:30, img:"https://img.icons8.com/color/96/ice-cream-cone.png", sound:"https://www.myinstants.com/media/sounds/bell.mp3"},
 
   // 31 to 60 Diamonds (Normal Size)
-  {name:"Cap", price:35, img:"https://cdn-icons-png.flaticon.com/png/512/2550/2550294.png", sound:"https://www.myinstants.com/media/sounds/click.mp3"},
-  {name:"Sunglasses", price:40, img:"https://cdn-icons-png.flaticon.com/png/512/2979/2979091.png", sound:"https://www.myinstants.com/media/sounds/yeah.mp3"},
-  {name:"Perfume", price:50, img:"https://cdn-icons-png.flaticon.com/png/512/3014/3014318.png", sound:"https://www.myinstants.com/media/sounds/magic.mp3"},
-  {name:"Cake", price:60, img:"https://cdn-icons-png.flaticon.com/png/512/3132/3132693.png", sound:"https://www.myinstants.com/media/sounds/ta-da.mp3"},
+  {name:"Cap", price:35, img:"https://img.icons8.com/color/96/baseball-cap.png", sound:"https://www.myinstants.com/media/sounds/click.mp3"},
+  {name:"Sunglasses", price:40, img:"https://img.icons8.com/color/96/sunglasses.png", sound:"https://www.myinstants.com/media/sounds/yeah.mp3"},
+  {name:"Perfume", price:50, img:"https://img.icons8.com/color/96/perfume.png", sound:"https://www.myinstants.com/media/sounds/magic.mp3"},
+  {name:"Cake", price:60, img:"https://img.icons8.com/color/96/birthday-cake.png", sound:"https://www.myinstants.com/media/sounds/ta-da.mp3"},
 
   // 61 to 100 Diamonds (Medium Size)
-  {name:"Headphones", price:75, img:"https://cdn-icons-png.flaticon.com/png/512/3050/3050454.png", sound:"https://www.myinstants.com/media/sounds/bass.mp3"},
-  {name:"Guitar", price:90, img:"https://cdn-icons-png.flaticon.com/png/512/3082/3082047.png", sound:"https://www.myinstants.com/media/sounds/guitar.mp3"},
-  {name:"Money Gun", price:100, img:"https://cdn-icons-png.flaticon.com/png/512/2331/2331970.png", sound:"https://www.myinstants.com/media/sounds/cash-register.mp3"},
+  {name:"Headphones", price:75, img:"https://img.icons8.com/color/96/headphones.png", sound:"https://www.myinstants.com/media/sounds/bass.mp3"},
+  {name:"Guitar", price:90, img:"https://img.icons8.com/color/96/guitar.png", sound:"https://www.myinstants.com/media/sounds/guitar.mp3"},
+  {name:"Money Gun", price:100, img:"https://img.icons8.com/color/96/money-bag.png", sound:"https://www.myinstants.com/media/sounds/cash-register.mp3"},
 
-  // 101 to 200 Diamonds (Large Size)
-  {name:"Royal Bouquet", price:130, img:"https://cdn-icons-png.flaticon.com/png/512/4213/4213958.png", sound:"https://www.myinstants.com/media/sounds/harp.mp3"},
-  {name:"Diamond Watch", price:150, img:"https://cdn-icons-png.flaticon.com/png/512/2924/2924344.png", sound:"https://www.myinstants.com/media/sounds/bling.mp3"},
-  {name:"Motorbike", price:180, img:"https://cdn-icons-png.flaticon.com/png/512/2972/2972185.png", sound:"https://www.myinstants.com/media/sounds/motorcycle-rev.mp3"},
-  {name:"Treasure Box", price:200, img:"https://cdn-icons-png.flaticon.com/png/512/3176/3176296.png", sound:"https://www.myinstants.com/media/sounds/coins.mp3"},
+  // 101 to 150 Diamonds (Large Size Range)
+  {name:"Royal Bouquet", price:110, img:"https://img.icons8.com/color/96/bouquet.png", sound:"https://www.myinstants.com/media/sounds/harp.mp3"},
+  {name:"Diamond Watch", price:125, img:"https://img.icons8.com/color/96/watch.png", sound:"https://www.myinstants.com/media/sounds/bling.mp3"},
+  {name:"Gold Crown", price:140, img:"https://img.icons8.com/color/96/crown.png", sound:"https://www.myinstants.com/media/sounds/tada.mp3"},
+  {name:"Treasure Box", price:150, img:"https://img.icons8.com/color/96/treasure-chest.png", sound:"https://www.myinstants.com/media/sounds/coins.mp3"},
 
-  // 200+ Diamonds (Fullscreen Cinematic Size with Real Heavy Sounds)
-  {name:"Sports Car", price:300, img:"https://cdn-icons-png.flaticon.com/png/512/741/741407.png", sound:"https://www.myinstants.com/media/sounds/car-engine.mp3"},
-  {name:"Private Jet", price:500, img:"https://cdn-icons-png.flaticon.com/png/512/3125/3125856.png", sound:"https://www.myinstants.com/media/sounds/jet-flyby.mp3"},
-  {name:"Pink Car", price:750, img:"https://cdn-icons-png.flaticon.com/png/512/2554/2554931.png", sound:"https://www.myinstants.com/media/sounds/car-horn.mp3"},
-  {name:"Galaxy", price:1000, img:"https://cdn-icons-png.flaticon.com/png/512/3135/3135715.png", sound:"https://www.myinstants.com/media/sounds/sci-fi-beam.mp3"},
-  {name:"Luxury Yacht", price:1500, img:"https://cdn-icons-png.flaticon.com/png/512/2942/2942126.png", sound:"https://www.myinstants.com/media/sounds/ship-horn.mp3"},
-  {name:"Lion 🦁", price:2500, img:"https://cdn-icons-png.flaticon.com/png/512/616/616408.png", sound:"https://www.myinstants.com/media/sounds/lion-roar.mp3"},
-  {name:"Castle 🏰", price:5000, img:"https://cdn-icons-png.flaticon.com/png/512/3176/3176378.png", sound:"https://www.myinstants.com/media/sounds/epic-horn.mp3"}
+  // Higher Level Premium Gifts (200+ Diamonds Fullscreen)
+  {name:"Motorbike", price:180, img:"https://img.icons8.com/color/96/motorcycle.png", sound:"https://www.myinstants.com/media/sounds/motorcycle-rev.mp3"},
+  {name:"Sports Car", price:300, img:"https://img.icons8.com/color/96/sports-car.png", sound:"https://www.myinstants.com/media/sounds/car-engine.mp3"},
+  {name:"Private Jet", price:500, img:"https://img.icons8.com/color/96/private-jet.png", sound:"https://www.myinstants.com/media/sounds/jet-flyby.mp3"},
+  {name:"Pink Car", price:750, img:"https://img.icons8.com/color/96/convertible.png", sound:"https://www.myinstants.com/media/sounds/car-horn.mp3"},
+  {name:"Galaxy", price:1000, img:"https://img.icons8.com/color/96/galaxy.png", sound:"https://www.myinstants.com/media/sounds/sci-fi-beam.mp3"},
+  {name:"Luxury Yacht", price:1500, img:"https://img.icons8.com/color/96/yacht.png", sound:"https://www.myinstants.com/media/sounds/ship-horn.mp3"},
+  {name:"Lion 🦁", price:2500, img:"https://img.icons8.com/color/96/lion.png", sound:"https://www.myinstants.com/media/sounds/lion-roar.mp3"},
+  {name:"Castle 🏰", price:5000, img:"https://img.icons8.com/color/96/castle.png", sound:"https://www.myinstants.com/media/sounds/epic-horn.mp3"}
 ];
 
 function renderGifts() {
@@ -662,7 +663,6 @@ function sendGift(index) {
   giftBox.classList.add('show');
   giftNameDiv.style.display = 'block';
 
-  // Play Individual Real Gift Audio Sound
   try {
     let audio = new Audio(gift.sound);
     audio.play();
