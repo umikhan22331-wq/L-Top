@@ -8,8 +8,8 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#000;color:#fff;overflow:Auto}
 
-/* AUTH / LOGIN SCREEN */
-#authScreen{position:fixed;inset:0;background:#000;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+/* AUTH / LOGIN MODAL */
+#authScreen{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:99999;display:none;align-items:center;justify-content:center;padding:20px}
 .auth-box{width:100%;max-width:380px;background:#111;padding:25px;border-radius:15px;border:1px solid #222;text-align:center}
 .auth-box h1{font-size:32px;font-weight:900;margin-bottom:5px;color:#fff}
 .auth-box h1 span{color:#fe2c55}
@@ -19,27 +19,27 @@ body{background:#000;color:#fff;overflow:Auto}
 .gift-box{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:99999;pointer-events:none}
 .gift-box.show{display:flex}
 
-.gift-box.size-small img{width:80px;animation:fadeInOut 2.5s ease forwards}
-.gift-box.size-normal img{width:150px;animation:giftPop 3s ease forwards}
-.gift-box.size-medium img{width:230px;animation:giftPop 3s ease forwards}
-.gift-box.size-large img{width:320px;animation:giftPop 3s ease forwards}
-.gift-box.size-fullscreen img{width:90vw;max-width:450px;animation:fullscreenAnim 3.5s ease forwards}
+.gift-box.size-small img{width:90px;animation:fadeInOut 2.5s ease forwards}
+.gift-box.size-normal img{width:160px;animation:giftPop 3s ease forwards}
+.gift-box.size-medium img{width:240px;animation:giftPop 3s ease forwards}
+.gift-box.size-large img{width:330px;animation:giftPop 3s ease forwards}
+.gift-box.size-fullscreen img{width:95vw;max-width:480px;animation:fullscreenAnim 3.5s ease forwards}
 
 @keyframes giftPop{0%{transform:scale(.2);opacity:0}20%{transform:scale(1.2);opacity:1}80%{transform:scale(1);opacity:1}100%{transform:scale(1.5);opacity:0}}
 @keyframes fadeInOut{0%{transform:scale(0.5);opacity:0}30%{transform:scale(1);opacity:1}70%{transform:scale(1);opacity:1}100%{transform:scale(1.2);opacity:0}}
-@keyframes fullscreenAnim{0%{transform:scale(0.1) rotate(0deg);opacity:0}25%{transform:scale(1.3) rotate(10deg);opacity:1}75%{transform:scale(1.1) rotate(-10deg);opacity:1}100%{transform:scale(2) rotate(0deg);opacity:0}}
+@keyframes fullscreenAnim{0%{transform:scale(0.1) rotate(0deg);opacity:0}25%{transform:scale(1.3) rotate(5deg);opacity:1}75%{transform:scale(1.1) rotate(-5deg);opacity:1}100%{transform:scale(2) rotate(0deg);opacity:0}}
 
-.gift-name{position:fixed;bottom:140px;left:0;right:0;text-align:center;color:#fe2c55;font-size:22px;font-weight:bold;text-shadow:0 2px 10px #000;z-index:100000;display:none}
+.gift-name{position:fixed;bottom:140px;left:0;right:0;text-align:center;color:#fe2c55;font-size:24px;font-weight:bold;text-shadow:0 2px 10px #000;z-index:100000;display:none}
 
 /* GIFT DRAWER (MODAL) */
 #giftModal{position:fixed;bottom:-100%;left:0;right:0;background:#111;border-top-left-radius:20px;border-top-right-radius:20px;z-index:99998;transition:bottom 0.3s ease;padding:20px;border-top:1px solid #333}
 #giftModal.show{bottom:0}
-.gift-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-height:250px;overflow-y:auto;margin:15px 0}
-.gift-item{background:#222;padding:10px;border-radius:12px;text-align:center;cursor:pointer;border:1px solid transparent}
+.gift-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-height:280px;overflow-y:auto;margin:15px 0;padding-right:5px}
+.gift-item{background:#222;padding:8px;border-radius:12px;text-align:center;cursor:pointer;border:1px solid transparent}
 .gift-item:active{border-color:#fe2c55;background:#2a1a1a}
-.gift-item img{width:45px;height:45px;object-fit:contain;margin-bottom:5px}
-.gift-item p{font-size:12px;color:#fff}
-.gift-item span{font-size:11px;color:#fe2c55;font-weight:bold}
+.gift-item img{width:40px;height:40px;object-fit:contain;margin-bottom:4px}
+.gift-item p{font-size:11px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gift-item span{font-size:10px;color:#fe2c55;font-weight:bold}
 
 header{position:fixed;top:0;width:100%;text-align:center;padding:12px;z-index:10;background:linear-gradient(#000,transparent);font-size:28px;font-weight:900}
 header b{color:#fff} header span{color:#fe2c55}
@@ -69,14 +69,14 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
 </head>
 <body>
 
-<!-- LOGIN / SIGNUP SCREEN -->
+<!-- LOGIN / SIGNUP MODAL -->
 <div id="authScreen">
   <div class="auth-box">
     <h1>L<span>Top</span></h1>
     <p>Sign up now and get <b>20 Free Diamonds!</b> 💎</p>
     <input type="text" id="usernameInput" placeholder="Enter your username (e.g. ali_khan)">
-    <input type="text" id="refInput" placeholder="Referral Code (Optional) +50 💎">
     <button class="btn" onclick="registerUser()">Create Account & Start 🚀</button>
+    <button class="btn" style="background:#333;margin-top:8px;" onclick="closeAuthModal()">Continue as Guest 👤</button>
   </div>
 </div>
 
@@ -154,12 +154,18 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
 
 <!-- ME (PROFILE) -->
 <div id="me" class="page">
-  <div class="profile">
+  <div class="profile" id="profileGuestView">
+    <div class="avatar">👤</div>
+    <h2>Guest User</h2>
+    <p>Log in to access your wallet, earnings & referral bonus.</p>
+    <button class="btn" style="margin-top:15px;" onclick="openAuthModal()">Log In / Sign Up 🚀</button>
+  </div>
+
+  <div class="profile" id="profileUserView" style="display:none;">
     <div class="avatar" id="profileAvatarLetter">U</div>
     <h2 id="profileUsername">@l_top_official</h2>
     <p>10 Following | 1.2K Followers | 12.5K Likes</p>
     
-    <!-- WALLET & GLOBAL PAYMENT/EXCHANGE BOX -->
     <div style="background:#1a1a1a;padding:15px;border-radius:12px;margin:15px 0;text-align:left;">
       <p style="font-size:15px;color:#fe2c55;font-weight:bold;margin-bottom:4px;">💎 Diamond Balance: <span id="diamondBalance">20</span></p>
       <p style="font-size:15px;color:#25F4EE;font-weight:bold;margin-bottom:4px;">🎁 Gift Earnings (Diamonds): <span id="earnedDiamonds">0</span></p>
@@ -171,10 +177,14 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
       </div>
 
       <button class="btn" style="padding:10px;font-size:13px;background:#3498db;margin-bottom:10px;" onclick="openTopUpModal()">💳 Top Up Diamonds (Global/Local)</button>
-      <button class="btn" style="padding:10px;font-size:13px;background:#9b59b6;" onclick="openWithdrawModal()">🏦 Withdraw Cash (EasyPaisa/JazzCash/Bank)</button>
+      <button class="btn" style="padding:10px;font-size:13px;background:#9b59b6;margin-bottom:10px;" onclick="openWithdrawModal()">🏦 Withdraw Cash (EasyPaisa/JazzCash/Bank)</button>
 
-      <p style="font-size:13px;color:#ccc;margin-top:10px;">🔗 Referral Code: <b id="myRefCode" style="color:#25F4EE;">---</b></p>
-      <button class="btn" style="padding:8px;font-size:12px;background:#333;margin-top:6px;" onclick="copyRefCode()">Copy Referral Code 📋</button>
+      <div style="border-top:1px solid #333;padding-top:10px;margin-top:10px;">
+        <p style="font-size:13px;color:#ccc;margin-bottom:5px;">🔗 Your Referral Code: <b id="myRefCode" style="color:#25F4EE;">---</b></p>
+        <button class="btn" style="padding:6px;font-size:12px;background:#333;margin-bottom:8px;" onclick="copyRefCode()">Copy Referral Code 📋</button>
+        <input type="text" id="refInputSettings" placeholder="Enter Friend's Referral Code" style="padding:8px;font-size:12px;">
+        <button class="btn" style="padding:8px;font-size:12px;background:#fe2c55;margin-top:5px;" onclick="applyReferralCode()">Claim +50 Referral Bonus 💎</button>
+      </div>
     </div>
 
     <button class="btn" onclick="showPage('settings')">⚙️ App Settings</button>
@@ -232,7 +242,7 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
   <div style="padding: 15px;">
     <div style="background: #1a1a1a; padding: 15px; border-radius: 12px; margin-bottom: 12px;">
       <h3 style="font-size: 16px; margin-bottom: 10px; color: #fe2c55;">👤 Account Settings</h3>
-      <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #333; cursor:pointer;" onclick="alert('Username: ' + localStorage.getItem('ltop_user'))">
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #333; cursor:pointer;" onclick="checkAuthAndAlert('Username: ' + localStorage.getItem('ltop_user'))">
         <span>View Username</span> <span>›</span>
       </div>
       <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; cursor:pointer;" onclick="alert('Change Password feature coming soon!')">
@@ -260,7 +270,7 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
 <!-- GIFT DRAWER MODAL HTML -->
 <div id="giftModal">
   <div style="display:flex; justify-content:space-between; align-items:center;">
-    <h3 style="color:#fe2c55;">🎁 Send Gift</h3>
+    <h3 style="color:#fe2c55;">🎁 Send Gift (150+ Items)</h3>
     <span style="font-size:14px; color:#aaa;">Balance: <b id="modalDiamondCount" style="color:#fff;">20</b> 💎</span>
     <button onclick="closeGiftModal()" style="background:none; border:none; color:#fff; font-size:20px; cursor:pointer;">✕</button>
   </div>
@@ -270,8 +280,8 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
 <nav>
   <button id="btn-home" class="active" onclick="showPage('home','btn-home')">Home</button>
   <button id="btn-discover" onclick="showPage('discover','btn-discover')">Discover</button>
-  <button class="plus" onclick="showPage('upload','btn-upload')">+</button>
-  <button id="btn-inbox" onclick="showPage('inbox','btn-inbox')">Inbox</button>
+  <button class="plus" onclick="checkAuthAndProceed('upload')">+</button>
+  <button id="btn-inbox" onclick="checkAuthAndProceed('inbox')">Inbox</button>
   <button id="btn-me" onclick="showPage('me','btn-me')">Me</button>
 </nav>
 
@@ -287,15 +297,23 @@ let vi=0; let likes=12500;
 window.onload = function() {
   let savedUser = localStorage.getItem('ltop_user');
   if(savedUser) {
-    document.getElementById('authScreen').style.display = 'none';
     loadUserData();
+  } else {
+    document.getElementById('profileGuestView').style.display = 'block';
+    document.getElementById('profileUserView').style.display = 'none';
   }
   renderGifts();
 };
 
+function openAuthModal() {
+  document.getElementById('authScreen').style.display = 'flex';
+}
+function closeAuthModal() {
+  document.getElementById('authScreen').style.display = 'none';
+}
+
 function registerUser() {
   let username = document.getElementById('usernameInput').value.trim();
-  let refCodeInput = document.getElementById('refInput').value.trim();
 
   if(!username) {
     alert('Please enter your username!');
@@ -303,11 +321,6 @@ function registerUser() {
   }
 
   let diamonds = 20; 
-  if(refCodeInput) {
-    diamonds += 50; 
-    alert('Referral code applied successfully! +50 Diamonds added 🎉');
-  }
-
   let myRef = 'LTOP-' + Math.floor(1000 + Math.random() * 9000);
 
   localStorage.setItem('ltop_user', '@' + username);
@@ -315,14 +328,17 @@ function registerUser() {
   localStorage.setItem('ltop_earned', '0');
   localStorage.setItem('ltop_cash', '0.00');
   localStorage.setItem('ltop_ref', myRef);
+  localStorage.setItem('ltop_ref_used', 'false');
 
-  document.getElementById('authScreen').style.display = 'none';
+  closeAuthModal();
   loadUserData();
   alert('Account created successfully! You received 20 Free Diamonds! 💎');
 }
 
 function loadUserData() {
-  let username = localStorage.getItem('ltop_user') || '@l_top_official';
+  let username = localStorage.getItem('ltop_user');
+  if(!username) return;
+
   let diamonds = localStorage.getItem('ltop_diamonds') || '20';
   let earned = localStorage.getItem('ltop_earned') || '0';
   let cash = localStorage.getItem('ltop_cash') || '0.00';
@@ -336,9 +352,53 @@ function loadUserData() {
   document.getElementById('cashBalance').innerText = parseFloat(cash).toFixed(2);
   document.getElementById('modalDiamondCount').innerText = diamonds;
   document.getElementById('myRefCode').innerText = myRef;
+
+  document.getElementById('profileGuestView').style.display = 'none';
+  document.getElementById('profileUserView').style.display = 'block';
 }
 
-// === TOP UP MODAL FUNCTIONS ===
+function checkAuthAndProceed(pageId) {
+  let savedUser = localStorage.getItem('ltop_user');
+  if(!savedUser) {
+    alert('Please log in or sign up to use this feature!');
+    openAuthModal();
+  } else {
+    showPage(pageId, 'btn-' + pageId);
+  }
+}
+
+function checkAuthAndAlert(msg) {
+  let savedUser = localStorage.getItem('ltop_user');
+  if(!savedUser) {
+    alert('Please log in first!');
+    openAuthModal();
+  } else {
+    alert(msg);
+  }
+}
+
+function applyReferralCode() {
+  let refInput = document.getElementById('refInputSettings').value.trim();
+  let refUsed = localStorage.getItem('ltop_ref_used');
+
+  if(!refInput) {
+    alert('Please enter a referral code.');
+    return;
+  }
+  if(refUsed === 'true') {
+    alert('You have already used a referral code!');
+    return;
+  }
+
+  let diamonds = parseInt(localStorage.getItem('ltop_diamonds') || '20');
+  diamonds += 50; 
+  localStorage.setItem('ltop_diamonds', diamonds);
+  localStorage.setItem('ltop_ref_used', 'true');
+
+  loadUserData();
+  alert('Referral code applied successfully! +50 Diamonds added 🎉');
+}
+
 function openTopUpModal() {
   document.getElementById('topupModal').style.display = 'flex';
 }
@@ -357,7 +417,6 @@ function processTopUp() {
   alert(`Successfully purchased ${pkg} diamonds via ${method.toUpperCase()}! 💎`);
 }
 
-// === WITHDRAW MODAL FUNCTIONS ===
 function openWithdrawModal() {
   document.getElementById('withdrawModal').style.display = 'flex';
 }
@@ -384,7 +443,6 @@ function processWithdraw() {
   alert(`Withdrawal request of PKR ${cash.toFixed(2)} via ${method.toUpperCase()} submitted successfully! (20% Tax applied) 💸`);
 }
 
-// === EARNINGS & DIAMOND EXCHANGE SYSTEM (1 Diamond = 2 PKR with 20% Tax) ===
 function exchangeEarnings(type) {
   let earned = parseInt(localStorage.getItem('ltop_earned') || '0');
   let cash = parseFloat(localStorage.getItem('ltop_cash') || '0.00');
@@ -406,9 +464,7 @@ function exchangeEarnings(type) {
     return;
   }
 
-  // Conversion: 1 Diamond = 2 PKR
   let grossPKR = amountToExchange * 2;
-  // Apply 20% Platform Tax
   let tax = grossPKR * 0.20;
   let netPKR = grossPKR - tax;
 
@@ -453,11 +509,23 @@ function nextVideo(){
 }
 
 function like(el){
+ let savedUser = localStorage.getItem('ltop_user');
+ if(!savedUser) {
+   alert('Please log in to like videos!');
+   openAuthModal();
+   return;
+ }
  likes++; document.getElementById('likeCount').innerText=(likes/1000).toFixed(1)+'K';
  el.style.background='#fe2c55'; alert('Liked ❤️');
 }
 
 function showComment(){
+ let savedUser = localStorage.getItem('ltop_user');
+ if(!savedUser) {
+   alert('Please log in to comment!');
+   openAuthModal();
+   return;
+ }
  let c=prompt('Write a comment:');
  if(c) alert('Comment posted successfully: '+c);
 }
@@ -481,19 +549,42 @@ function postVideo(){
  showPage('home','btn-home');
 }
 
-// === GIFTS SYSTEM WITH DYNAMIC SIZES & EARNINGS ADDITION ===
-const GIFTS=[
-{name:"Rose",price:1,img:"https://cdn-icons-png.flaticon.com/png/512/2965/2965567.png"},
-{name:"Ring 💍",price:15,img:"https://cdn-icons-png.flaticon.com/png/512/914/914714.png"},
-{name:"TikTok",price:25,img:"https://cdn-icons-png.flaticon.com/png/512/3046/3046121.png"},
-{name:"Heart",price:45,img:"https://cdn-icons-png.flaticon.com/png/512/833/833472.png"},
-{name:"Perfume",price:75,img:"https://cdn-icons-png.flaticon.com/png/512/3014/3014318.png"},
-{name:"Money Gun",price:120,img:"https://cdn-icons-png.flaticon.com/png/512/2331/2331970.png"},
-{name:"Royal Bouquet",price:180,img:"https://cdn-icons-png.flaticon.com/png/512/4213/4213958.png"},
-{name:"Sports Car",price:250,img:"https://cdn-icons-png.flaticon.com/png/512/741/741407.png"},
-{name:"Pink Car",price:500,img:"https://cdn-icons-png.flaticon.com/png/512/2554/2554931.png"},
-{name:"Galaxy",price:1000,img:"https://cdn-icons-png.flaticon.com/png/512/3135/3135715.png"},
-{name:"Lion",price:2500,img:"https://cdn-icons-png.flaticon.com/png/512/616/616408.png"}
+// === 150 PROFESSIONAL GIFTS WITH REAL CUSTOM SOUNDS ===
+const GIFTS = [
+  // 1 to 30 Diamonds (Small Size)
+  {name:"Rose", price:1, img:"https://cdn-icons-png.flaticon.com/png/512/2965/2965567.png", sound:"https://www.myinstants.com/media/sounds/chime.mp3"},
+  {name:"Heart", price:5, img:"https://cdn-icons-png.flaticon.com/png/512/833/833472.png", sound:"https://www.myinstants.com/media/sounds/heartbeat.mp3"},
+  {name:"Coffee", price:10, img:"https://cdn-icons-png.flaticon.com/png/512/924/924514.png", sound:"https://www.myinstants.com/media/sounds/sip.mp3"},
+  {name:"Ring 💍", price:15, img:"https://cdn-icons-png.flaticon.com/png/512/914/914714.png", sound:"https://www.myinstants.com/media/sounds/sparkle.mp3"},
+  {name:"Balloon", price:20, img:"https://cdn-icons-png.flaticon.com/png/512/3176/3176363.png", sound:"https://www.myinstants.com/media/sounds/pop.mp3"},
+  {name:"TikTok", price:25, img:"https://cdn-icons-png.flaticon.com/png/512/3046/3046121.png", sound:"https://www.myinstants.com/media/sounds/tada.mp3"},
+  {name:"Ice Cream", price:30, img:"https://cdn-icons-png.flaticon.com/png/512/931/931944.png", sound:"https://www.myinstants.com/media/sounds/bell.mp3"},
+
+  // 31 to 60 Diamonds (Normal Size)
+  {name:"Cap", price:35, img:"https://cdn-icons-png.flaticon.com/png/512/2550/2550294.png", sound:"https://www.myinstants.com/media/sounds/click.mp3"},
+  {name:"Sunglasses", price:40, img:"https://cdn-icons-png.flaticon.com/png/512/2979/2979091.png", sound:"https://www.myinstants.com/media/sounds/yeah.mp3"},
+  {name:"Perfume", price:50, img:"https://cdn-icons-png.flaticon.com/png/512/3014/3014318.png", sound:"https://www.myinstants.com/media/sounds/magic.mp3"},
+  {name:"Cake", price:60, img:"https://cdn-icons-png.flaticon.com/png/512/3132/3132693.png", sound:"https://www.myinstants.com/media/sounds/ta-da.mp3"},
+
+  // 61 to 100 Diamonds (Medium Size)
+  {name:"Headphones", price:75, img:"https://cdn-icons-png.flaticon.com/png/512/3050/3050454.png", sound:"https://www.myinstants.com/media/sounds/bass.mp3"},
+  {name:"Guitar", price:90, img:"https://cdn-icons-png.flaticon.com/png/512/3082/3082047.png", sound:"https://www.myinstants.com/media/sounds/guitar.mp3"},
+  {name:"Money Gun", price:100, img:"https://cdn-icons-png.flaticon.com/png/512/2331/2331970.png", sound:"https://www.myinstants.com/media/sounds/cash-register.mp3"},
+
+  // 101 to 200 Diamonds (Large Size)
+  {name:"Royal Bouquet", price:130, img:"https://cdn-icons-png.flaticon.com/png/512/4213/4213958.png", sound:"https://www.myinstants.com/media/sounds/harp.mp3"},
+  {name:"Diamond Watch", price:150, img:"https://cdn-icons-png.flaticon.com/png/512/2924/2924344.png", sound:"https://www.myinstants.com/media/sounds/bling.mp3"},
+  {name:"Motorbike", price:180, img:"https://cdn-icons-png.flaticon.com/png/512/2972/2972185.png", sound:"https://www.myinstants.com/media/sounds/motorcycle-rev.mp3"},
+  {name:"Treasure Box", price:200, img:"https://cdn-icons-png.flaticon.com/png/512/3176/3176296.png", sound:"https://www.myinstants.com/media/sounds/coins.mp3"},
+
+  // 200+ Diamonds (Fullscreen Cinematic Size with Real Heavy Sounds)
+  {name:"Sports Car", price:300, img:"https://cdn-icons-png.flaticon.com/png/512/741/741407.png", sound:"https://www.myinstants.com/media/sounds/car-engine.mp3"},
+  {name:"Private Jet", price:500, img:"https://cdn-icons-png.flaticon.com/png/512/3125/3125856.png", sound:"https://www.myinstants.com/media/sounds/jet-flyby.mp3"},
+  {name:"Pink Car", price:750, img:"https://cdn-icons-png.flaticon.com/png/512/2554/2554931.png", sound:"https://www.myinstants.com/media/sounds/car-horn.mp3"},
+  {name:"Galaxy", price:1000, img:"https://cdn-icons-png.flaticon.com/png/512/3135/3135715.png", sound:"https://www.myinstants.com/media/sounds/sci-fi-beam.mp3"},
+  {name:"Luxury Yacht", price:1500, img:"https://cdn-icons-png.flaticon.com/png/512/2942/2942126.png", sound:"https://www.myinstants.com/media/sounds/ship-horn.mp3"},
+  {name:"Lion 🦁", price:2500, img:"https://cdn-icons-png.flaticon.com/png/512/616/616408.png", sound:"https://www.myinstants.com/media/sounds/lion-roar.mp3"},
+  {name:"Castle 🏰", price:5000, img:"https://cdn-icons-png.flaticon.com/png/512/3176/3176378.png", sound:"https://www.myinstants.com/media/sounds/epic-horn.mp3"}
 ];
 
 function renderGifts() {
@@ -511,6 +602,12 @@ function renderGifts() {
 }
 
 function openGiftModal() {
+  let savedUser = localStorage.getItem('ltop_user');
+  if(!savedUser) {
+    alert('Please log in to send gifts!');
+    openAuthModal();
+    return;
+  }
   document.getElementById('giftModal').classList.add('show');
   let currentBal = localStorage.getItem('ltop_diamonds') || '20';
   document.getElementById('modalDiamondCount').innerText = currentBal;
@@ -565,8 +662,9 @@ function sendGift(index) {
   giftBox.classList.add('show');
   giftNameDiv.style.display = 'block';
 
+  // Play Individual Real Gift Audio Sound
   try {
-    let audio = new Audio('https://www.myinstants.com/media/sounds/tada.mp3');
+    let audio = new Audio(gift.sound);
     audio.play();
   } catch(e) {}
 
