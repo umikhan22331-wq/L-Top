@@ -40,7 +40,7 @@ input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:no
 </style>
 </head>
 <body>
-<header><b>L</b><span>Top</span><button onclick="show('live')" style="background:#ff0000;color:#fff;border:none;padding:5px 10px;border-radius:15px;margin-left:10px;font-weight:bold">● LIVE</button></header>
+<header><b>L</b><span>Top</span><button onclick="showPage('live')" style="background:#ff0000;color:#fff;border:none;padding:5px 10px;border-radius:15px;margin-left:10px;font-weight:bold;cursor:pointer">● LIVE</button></header>
 
 <!-- HOME -->
 <div id="home" class="page active">
@@ -52,51 +52,33 @@ input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:no
       <div><button class="act" onclick="shareApp()">↗️</button><small>Share</small></div>
     </div>
     <div class="info" style="display:flex;align-items:center;gap:10px"><img src="https://i.pravatar.cc/100" style="width:48px;height:48px;border-radius:50%;border:2px solid white;object-fit:cover"><div><h3>@l_top_official</h3><p>Welcome to LTop 🔥 #foryou #viral</p><p style="color:#fe2c55">▶ Tap video to Play / Pause</p></div></div>
-  </div>...Share</small></div>
+  </div>
+</div>
 
-</div>
-</div>
 <!-- LIVE PAGE - TIKTOK STYLE -->
 <div id="live" class="page">
-<div style="height:100dvh;overflow-y:scroll;scroll-snap-type:y mandatory">
-<div style="height:100dvh;scroll-snap-align:start;position:relative;background:#000">
-<img src="https://i.pravatar.cc/500?img=12" style="width:100%;height:100%;object-fit:cover">
-<div style="position:absolute;top:10px;left:10px;background:red;color:white;padding:4px 10px;border-radius:20px">🔴 LIVE • 1.2K watching</div>
-<div style="position:absolute;bottom:90px;left:12px;color:white"><b>@sara_live</b><p>Come join my live! ❤️</p></div>
-<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);padding:10px;display:flex;gap:8px;align-items:center">
-<input placeholder="Say something..." style="flex:1;padding:10px;border-radius:20px;border:none">
-<button onclick="openGift()" style="background:#fe2c55;border:none;padding:10px 14px;border-radius:50%;font-size:20px">🎁</button>
+  <div style="height:calc(100vh - 120px);overflow-y:scroll;scroll-snap-type:y mandatory">
+    <div style="height:100%;scroll-snap-align:start;position:relative;background:#000">
+      <img src="https://i.pravatar.cc/500?img=12" style="width:100%;height:100%;object-fit:cover">
+      <div style="position:absolute;top:10px;left:10px;background:red;color:white;padding:4px 10px;border-radius:20px">🔴 LIVE • 1.2K watching</div>
+      <div style="position:absolute;bottom:70px;left:12px;color:white"><b>@sara_live</b><p>Come join my live! ❤️</p></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);padding:10px;display:flex;gap:8px;align-items:center">
+        <input placeholder="Say something..." style="flex:1;padding:10px;border-radius:20px;border:none">
+        <button onclick="openGift()" style="background:#fe2c55;border:none;padding:10px 14px;border-radius:50%;font-size:20px;cursor:pointer">🎁</button>
+      </div>
+    </div>
+    <div style="height:100%;scroll-snap-align:start;position:relative;background:#000">
+      <img src="https://i.pravatar.cc/500?img=32" style="width:100%;height:100%;object-fit:cover">
+      <div style="position:absolute;top:10px;left:10px;background:red;color:white;padding:4px 10px;border-radius:20px">🔴 LIVE • 850 watching</div>
+      <div style="position:absolute;bottom:70px;left:12px;color:white"><b>@ali_live</b><p>Singing for you! 🎤</p></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);padding:10px;display:flex;gap:8px;align-items:center">
+        <input placeholder="Say something..." style="flex:1;padding:10px;border-radius:20px;border:none">
+        <button onclick="openGift()" style="background:#fe2c55;border:none;padding:10px 14px;border-radius:50%;font-size:20px;cursor:pointer">🎁</button>
+      </div>
+    </div>
+  </div>
 </div>
-</div>
-<div style="height:100vh;scroll-snap-align:start;position:relative;background:#000">
-<img src="https://i.pravatar.cc/500?img=32" style="width:100%;height:100%;object-fit:cover">
-<div style="position:absolute;top:10px;left:10px;background:red;color:white;padding:4px 10px;border-radius:20px">🔴 LIVE • 850 watching</div>
-<div style="position:absolute;bottom:90px;left:12px;color:white"><b>@ali_live</b><p>Singing for you! 🎤</p></div>
-<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);padding:10px;display:flex;gap:8px;align-items:center">
-<input placeholder="Say something..." style="flex:1;padding:10px;border-radius:20px;border:none">
-<button onclick="openGift()" style="background:#fe2c55;border:none;padding:10px 14px;border-radius:50%;font-size:20px">🎁</button>
-</div>
-</div>
-<div style="height:100vh;scroll-snap-align:start;position:relative;background:#000">
-<img src="https://i.pravatar.cc/500?img=47" style="width:100%;height:100%;object-fit:cover">
-<div style="position:absolute;top:10px;left:10px;background:red;color:white;padding:4px 10px;border-radius:20px">🔴 LIVE • 2.5K watching</div>
-<div style="position:absolute;bottom:90px;left:12px;color:white"><b>@l_top_official</b><p>Welcome to LTop Live! 🔥</p></div>
-<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);padding:10px;display:flex;gap:8px;align-items:center">
-<input placeholder="Say something..." style="flex:1;padding:10px;border-radius:20px;border:none">
-<button onclick="openGift()" style="background:#fe2c55;border:none;padding:10px 14px;border-radius:50%;font-size:20px">🎁</button>
-</div>
-</div>
-</div>
-</div>
-<!-- LIVE -->
-<div id="live" class="page">
-<div class="box"><h2>🔴 LIVE Now</h2><p>Live dekhne ke liye neeche scroll karo</p></div>
-<div style="padding:15px">
-<div style="background:#1a1a1a;padding:15px;border-radius:15px;margin-bottom:15px"><h3>🔴 Ali - Singing 🎤</h3><p>850 watching</p><button onclick="openGift()" style="background:#fe2c55;color:#fff;border:none;padding:10px 20px;border-radius:20px">🎁 Gift Bhejo</button></div>
-<div style="background:#1a1a1a;padding:15px;border-radius:15px;margin-bottom:15px"><h3>🔴 Sara - Dance 💃</h3><p>1.2K watching</p><button onclick="openGift()" style="background:#fe2c55;color:#fff;border:none;padding:10px 20px;border-radius:20px">🎁 Gift Bhejo</button></div>
-<div style="background:#1a1a1a;padding:15px;border-radius:15px;margin-bottom:15px"><h3>🔴 Ahmed - Gaming 🎮</h3><p>500 watching</p><button onclick="openGift()" style="background:#fe2c55;color:#fff;border:none;padding:10px 20px;border-radius:20px">🎁 Gift Bhejo</button></div>
-</div>
-</div>
+
 <!-- DISCOVER -->
 <div id="discover" class="page">
   <div class="box"><h2>🔍 Discover</h2><p>Trending Videos</p></div>
@@ -124,16 +106,65 @@ input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:no
   <div class="msg"><b>@l_top_official</b><p>Welcome to LTop ❤️</p></div>
 </div>
 
-<!-- ME -->
+<!-- ME (PROFILE) -->
 <div id="me" class="page">
   <div class="profile">
     <div class="avatar">U</div>
     <h2>@l_top_official</h2>
     <p>10 Following | 1.2K Followers | 12.5K Likes</p>
-    <br><button class="btn" onclick="alert('Profile Edit Soon!')">Edit Profile</button>
+    <br><button class="btn" onclick="showPage('settings')">⚙️ App Settings</button>
   </div>
   <div class="box"><h3>My Videos</h3></div>
   <div class="grid" id="myGrid"></div>
+</div>
+
+<!-- SETTINGS PAGE -->
+<div id="settings" class="page">
+  <div class="box">
+    <h2>⚙️ App Settings</h2>
+    <p>Apni preferences aur account manage karein</p>
+  </div>
+
+  <div style="padding: 15px;">
+    <!-- Account Section -->
+    <div style="background: #1a1a1a; padding: 15px; border-radius: 12px; margin-bottom: 12px;">
+      <h3 style="font-size: 16px; margin-bottom: 10px; color: #fe2c55;">👤 Account Settings</h3>
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #333; cursor:pointer;" onclick="alert('Edit Profile feature coming soon!')">
+        <span>Edit Profile (Username, Bio)</span> <span>›</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; cursor:pointer;" onclick="alert('Change Password feature coming soon!')">
+        <span>Change Password / Security</span> <span>›</span>
+      </div>
+    </div>
+
+    <!-- Wallet & Diamonds -->
+    <div style="background: #1a1a1a; padding: 15px; border-radius: 12px; margin-bottom: 12px;">
+      <h3 style="font-size: 16px; margin-bottom: 10px; color: #fe2c55;">💎 Wallet & Diamonds</h3>
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #333; cursor:pointer;" onclick="alert('Diamond Top-up store coming soon!')">
+        <span>Buy Diamonds (Coins)</span> <span>›</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; cursor:pointer;" onclick="alert('Transaction History is empty')">
+        <span>Transaction History</span> <span>›</span>
+      </div>
+    </div>
+
+    <!-- App Preferences -->
+    <div style="background: #1a1a1a; padding: 15px; border-radius: 12px; margin-bottom: 12px;">
+      <h3 style="font-size: 16px; margin-bottom: 10px; color: #fe2c55;">🔔 Notifications & Privacy</h3>
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #333;">
+        <span>Push Notifications</span>
+        <input type="checkbox" checked style="width: auto; cursor:pointer;">
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0;">
+        <span>Dark Mode</span>
+        <input type="checkbox" checked style="width: auto; cursor:pointer;">
+      </div>
+    </div>
+
+    <!-- Back to Profile & Logout -->
+    <button class="btn" style="background: #222; margin-bottom: 10px;" onclick="showPage('me','btn-me')">Back to Profile</button>
+    <button class="btn" style="background: #333; color: #ff4d4d;" onclick="alert('Logged out successfully!')">Log Out 🚪</button>
+  </div>
 </div>
 
 <nav>
@@ -152,42 +183,57 @@ let videos=[
 "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
 ];
 let vi=0; let likes=12500;
+
 function showPage(id,btn){
  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
  document.getElementById(id).classList.add('active');
  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
- if(btn) document.getElementById(btn).classList.add('active');
+ if(btn) {
+   let targetBtn = document.getElementById(btn);
+   if(targetBtn) targetBtn.classList.add('active');
+ }
  if(id==='home'){let v=document.getElementById('mainVideo'); v.play();}
 }
+
 function nextVideo(){
  vi=(vi+1)%videos.length;
  let v=document.getElementById('mainVideo');
  v.src=videos[vi]; v.play();
 }
+
 function like(el){
  likes++; document.getElementById('likeCount').innerText=(likes/1000).toFixed(1)+'K';
  el.style.background='#fe2c55'; alert('Liked ❤️');
 }
+
 function showComment(){
  let c=prompt('Comment likho:');
  if(c) alert('Comment Post Ho Gaya: '+c);
 }
+
 function shareApp(){
  let link=location.href;
  if(navigator.share){navigator.share({title:'LTop',url:link});}
  else{prompt('Link copy karo:',link);}
 }
+
 function previewVideo(e){
  let f=e.target.files[0]; if(!f) return;
  let p=document.getElementById('preview');
  p.src=URL.createObjectURL(f); p.style.display='block'; p.play();
 }
+
 function postVideo(){
  let cap=document.getElementById('caption').value;
  document.getElementById('postMsg').innerText='Video Post Ho Gayi! 🎉 Caption: '+cap;
  alert('Video Post Ho Gayi! 🎉');
  showPage('home','btn-home');
 }
+
+function openGift(){
+ alert('Gift Store Modal Opening Soon! 🎁');
+}
+
 // Fill grids
 let g=document.getElementById('discoverGrid');
 let m=document.getElementById('myGrid');
@@ -196,6 +242,7 @@ videos.forEach(v=>{
  g.appendChild(vd);
  let vd2=vd.cloneNode(); vd2.onclick=vd.onclick; m.appendChild(vd2);
 });
+
 // === GIFTS STEP 2 ===
 const GIFTS=[
 {name:"Rose",price:1,img:"https://i.imgur.com/rose.png",sound:""},
