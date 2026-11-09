@@ -7,6 +7,12 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#000;color:#fff;overflow:Auto}
+/* AUTH / LOGIN SCREEN */
+#authScreen{position:fixed;inset:0;background:#000;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+.auth-box{width:100%;max-width:380px;background:#111;padding:25px;border-radius:15px;border:1px solid #222;text-align:center}
+.auth-box h1{font-size:32px;font-weight:900;margin-bottom:5px;color:#fff}
+.auth-box h1 span{color:#fe2c55}
+.auth-box p{color:#aaa;font-size:14px;margin-bottom:20px}
 /* GIFTS STEP 1 */
 .gift-box{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:9999;pointer-events:none}
 .gift-box.show{display:flex}
@@ -32,14 +38,26 @@ nav .plus{font-size:26px;background:#fff;color:#000;width:45px;border-radius:8px
 .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;padding:2px}
 .grid video{width:100%;aspect-ratio:9/16;object-fit:cover;background:#222}
 .box{padding:15px}
-input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:none;outline:none}
-.btn{width:100%;padding:13px;background:#fe2c55;color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:bold}
+input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:none;outline:none;background:#222;color:#fff}
+.btn{width:100%;padding:13px;background:#fe2c55;color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer}
 .profile{text-align:center;padding:20px}
 .avatar{width:90px;height:90px;border-radius:50%;background:#fe2c55;display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 10px}
 .msg{background:#1a1a1a;padding:12px;border-radius:12px;margin:10px}
 </style>
 </head>
 <body>
+
+<!-- LOGIN / SIGNUP SCREEN WITH WELCOME BONUS & REFERRAL -->
+<div id="authScreen">
+  <div class="auth-box">
+    <h1>L<span>Top</span></h1>
+    <p>Sign up karein aur payein <b>20 Free Diamonds!</b> 💎</p>
+    <input type="text" id="usernameInput" placeholder="Apna Username likho (e.g. ali_khan)">
+    <input type="text" id="refInput" placeholder="Referral Code (Optional) +50 💎">
+    <button class="btn" onclick="registerUser()">Account Banayein & Shuru Karein 🚀</button>
+  </div>
+</div>
+
 <header><b>L</b><span>Top</span><button onclick="showPage('live')" style="background:#ff0000;color:#fff;border:none;padding:5px 10px;border-radius:15px;margin-left:10px;font-weight:bold;cursor:pointer">● LIVE</button></header>
 
 <!-- HOME -->
@@ -51,7 +69,13 @@ input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:no
       <div><button class="act" onclick="showComment()">💬</button><small>850</small></div>
       <div><button class="act" onclick="shareApp()">↗️</button><small>Share</small></div>
     </div>
-    <div class="info" style="display:flex;align-items:center;gap:10px"><img src="https://i.pravatar.cc/100" style="width:48px;height:48px;border-radius:50%;border:2px solid white;object-fit:cover"><div><h3>@l_top_official</h3><p>Welcome to LTop 🔥 #foryou #viral</p><p style="color:#fe2c55">▶ Tap video to Play / Pause</p></div></div>
+    <div class="info" style="display:flex;align-items:center;gap:10px">
+      <img src="https://i.pravatar.cc/100" style="width:48px;height:48px;border-radius:50%;border:2px solid white;object-fit:cover">
+      <div>
+        <h3 id="displayUsername">@l_top_official</h3>
+        <p>Welcome to LTop 🔥 #foryou #viral</p>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -109,10 +133,18 @@ input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:no
 <!-- ME (PROFILE) -->
 <div id="me" class="page">
   <div class="profile">
-    <div class="avatar">U</div>
-    <h2>@l_top_official</h2>
+    <div class="avatar" id="profileAvatarLetter">U</div>
+    <h2 id="profileUsername">@l_top_official</h2>
     <p>10 Following | 1.2K Followers | 12.5K Likes</p>
-    <br><button class="btn" onclick="showPage('settings')">⚙️ App Settings</button>
+    
+    <!-- WALLET & REFERRAL BADGE -->
+    <div style="background:#1a1a1a;padding:15px;border-radius:12px;margin:15px 0;text-align:left;">
+      <p style="font-size:16px;color:#fe2c55;font-weight:bold;margin-bottom:5px;">💎 Diamonds Balance: <span id="diamondBalance">20</span></p>
+      <p style="font-size:14px;color:#ccc;margin-bottom:8px;">🔗 Your Referral Code: <b id="myRefCode" style="color:#25F4EE;">---</b></p>
+      <button class="btn" style="padding:8px;font-size:13px;background:#333;" onclick="copyRefCode()">Copy Referral Code 📋</button>
+    </div>
+
+    <button class="btn" onclick="showPage('settings')">⚙️ App Settings</button>
   </div>
   <div class="box"><h3>My Videos</h3></div>
   <div class="grid" id="myGrid"></div>
@@ -129,8 +161,8 @@ input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:no
     <!-- Account Section -->
     <div style="background: #1a1a1a; padding: 15px; border-radius: 12px; margin-bottom: 12px;">
       <h3 style="font-size: 16px; margin-bottom: 10px; color: #fe2c55;">👤 Account Settings</h3>
-      <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #333; cursor:pointer;" onclick="alert('Edit Profile feature coming soon!')">
-        <span>Edit Profile (Username, Bio)</span> <span>›</span>
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #333; cursor:pointer;" onclick="alert('Username: ' + localStorage.getItem('ltop_user'))">
+        <span>View Username</span> <span>›</span>
       </div>
       <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; cursor:pointer;" onclick="alert('Change Password feature coming soon!')">
         <span>Change Password / Security</span> <span>›</span>
@@ -163,7 +195,7 @@ input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:no
 
     <!-- Back to Profile & Logout -->
     <button class="btn" style="background: #222; margin-bottom: 10px;" onclick="showPage('me','btn-me')">Back to Profile</button>
-    <button class="btn" style="background: #333; color: #ff4d4d;" onclick="alert('Logged out successfully!')">Log Out 🚪</button>
+    <button class="btn" style="background: #333; color: #ff4d4d;" onclick="logoutUser()">Log Out 🚪</button>
   </div>
 </div>
 
@@ -183,6 +215,70 @@ let videos=[
 "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
 ];
 let vi=0; let likes=12500;
+
+// Check if User already logged in
+window.onload = function() {
+  let savedUser = localStorage.getItem('ltop_user');
+  if(savedUser) {
+    document.getElementById('authScreen').style.display = 'none';
+    loadUserData();
+  }
+};
+
+// Register / Login Logic with Free Diamonds & Referral Bonus
+function registerUser() {
+  let username = document.getElementById('usernameInput').value.trim();
+  let refCodeInput = document.getElementById('refInput').value.trim();
+
+  if(!username) {
+    alert('Baraye karam apna username likhein!');
+    return;
+  }
+
+  let diamonds = 20; // Default welcome bonus
+  if(refCodeInput) {
+    diamonds += 50; // Referral bonus added (+50)
+    alert('Referral code applied successfully! +50 Diamonds added 🎉');
+  }
+
+  // Generate unique referral code for this user
+  let myRef = 'LTOP-' + Math.floor(1000 + Math.random() * 9000);
+
+  // Save to LocalStorage securely
+  localStorage.setItem('ltop_user', '@' + username);
+  localStorage.setItem('ltop_diamonds', diamonds);
+  localStorage.setItem('ltop_ref', myRef);
+
+  document.getElementById('authScreen').style.display = 'none';
+  loadUserData();
+  alert('Account created successfully! Aapko 20 Free Diamonds mil gaye hain! 💎');
+}
+
+// Load User Data onto UI
+function loadUserData() {
+  let username = localStorage.getItem('ltop_user') || '@l_top_official';
+  let diamonds = localStorage.getItem('ltop_diamonds') || '20';
+  let myRef = localStorage.getItem('ltop_ref') || 'LTOP-9999';
+
+  document.getElementById('displayUsername').innerText = username;
+  document.getElementById('profileUsername').innerText = username;
+  document.getElementById('profileAvatarLetter').innerText = username.charAt(1).toUpperCase();
+  document.getElementById('diamondBalance').innerText = diamonds;
+  document.getElementById('myRefCode').innerText = myRef;
+}
+
+function copyRefCode() {
+  let refText = document.getElementById('myRefCode').innerText;
+  navigator.clipboard.writeText(refText);
+  alert('Referral Code copied to clipboard: ' + refText);
+}
+
+function logoutUser() {
+  if(confirm('Kya aap logout karna chahte hain?')) {
+    localStorage.clear();
+    location.reload();
+  }
+}
 
 function showPage(id,btn){
  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -262,4 +358,3 @@ const GIFTS=[
 <audio id="giftSound"></audio>
 </body>
 </html>
- 
