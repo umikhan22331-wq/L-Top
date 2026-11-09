@@ -3,22 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>LTop</title>
+<title>LTop - Global Live & Video Platform</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#000;color:#fff;overflow:Auto}
+
 /* AUTH / LOGIN SCREEN */
 #authScreen{position:fixed;inset:0;background:#000;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
 .auth-box{width:100%;max-width:380px;background:#111;padding:25px;border-radius:15px;border:1px solid #222;text-align:center}
 .auth-box h1{font-size:32px;font-weight:900;margin-bottom:5px;color:#fff}
 .auth-box h1 span{color:#fe2c55}
 .auth-box p{color:#aaa;font-size:14px;margin-bottom:20px}
-/* GIFTS STEP 1 */
-.gift-box{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:9999;pointer-events:none}
+
+/* DYNAMIC GIFT ANIMATION SIZES */
+.gift-box{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:99999;pointer-events:none}
 .gift-box.show{display:flex}
-.gift-box img{width:90vw;max-width:420px;animation:giftPop 4s ease forwards}
-@keyframes giftPop{0%{transform:scale(.5);opacity:0}15%{transform:scale(1.1);opacity:1}80%{transform:scale(1);opacity:1}100%{transform:scale(1.2);opacity:0}}
-.gift-name{position:fixed;bottom:120px;left:0;right:0;text-align:center;color:#fff;font-size:22px;font-weight:bold;text-shadow:0 2px 10px #000;z-index:10000;display:none}
+
+.gift-box.size-small img{width:80px;animation:fadeInOut 2.5s ease forwards}
+.gift-box.size-normal img{width:150px;animation:giftPop 3s ease forwards}
+.gift-box.size-medium img{width:230px;animation:giftPop 3s ease forwards}
+.gift-box.size-large img{width:320px;animation:giftPop 3s ease forwards}
+.gift-box.size-fullscreen img{width:90vw;max-width:450px;animation:fullscreenAnim 3.5s ease forwards}
+
+@keyframes giftPop{0%{transform:scale(.2);opacity:0}20%{transform:scale(1.2);opacity:1}80%{transform:scale(1);opacity:1}100%{transform:scale(1.5);opacity:0}}
+@keyframes fadeInOut{0%{transform:scale(0.5);opacity:0}30%{transform:scale(1);opacity:1}70%{transform:scale(1);opacity:1}100%{transform:scale(1.2);opacity:0}}
+@keyframes fullscreenAnim{0%{transform:scale(0.1) rotate(0deg);opacity:0}25%{transform:scale(1.3) rotate(10deg);opacity:1}75%{transform:scale(1.1) rotate(-10deg);opacity:1}100%{transform:scale(2) rotate(0deg);opacity:0}}
+
+.gift-name{position:fixed;bottom:140px;left:0;right:0;text-align:center;color:#fe2c55;font-size:22px;font-weight:bold;text-shadow:0 2px 10px #000;z-index:100000;display:none}
+
+/* GIFT DRAWER (MODAL) */
+#giftModal{position:fixed;bottom:-100%;left:0;right:0;background:#111;border-top-left-radius:20px;border-top-right-radius:20px;z-index:99998;transition:bottom 0.3s ease;padding:20px;border-top:1px solid #333}
+#giftModal.show{bottom:0}
+.gift-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-height:250px;overflow-y:auto;margin:15px 0}
+.gift-item{background:#222;padding:10px;border-radius:12px;text-align:center;cursor:pointer;border:1px solid transparent}
+.gift-item:active{border-color:#fe2c55;background:#2a1a1a}
+.gift-item img{width:45px;height:45px;object-fit:contain;margin-bottom:5px}
+.gift-item p{font-size:12px;color:#fff}
+.gift-item span{font-size:11px;color:#fe2c55;font-weight:bold}
+
 header{position:fixed;top:0;width:100%;text-align:center;padding:12px;z-index:10;background:linear-gradient(#000,transparent);font-size:28px;font-weight:900}
 header b{color:#fff} header span{color:#fe2c55}
 .page{display:none;height:100vh;padding-top:55px;padding-bottom:65px;overflow-y:auto}
@@ -38,7 +60,7 @@ nav .plus{font-size:26px;background:#fff;color:#000;width:45px;border-radius:8px
 .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;padding:2px}
 .grid video{width:100%;aspect-ratio:9/16;object-fit:cover;background:#222}
 .box{padding:15px}
-input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:none;outline:none;background:#222;color:#fff}
+input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:none;outline:none;background:#222;color:#fff}
 .btn{width:100%;padding:13px;background:#fe2c55;color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer}
 .profile{text-align:center;padding:20px}
 .avatar{width:90px;height:90px;border-radius:50%;background:#fe2c55;display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 10px}
@@ -47,14 +69,14 @@ input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:no
 </head>
 <body>
 
-<!-- LOGIN / SIGNUP SCREEN WITH WELCOME BONUS & REFERRAL -->
+<!-- LOGIN / SIGNUP SCREEN -->
 <div id="authScreen">
   <div class="auth-box">
     <h1>L<span>Top</span></h1>
-    <p>Sign up karein aur payein <b>20 Free Diamonds!</b> 💎</p>
-    <input type="text" id="usernameInput" placeholder="Apna Username likho (e.g. ali_khan)">
+    <p>Sign up now and get <b>20 Free Diamonds!</b> 💎</p>
+    <input type="text" id="usernameInput" placeholder="Enter your username (e.g. ali_khan)">
     <input type="text" id="refInput" placeholder="Referral Code (Optional) +50 💎">
-    <button class="btn" onclick="registerUser()">Account Banayein & Shuru Karein 🚀</button>
+    <button class="btn" onclick="registerUser()">Create Account & Start 🚀</button>
   </div>
 </div>
 
@@ -88,7 +110,7 @@ input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:no
       <div style="position:absolute;bottom:70px;left:12px;color:white"><b>@sara_live</b><p>Come join my live! ❤️</p></div>
       <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);padding:10px;display:flex;gap:8px;align-items:center">
         <input placeholder="Say something..." style="flex:1;padding:10px;border-radius:20px;border:none">
-        <button onclick="openGift()" style="background:#fe2c55;border:none;padding:10px 14px;border-radius:50%;font-size:20px;cursor:pointer">🎁</button>
+        <button onclick="openGiftModal()" style="background:#fe2c55;border:none;padding:10px 14px;border-radius:50%;font-size:20px;cursor:pointer">🎁</button>
       </div>
     </div>
     <div style="height:100%;scroll-snap-align:start;position:relative;background:#000">
@@ -97,7 +119,7 @@ input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:no
       <div style="position:absolute;bottom:70px;left:12px;color:white"><b>@ali_live</b><p>Singing for you! 🎤</p></div>
       <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);padding:10px;display:flex;gap:8px;align-items:center">
         <input placeholder="Say something..." style="flex:1;padding:10px;border-radius:20px;border:none">
-        <button onclick="openGift()" style="background:#fe2c55;border:none;padding:10px 14px;border-radius:50%;font-size:20px;cursor:pointer">🎁</button>
+        <button onclick="openGiftModal()" style="background:#fe2c55;border:none;padding:10px 14px;border-radius:50%;font-size:20px;cursor:pointer">🎁</button>
       </div>
     </div>
   </div>
@@ -113,11 +135,11 @@ input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:no
 <div id="upload" class="page">
   <div class="box">
     <h2>➕ Upload Video</h2>
-    <p>Apni video chuno:</p>
+    <p>Choose your video:</p>
     <input type="file" id="fileInput" accept="video/*" onchange="previewVideo(event)">
     <video id="preview" controls style="width:100%;border-radius:12px;display:none;margin:10px 0"></video>
-    <input id="caption" placeholder="Caption likho... #foryou">
-    <button class="btn" onclick="postVideo()">Post Karo 🚀</button>
+    <input id="caption" placeholder="Write a caption... #foryou">
+    <button class="btn" onclick="postVideo()">Post Video 🚀</button>
     <p id="postMsg" style="margin-top:10px;color:#25F4EE"></p>
   </div>
 </div>
@@ -137,11 +159,22 @@ input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:no
     <h2 id="profileUsername">@l_top_official</h2>
     <p>10 Following | 1.2K Followers | 12.5K Likes</p>
     
-    <!-- WALLET & REFERRAL BADGE -->
+    <!-- WALLET & GLOBAL PAYMENT/EXCHANGE BOX -->
     <div style="background:#1a1a1a;padding:15px;border-radius:12px;margin:15px 0;text-align:left;">
-      <p style="font-size:16px;color:#fe2c55;font-weight:bold;margin-bottom:5px;">💎 Diamonds Balance: <span id="diamondBalance">20</span></p>
-      <p style="font-size:14px;color:#ccc;margin-bottom:8px;">🔗 Your Referral Code: <b id="myRefCode" style="color:#25F4EE;">---</b></p>
-      <button class="btn" style="padding:8px;font-size:13px;background:#333;" onclick="copyRefCode()">Copy Referral Code 📋</button>
+      <p style="font-size:15px;color:#fe2c55;font-weight:bold;margin-bottom:4px;">💎 Diamond Balance: <span id="diamondBalance">20</span></p>
+      <p style="font-size:15px;color:#25F4EE;font-weight:bold;margin-bottom:4px;">🎁 Gift Earnings (Diamonds): <span id="earnedDiamonds">0</span></p>
+      <p style="font-size:15px;color:#2ecc71;font-weight:bold;margin-bottom:10px;">💵 Cash Balance (PKR): ₨ <span id="cashBalance">0.00</span></p>
+      
+      <div style="display:flex;gap:8px;margin-bottom:10px;">
+        <button class="btn" style="padding:8px;font-size:12px;background:#27ae60;" onclick="exchangeEarnings('all')">Exchange All (20% Tax)</button>
+        <button class="btn" style="padding:8px;font-size:12px;background:#e67e22;" onclick="exchangeEarnings('half')">Exchange Half</button>
+      </div>
+
+      <button class="btn" style="padding:10px;font-size:13px;background:#3498db;margin-bottom:10px;" onclick="openTopUpModal()">💳 Top Up Diamonds (Global/Local)</button>
+      <button class="btn" style="padding:10px;font-size:13px;background:#9b59b6;" onclick="openWithdrawModal()">🏦 Withdraw Cash (EasyPaisa/JazzCash/Bank)</button>
+
+      <p style="font-size:13px;color:#ccc;margin-top:10px;">🔗 Referral Code: <b id="myRefCode" style="color:#25F4EE;">---</b></p>
+      <button class="btn" style="padding:8px;font-size:12px;background:#333;margin-top:6px;" onclick="copyRefCode()">Copy Referral Code 📋</button>
     </div>
 
     <button class="btn" onclick="showPage('settings')">⚙️ App Settings</button>
@@ -150,15 +183,53 @@ input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:no
   <div class="grid" id="myGrid"></div>
 </div>
 
+<!-- TOP UP MODAL -->
+<div id="topupModal" style="position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:99999;display:none;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#111;width:100%;max-width:380px;padding:20px;border-radius:15px;border:1px solid #333;">
+    <h3 style="color:#fe2c55;margin-bottom:10px;">💳 Top Up Diamonds</h3>
+    <p style="font-size:13px;color:#aaa;margin-bottom:10px;">1 Diamond = 2 PKR (Global & Local Payment)</p>
+    <select id="topupPackage">
+      <option value="50">50 Diamonds (100 PKR / $0.50)</option>
+      <option value="100">100 Diamonds (200 PKR / $1.00)</option>
+      <option value="500">500 Diamonds (1,000 PKR / $5.00)</option>
+      <option value="1000">1,000 Diamonds (2,000 PKR / $10.00)</option>
+    </select>
+    <select id="paymentMethod">
+      <option value="easypaisa">EasyPaisa (Pakistan)</option>
+      <option value="jazzcash">JazzCash (Pakistan)</option>
+      <option value="bank">Local Bank Transfer / Credit Card</option>
+      <option value="international">International Credit Card / PayPal</option>
+    </select>
+    <button class="btn" style="margin-top:10px;" onclick="processTopUp()">Pay & Get Diamonds 🚀</button>
+    <button class="btn" style="background:#333;margin-top:8px;" onclick="closeTopUpModal()">Cancel</button>
+  </div>
+</div>
+
+<!-- WITHDRAW MODAL -->
+<div id="withdrawModal" style="position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:99999;display:none;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#111;width:100%;max-width:380px;padding:20px;border-radius:15px;border:1px solid #333;">
+    <h3 style="color:#2ecc71;margin-bottom:10px;">🏦 Withdraw Cash</h3>
+    <p style="font-size:13px;color:#aaa;margin-bottom:10px;">Note: 20% platform tax applies on withdrawals.</p>
+    <select id="withdrawMethod">
+      <option value="easypaisa">EasyPaisa</option>
+      <option value="jazzcash">JazzCash</option>
+      <option value="localbank">Local Bank Account</option>
+      <option value="intlbank">International Bank / Wire Transfer</option>
+    </select>
+    <input type="text" id="accountDetails" placeholder="Account Number / IBAN / Phone">
+    <button class="btn" style="margin-top:10px;background:#2ecc71;" onclick="processWithdraw()">Confirm Withdrawal 💸</button>
+    <button class="btn" style="background:#333;margin-top:8px;" onclick="closeWithdrawModal()">Cancel</button>
+  </div>
+</div>
+
 <!-- SETTINGS PAGE -->
 <div id="settings" class="page">
   <div class="box">
     <h2>⚙️ App Settings</h2>
-    <p>Apni preferences aur account manage karein</p>
+    <p>Manage your account and preferences</p>
   </div>
 
   <div style="padding: 15px;">
-    <!-- Account Section -->
     <div style="background: #1a1a1a; padding: 15px; border-radius: 12px; margin-bottom: 12px;">
       <h3 style="font-size: 16px; margin-bottom: 10px; color: #fe2c55;">👤 Account Settings</h3>
       <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #333; cursor:pointer;" onclick="alert('Username: ' + localStorage.getItem('ltop_user'))">
@@ -169,18 +240,6 @@ input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:no
       </div>
     </div>
 
-    <!-- Wallet & Diamonds -->
-    <div style="background: #1a1a1a; padding: 15px; border-radius: 12px; margin-bottom: 12px;">
-      <h3 style="font-size: 16px; margin-bottom: 10px; color: #fe2c55;">💎 Wallet & Diamonds</h3>
-      <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #333; cursor:pointer;" onclick="alert('Diamond Top-up store coming soon!')">
-        <span>Buy Diamonds (Coins)</span> <span>›</span>
-      </div>
-      <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; cursor:pointer;" onclick="alert('Transaction History is empty')">
-        <span>Transaction History</span> <span>›</span>
-      </div>
-    </div>
-
-    <!-- App Preferences -->
     <div style="background: #1a1a1a; padding: 15px; border-radius: 12px; margin-bottom: 12px;">
       <h3 style="font-size: 16px; margin-bottom: 10px; color: #fe2c55;">🔔 Notifications & Privacy</h3>
       <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #333;">
@@ -193,10 +252,19 @@ input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:no
       </div>
     </div>
 
-    <!-- Back to Profile & Logout -->
     <button class="btn" style="background: #222; margin-bottom: 10px;" onclick="showPage('me','btn-me')">Back to Profile</button>
     <button class="btn" style="background: #333; color: #ff4d4d;" onclick="logoutUser()">Log Out 🚪</button>
   </div>
+</div>
+
+<!-- GIFT DRAWER MODAL HTML -->
+<div id="giftModal">
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <h3 style="color:#fe2c55;">🎁 Send Gift</h3>
+    <span style="font-size:14px; color:#aaa;">Balance: <b id="modalDiamondCount" style="color:#fff;">20</b> 💎</span>
+    <button onclick="closeGiftModal()" style="background:none; border:none; color:#fff; font-size:20px; cursor:pointer;">✕</button>
+  </div>
+  <div class="gift-grid" id="giftContainer"></div>
 </div>
 
 <nav>
@@ -216,55 +284,142 @@ let videos=[
 ];
 let vi=0; let likes=12500;
 
-// Check if User already logged in
 window.onload = function() {
   let savedUser = localStorage.getItem('ltop_user');
   if(savedUser) {
     document.getElementById('authScreen').style.display = 'none';
     loadUserData();
   }
+  renderGifts();
 };
 
-// Register / Login Logic with Free Diamonds & Referral Bonus
 function registerUser() {
   let username = document.getElementById('usernameInput').value.trim();
   let refCodeInput = document.getElementById('refInput').value.trim();
 
   if(!username) {
-    alert('Baraye karam apna username likhein!');
+    alert('Please enter your username!');
     return;
   }
 
-  let diamonds = 20; // Default welcome bonus
+  let diamonds = 20; 
   if(refCodeInput) {
-    diamonds += 50; // Referral bonus added (+50)
+    diamonds += 50; 
     alert('Referral code applied successfully! +50 Diamonds added 🎉');
   }
 
-  // Generate unique referral code for this user
   let myRef = 'LTOP-' + Math.floor(1000 + Math.random() * 9000);
 
-  // Save to LocalStorage securely
   localStorage.setItem('ltop_user', '@' + username);
   localStorage.setItem('ltop_diamonds', diamonds);
+  localStorage.setItem('ltop_earned', '0');
+  localStorage.setItem('ltop_cash', '0.00');
   localStorage.setItem('ltop_ref', myRef);
 
   document.getElementById('authScreen').style.display = 'none';
   loadUserData();
-  alert('Account created successfully! Aapko 20 Free Diamonds mil gaye hain! 💎');
+  alert('Account created successfully! You received 20 Free Diamonds! 💎');
 }
 
-// Load User Data onto UI
 function loadUserData() {
   let username = localStorage.getItem('ltop_user') || '@l_top_official';
   let diamonds = localStorage.getItem('ltop_diamonds') || '20';
+  let earned = localStorage.getItem('ltop_earned') || '0';
+  let cash = localStorage.getItem('ltop_cash') || '0.00';
   let myRef = localStorage.getItem('ltop_ref') || 'LTOP-9999';
 
   document.getElementById('displayUsername').innerText = username;
   document.getElementById('profileUsername').innerText = username;
   document.getElementById('profileAvatarLetter').innerText = username.charAt(1).toUpperCase();
   document.getElementById('diamondBalance').innerText = diamonds;
+  document.getElementById('earnedDiamonds').innerText = earned;
+  document.getElementById('cashBalance').innerText = parseFloat(cash).toFixed(2);
+  document.getElementById('modalDiamondCount').innerText = diamonds;
   document.getElementById('myRefCode').innerText = myRef;
+}
+
+// === TOP UP MODAL FUNCTIONS ===
+function openTopUpModal() {
+  document.getElementById('topupModal').style.display = 'flex';
+}
+function closeTopUpModal() {
+  document.getElementById('topupModal').style.display = 'none';
+}
+function processTopUp() {
+  let pkg = parseInt(document.getElementById('topupPackage').value);
+  let method = document.getElementById('paymentMethod').value;
+  let currentDiamonds = parseInt(localStorage.getItem('ltop_diamonds') || '20');
+
+  currentDiamonds += pkg;
+  localStorage.setItem('ltop_diamonds', currentDiamonds);
+  loadUserData();
+  closeTopUpModal();
+  alert(`Successfully purchased ${pkg} diamonds via ${method.toUpperCase()}! 💎`);
+}
+
+// === WITHDRAW MODAL FUNCTIONS ===
+function openWithdrawModal() {
+  document.getElementById('withdrawModal').style.display = 'flex';
+}
+function closeWithdrawModal() {
+  document.getElementById('withdrawModal').style.display = 'none';
+}
+function processWithdraw() {
+  let method = document.getElementById('withdrawMethod').value;
+  let details = document.getElementById('accountDetails').value.trim();
+  let cash = parseFloat(localStorage.getItem('ltop_cash') || '0.00');
+
+  if(!details) {
+    alert('Please enter your account details for withdrawal!');
+    return;
+  }
+  if(cash <= 0) {
+    alert('You have no cash balance to withdraw!');
+    return;
+  }
+
+  localStorage.setItem('ltop_cash', '0.00');
+  loadUserData();
+  closeWithdrawModal();
+  alert(`Withdrawal request of PKR ${cash.toFixed(2)} via ${method.toUpperCase()} submitted successfully! (20% Tax applied) 💸`);
+}
+
+// === EARNINGS & DIAMOND EXCHANGE SYSTEM (1 Diamond = 2 PKR with 20% Tax) ===
+function exchangeEarnings(type) {
+  let earned = parseInt(localStorage.getItem('ltop_earned') || '0');
+  let cash = parseFloat(localStorage.getItem('ltop_cash') || '0.00');
+
+  if(earned <= 0) {
+    alert('You have no gift earnings to exchange!');
+    return;
+  }
+
+  let amountToExchange = 0;
+  if(type === 'all') {
+    amountToExchange = earned;
+  } else if(type === 'half') {
+    amountToExchange = Math.floor(earned / 2);
+  }
+
+  if(amountToExchange <= 0) {
+    alert('Amount is too low to exchange.');
+    return;
+  }
+
+  // Conversion: 1 Diamond = 2 PKR
+  let grossPKR = amountToExchange * 2;
+  // Apply 20% Platform Tax
+  let tax = grossPKR * 0.20;
+  let netPKR = grossPKR - tax;
+
+  earned -= amountToExchange;
+  cash += netPKR;
+
+  localStorage.setItem('ltop_earned', earned);
+  localStorage.setItem('ltop_cash', cash.toFixed(2));
+
+  loadUserData();
+  alert(`Exchanged ${amountToExchange} diamonds. Gross: ₨${grossPKR} | 20% Tax: ₨${tax} | Credited: ₨${netPKR.toFixed(2)} 💵`);
 }
 
 function copyRefCode() {
@@ -274,7 +429,7 @@ function copyRefCode() {
 }
 
 function logoutUser() {
-  if(confirm('Kya aap logout karna chahte hain?')) {
+  if(confirm('Are you sure you want to log out?')) {
     localStorage.clear();
     location.reload();
   }
@@ -303,14 +458,14 @@ function like(el){
 }
 
 function showComment(){
- let c=prompt('Comment likho:');
- if(c) alert('Comment Post Ho Gaya: '+c);
+ let c=prompt('Write a comment:');
+ if(c) alert('Comment posted successfully: '+c);
 }
 
 function shareApp(){
  let link=location.href;
  if(navigator.share){navigator.share({title:'LTop',url:link});}
- else{prompt('Link copy karo:',link);}
+ else{prompt('Copy link:',link);}
 }
 
 function previewVideo(e){
@@ -321,13 +476,104 @@ function previewVideo(e){
 
 function postVideo(){
  let cap=document.getElementById('caption').value;
- document.getElementById('postMsg').innerText='Video Post Ho Gayi! 🎉 Caption: '+cap;
- alert('Video Post Ho Gayi! 🎉');
+ document.getElementById('postMsg').innerText='Video posted successfully! 🎉 Caption: '+cap;
+ alert('Video posted successfully! 🎉');
  showPage('home','btn-home');
 }
 
-function openGift(){
- alert('Gift Store Modal Opening Soon! 🎁');
+// === GIFTS SYSTEM WITH DYNAMIC SIZES & EARNINGS ADDITION ===
+const GIFTS=[
+{name:"Rose",price:1,img:"https://cdn-icons-png.flaticon.com/png/512/2965/2965567.png"},
+{name:"Ring 💍",price:15,img:"https://cdn-icons-png.flaticon.com/png/512/914/914714.png"},
+{name:"TikTok",price:25,img:"https://cdn-icons-png.flaticon.com/png/512/3046/3046121.png"},
+{name:"Heart",price:45,img:"https://cdn-icons-png.flaticon.com/png/512/833/833472.png"},
+{name:"Perfume",price:75,img:"https://cdn-icons-png.flaticon.com/png/512/3014/3014318.png"},
+{name:"Money Gun",price:120,img:"https://cdn-icons-png.flaticon.com/png/512/2331/2331970.png"},
+{name:"Royal Bouquet",price:180,img:"https://cdn-icons-png.flaticon.com/png/512/4213/4213958.png"},
+{name:"Sports Car",price:250,img:"https://cdn-icons-png.flaticon.com/png/512/741/741407.png"},
+{name:"Pink Car",price:500,img:"https://cdn-icons-png.flaticon.com/png/512/2554/2554931.png"},
+{name:"Galaxy",price:1000,img:"https://cdn-icons-png.flaticon.com/png/512/3135/3135715.png"},
+{name:"Lion",price:2500,img:"https://cdn-icons-png.flaticon.com/png/512/616/616408.png"}
+];
+
+function renderGifts() {
+  let container = document.getElementById('giftContainer');
+  container.innerHTML = '';
+  GIFTS.forEach((g, index) => {
+    container.innerHTML += `
+      <div class="gift-item" onclick="sendGift(${index})">
+        <img src="${g.img}" alt="${g.name}">
+        <p>${g.name}</p>
+        <span>💎 ${g.price}</span>
+      </div>
+    `;
+  });
+}
+
+function openGiftModal() {
+  document.getElementById('giftModal').classList.add('show');
+  let currentBal = localStorage.getItem('ltop_diamonds') || '20';
+  document.getElementById('modalDiamondCount').innerText = currentBal;
+}
+
+function closeGiftModal() {
+  document.getElementById('giftModal').classList.remove('show');
+}
+
+function sendGift(index) {
+  let gift = GIFTS[index];
+  let currentDiamonds = parseInt(localStorage.getItem('ltop_diamonds') || '20');
+  let username = localStorage.getItem('ltop_user') || '@user';
+
+  if(currentDiamonds < gift.price) {
+    alert('You do not have enough diamonds! Please top up.');
+    return;
+  }
+
+  currentDiamonds -= gift.price;
+  localStorage.setItem('ltop_diamonds', currentDiamonds);
+
+  let currentEarned = parseInt(localStorage.getItem('ltop_earned') || '0');
+  currentEarned += gift.price;
+  localStorage.setItem('ltop_earned', currentEarned);
+  
+  loadUserData();
+  closeGiftModal();
+
+  let giftBox = document.getElementById('giftBox');
+  let giftImg = document.getElementById('giftImg');
+  let giftNameDiv = document.getElementById('giftName');
+
+  giftBox.className = "gift-box";
+
+  let price = gift.price;
+  if(price >= 1 && price <= 30) {
+    giftBox.classList.add('size-small');
+  } else if(price > 30 && price <= 60) {
+    giftBox.classList.add('size-normal');
+  } else if(price > 60 && price <= 100) {
+    giftBox.classList.add('size-medium');
+  } else if(price > 100 && price <= 200) {
+    giftBox.classList.add('size-large');
+  } else {
+    giftBox.classList.add('size-fullscreen');
+  }
+
+  giftImg.src = gift.img;
+  giftNameDiv.innerText = `${username} sent the ${gift.name} 🎁`;
+  
+  giftBox.classList.add('show');
+  giftNameDiv.style.display = 'block';
+
+  try {
+    let audio = new Audio('https://www.myinstants.com/media/sounds/tada.mp3');
+    audio.play();
+  } catch(e) {}
+
+  setTimeout(() => {
+    giftBox.classList.remove('show');
+    giftNameDiv.style.display = 'none';
+  }, 3500);
 }
 
 // Fill grids
@@ -338,23 +584,8 @@ videos.forEach(v=>{
  g.appendChild(vd);
  let vd2=vd.cloneNode(); vd2.onclick=vd.onclick; m.appendChild(vd2);
 });
-
-// === GIFTS STEP 2 ===
-const GIFTS=[
-{name:"Rose",price:1,img:"https://i.imgur.com/rose.png",sound:""},
-{name:"TikTok",price:1,img:"https://i.imgur.com/tiktok.png",sound:""},
-{name:"Heart",price:5,img:"https://i.imgur.com/heart.png",sound:""},
-{name:"Perfume",price:20,img:"https://i.imgur.com/perfume.png",sound:""},
-{name:"Money Gun",price:100,img:"https://i.imgur.com/moneygun.png",sound:""},
-{name:"Royal Bouquet",price:100,img:"https://i.imgur.com/bouquet.png",sound:""},
-{name:"Sports Car",price:1000,img:"https://i.imgur.com/car.png",sound:""},
-{name:"Pink Angel Car",price:5000,img:"https://i.imgur.com/pinkcar.png",sound:""},
-{name:"Galaxy",price:1000,img:"https://i.imgur.com/galaxy.png",sound:""},
-{name:"Lion",price:29999,img:"https://i.imgur.com/lion.png",sound:""}
-];
 </script>
 <div class="gift-box" id="giftBox"><img id="giftImg" src=""></div>
 <div class="gift-name" id="giftName"></div>
-<audio id="giftSound"></audio>
 </body>
 </html>
