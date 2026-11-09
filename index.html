@@ -6,7 +6,7 @@
 <title>LTop - Global Live & Video Platform</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#000;color:#fff;overflow:Auto}
+body{background:#000;color:#fff;overflow:hidden}
 
 /* AUTH / LOGIN MODAL */
 #authScreen{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:99999;display:none;align-items:center;justify-content:center;padding:20px}
@@ -15,31 +15,65 @@ body{background:#000;color:#fff;overflow:Auto}
 .auth-box h1 span{color:#fe2c55}
 .auth-box p{color:#aaa;font-size:14px;margin-bottom:20px}
 
-/* DYNAMIC GIFT ANIMATION SIZES */
-.gift-box{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:99999;pointer-events:none}
-.gift-box.show{display:flex}
+/* TIKTOK STYLE LEFT CORNER GIFT BANNER NOTIFICATION */
+#giftNotificationBanner{
+  position:fixed;
+  left:12px;
+  bottom:160px;
+  z-index:99999;
+  background:linear-gradient(90deg, rgba(254,44,85,0.95), rgba(0,0,0,0.85));
+  padding:8px 14px;
+  border-radius:25px;
+  display:none;
+  align-items:center;
+  gap:10px;
+  box-shadow:0 4px 15px rgba(254,44,85,0.4);
+  border:1px solid rgba(255,255,255,0.2);
+  animation:slideInLeft 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
 
-.gift-box.size-small img{width:90px;animation:fadeInOut 2.5s ease forwards}
-.gift-box.size-normal img{width:160px;animation:giftPop 3s ease forwards}
-.gift-box.size-medium img{width:240px;animation:giftPop 3s ease forwards}
-.gift-box.size-large img{width:330px;animation:giftPop 3s ease forwards}
-.gift-box.size-fullscreen img{width:95vw;max-width:480px;animation:fullscreenAnim 3.5s ease forwards}
+@keyframes slideInLeft {
+  0%{transform:translateX(-120%);opacity:0}
+  100%{transform:translateX(0);opacity:1}
+}
 
-@keyframes giftPop{0%{transform:scale(.2);opacity:0}20%{transform:scale(1.2);opacity:1}80%{transform:scale(1);opacity:1}100%{transform:scale(1.5);opacity:0}}
-@keyframes fadeInOut{0%{transform:scale(0.5);opacity:0}30%{transform:scale(1);opacity:1}70%{transform:scale(1);opacity:1}100%{transform:scale(1.2);opacity:0}}
-@keyframes fullscreenAnim{0%{transform:scale(0.1) rotate(0deg);opacity:0}25%{transform:scale(1.3) rotate(5deg);opacity:1}75%{transform:scale(1.1) rotate(-5deg);opacity:1}100%{transform:scale(2) rotate(0deg);opacity:0}}
+.gift-banner-avatar{
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  background:#fe2c55;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  font-size:14px;
+  border:2px solid #fff;
+}
 
-.gift-name{position:fixed;bottom:140px;left:0;right:0;text-align:center;color:#fe2c55;font-size:24px;font-weight:bold;text-shadow:0 2px 10px #000;z-index:100000;display:none}
+.gift-banner-text{
+  font-size:13px;
+  color:#fff;
+  font-weight:bold;
+}
 
-/* GIFT DRAWER (MODAL) - PROFESSIONAL GRID */
-#giftModal{position:fixed;bottom:-100%;left:0;right:0;background:#111;border-top-left-radius:20px;border-top-right-radius:20px;z-index:99998;transition:bottom 0.3s ease;padding:20px;border-top:1px solid #333}
+.gift-banner-text span{
+  color:#ffeb3b;
+}
+
+.gift-banner-emoji{
+  font-size:24px;
+}
+
+/* GIFT DRAWER (MODAL) */
+#giftModal{position:fixed;bottom:-100%;left:0;right:0;background:#111;border-top-left-radius:20px;border-top-right-radius:20px;z-index:99998;transition:bottom 0.3s ease;padding:18px;border-top:1px solid #333}
 #giftModal.show{bottom:0}
-.gift-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-height:300px;overflow-y:auto;margin:15px 0;padding-right:5px}
-.gift-item{background:#222;padding:10px 5px;border-radius:12px;text-align:center;cursor:pointer;border:1px solid transparent}
-.gift-item:active{border-color:#fe2c55;background:#2a1a1a}
-.gift-item img{width:42px;height:42px;object-fit:contain;margin-bottom:4px}
+.gift-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-height:290px;overflow-y:auto;margin:15px 0;padding-right:5px}
+.gift-item{background:#1e1e1e;padding:10px 4px;border-radius:12px;text-align:center;cursor:pointer;border:1px solid #2a2a2a;transition:transform 0.1s}
+.gift-item:active{transform:scale(0.95);border-color:#fe2c55;background:#2a1a1a}
+.gift-item .emoji-icon{font-size:32px;display:block;margin-bottom:4px;line-height:1.1}
 .gift-item p{font-size:11px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.gift-item span{font-size:10px;color:#fe2c55;font-weight:bold}
+.gift-item span{font-size:11px;color:#fe2c55;font-weight:bold}
 
 header{position:fixed;top:0;width:100%;text-align:center;padding:12px;z-index:10;background:linear-gradient(#000,transparent);font-size:28px;font-weight:900}
 header b{color:#fff} header span{color:#fe2c55}
@@ -108,15 +142,6 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
       <img src="https://i.pravatar.cc/500?img=12" style="width:100%;height:100%;object-fit:cover">
       <div style="position:absolute;top:10px;left:10px;background:red;color:white;padding:4px 10px;border-radius:20px">🔴 LIVE • 1.2K watching</div>
       <div style="position:absolute;bottom:70px;left:12px;color:white"><b>@sara_live</b><p>Come join my live! ❤️</p></div>
-      <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);padding:10px;display:flex;gap:8px;align-items:center">
-        <input placeholder="Say something..." style="flex:1;padding:10px;border-radius:20px;border:none">
-        <button onclick="openGiftModal()" style="background:#fe2c55;border:none;padding:10px 14px;border-radius:50%;font-size:20px;cursor:pointer">🎁</button>
-      </div>
-    </div>
-    <div style="height:100%;scroll-snap-align:start;position:relative;background:#000">
-      <img src="https://i.pravatar.cc/500?img=32" style="width:100%;height:100%;object-fit:cover">
-      <div style="position:absolute;top:10px;left:10px;background:red;color:white;padding:4px 10px;border-radius:20px">🔴 LIVE • 850 watching</div>
-      <div style="position:absolute;bottom:70px;left:12px;color:white"><b>@ali_live</b><p>Singing for you! 🎤</p></div>
       <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);padding:10px;display:flex;gap:8px;align-items:center">
         <input placeholder="Say something..." style="flex:1;padding:10px;border-radius:20px;border:none">
         <button onclick="openGiftModal()" style="background:#fe2c55;border:none;padding:10px 14px;border-radius:50%;font-size:20px;cursor:pointer">🎁</button>
@@ -238,30 +263,7 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
     <h2>⚙️ App Settings</h2>
     <p>Manage your account and preferences</p>
   </div>
-
   <div style="padding: 15px;">
-    <div style="background: #1a1a1a; padding: 15px; border-radius: 12px; margin-bottom: 12px;">
-      <h3 style="font-size: 16px; margin-bottom: 10px; color: #fe2c55;">👤 Account Settings</h3>
-      <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #333; cursor:pointer;" onclick="checkAuthAndAlert('Username: ' + localStorage.getItem('ltop_user'))">
-        <span>View Username</span> <span>›</span>
-      </div>
-      <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; cursor:pointer;" onclick="alert('Change Password feature coming soon!')">
-        <span>Change Password / Security</span> <span>›</span>
-      </div>
-    </div>
-
-    <div style="background: #1a1a1a; padding: 15px; border-radius: 12px; margin-bottom: 12px;">
-      <h3 style="font-size: 16px; margin-bottom: 10px; color: #fe2c55;">🔔 Notifications & Privacy</h3>
-      <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #333;">
-        <span>Push Notifications</span>
-        <input type="checkbox" checked style="width: auto; cursor:pointer;">
-      </div>
-      <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0;">
-        <span>Dark Mode</span>
-        <input type="checkbox" checked style="width: auto; cursor:pointer;">
-      </div>
-    </div>
-
     <button class="btn" style="background: #222; margin-bottom: 10px;" onclick="showPage('me','btn-me')">Back to Profile</button>
     <button class="btn" style="background: #333; color: #ff4d4d;" onclick="logoutUser()">Log Out 🚪</button>
   </div>
@@ -270,11 +272,20 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
 <!-- GIFT DRAWER MODAL HTML -->
 <div id="giftModal">
   <div style="display:flex; justify-content:space-between; align-items:center;">
-    <h3 style="color:#fe2c55;">🎁 LTop Gift Store (1-150 Diamonds)</h3>
+    <h3 style="color:#fe2c55;">🎁 LTop Gift Store</h3>
     <span style="font-size:14px; color:#aaa;">Balance: <b id="modalDiamondCount" style="color:#fff;">20</b> 💎</span>
     <button onclick="closeGiftModal()" style="background:none; border:none; color:#fff; font-size:20px; cursor:pointer;">✕</button>
   </div>
   <div class="gift-grid" id="giftContainer"></div>
+</div>
+
+<!-- TIKTOK STYLE LEFT CORNER NOTIFICATION -->
+<div id="giftNotificationBanner">
+  <div class="gift-banner-avatar" id="bannerAvatar">L</div>
+  <div class="gift-banner-text">
+    <span id="bannerUsername">@user</span> sent a <b id="bannerGiftName">Rose</b> 
+  </div>
+  <div class="gift-banner-emoji" id="bannerEmoji">🌹</div>
 </div>
 
 <nav>
@@ -502,12 +513,6 @@ function showPage(id,btn){
  if(id==='home'){let v=document.getElementById('mainVideo'); v.play();}
 }
 
-function nextVideo(){
- vi=(vi+1)%videos.length;
- let v=document.getElementById('mainVideo');
- v.src=videos[vi]; v.play();
-}
-
 function like(el){
  let savedUser = localStorage.getItem('ltop_user');
  if(!savedUser) {
@@ -549,43 +554,34 @@ function postVideo(){
  showPage('home','btn-home');
 }
 
-// === 150+ FULL CINEMATIC LTOP GIFTS WITH VERIFIED IMAGES & REAL SOUNDS ===
+// === ALL REAL EMOJI GIFTS ARRAY (NO CARTOON PNGs) ===
 const GIFTS = [
-  // 1 to 30 Diamonds (Small Size)
-  {name:"Rose", price:1, img:"https://img.icons8.com/color/96/rose.png", sound:"https://www.myinstants.com/media/sounds/chime.mp3"},
-  {name:"Heart", price:5, img:"https://img.icons8.com/color/96/facebook-like.png", sound:"https://www.myinstants.com/media/sounds/heartbeat.mp3"},
-  {name:"Coffee", price:10, img:"https://img.icons8.com/color/96/coffee.png", sound:"https://www.myinstants.com/media/sounds/sip.mp3"},
-  {name:"Ring 💍", price:15, img:"https://img.icons8.com/color/96/ring.png", sound:"https://www.myinstants.com/media/sounds/sparkle.mp3"},
-  {name:"Balloon", price:20, img:"https://img.icons8.com/color/96/hot-air-balloon.png", sound:"https://www.myinstants.com/media/sounds/pop.mp3"},
-  {name:"LTop Star", price:25, img:"https://img.icons8.com/color/96/star.png", sound:"https://www.myinstants.com/media/sounds/tada.mp3"},
-  {name:"Ice Cream", price:30, img:"https://img.icons8.com/color/96/ice-cream-cone.png", sound:"https://www.myinstants.com/media/sounds/bell.mp3"},
-
-  // 31 to 60 Diamonds (Normal Size)
-  {name:"Cap", price:35, img:"https://img.icons8.com/color/96/baseball-cap.png", sound:"https://www.myinstants.com/media/sounds/click.mp3"},
-  {name:"Sunglasses", price:40, img:"https://img.icons8.com/color/96/sunglasses.png", sound:"https://www.myinstants.com/media/sounds/yeah.mp3"},
-  {name:"Perfume", price:50, img:"https://img.icons8.com/color/96/perfume.png", sound:"https://www.myinstants.com/media/sounds/magic.mp3"},
-  {name:"Cake", price:60, img:"https://img.icons8.com/color/96/birthday-cake.png", sound:"https://www.myinstants.com/media/sounds/ta-da.mp3"},
-
-  // 61 to 100 Diamonds (Medium Size)
-  {name:"Headphones", price:75, img:"https://img.icons8.com/color/96/headphones.png", sound:"https://www.myinstants.com/media/sounds/bass.mp3"},
-  {name:"Guitar", price:90, img:"https://img.icons8.com/color/96/guitar.png", sound:"https://www.myinstants.com/media/sounds/guitar.mp3"},
-  {name:"Money Gun", price:100, img:"https://img.icons8.com/color/96/money-bag.png", sound:"https://www.myinstants.com/media/sounds/cash-register.mp3"},
-
-  // 101 to 150 Diamonds (Large Size Range)
-  {name:"Royal Bouquet", price:110, img:"https://img.icons8.com/color/96/bouquet.png", sound:"https://www.myinstants.com/media/sounds/harp.mp3"},
-  {name:"Diamond Watch", price:125, img:"https://img.icons8.com/color/96/watch.png", sound:"https://www.myinstants.com/media/sounds/bling.mp3"},
-  {name:"Gold Crown", price:140, img:"https://img.icons8.com/color/96/crown.png", sound:"https://www.myinstants.com/media/sounds/tada.mp3"},
-  {name:"Treasure Box", price:150, img:"https://img.icons8.com/color/96/treasure-chest.png", sound:"https://www.myinstants.com/media/sounds/coins.mp3"},
-
-  // Higher Level Premium Gifts (200+ Diamonds Fullscreen)
-  {name:"Motorbike", price:180, img:"https://img.icons8.com/color/96/motorcycle.png", sound:"https://www.myinstants.com/media/sounds/motorcycle-rev.mp3"},
-  {name:"Sports Car", price:300, img:"https://img.icons8.com/color/96/sports-car.png", sound:"https://www.myinstants.com/media/sounds/car-engine.mp3"},
-  {name:"Private Jet", price:500, img:"https://img.icons8.com/color/96/private-jet.png", sound:"https://www.myinstants.com/media/sounds/jet-flyby.mp3"},
-  {name:"Pink Car", price:750, img:"https://img.icons8.com/color/96/convertible.png", sound:"https://www.myinstants.com/media/sounds/car-horn.mp3"},
-  {name:"Galaxy", price:1000, img:"https://img.icons8.com/color/96/galaxy.png", sound:"https://www.myinstants.com/media/sounds/sci-fi-beam.mp3"},
-  {name:"Luxury Yacht", price:1500, img:"https://img.icons8.com/color/96/yacht.png", sound:"https://www.myinstants.com/media/sounds/ship-horn.mp3"},
-  {name:"Lion 🦁", price:2500, img:"https://img.icons8.com/color/96/lion.png", sound:"https://www.myinstants.com/media/sounds/lion-roar.mp3"},
-  {name:"Castle 🏰", price:5000, img:"https://img.icons8.com/color/96/castle.png", sound:"https://www.myinstants.com/media/sounds/epic-horn.mp3"}
+  {name:"Rose", price:1, emoji:"🌹"},
+  {name:"Heart", price:5, emoji:"❤️"},
+  {name:"Coffee", price:10, emoji:"☕"},
+  {name:"Ring 💍", price:15, emoji:"💍"},
+  {name:"Balloon", price:20, emoji:"🎈"},
+  {name:"LTop Star", price:25, emoji:"🌟"},
+  {name:"Ice Cream", price:30, emoji:"🍦"},
+  {name:"Cap", price:35, emoji:"🧢"},
+  {name:"Sunglasses", price:40, emoji:"🕶️"},
+  {name:"Perfume", price:50, emoji:"🧴"},
+  {name:"Cake", price:60, emoji:"🎂"},
+  {name:"Headphones", price:75, emoji:"🎧"},
+  {name:"Guitar", price:90, emoji:"🎸"},
+  {name:"Money Bag", price:100, emoji:"💵"},
+  {name:"Royal Bouquet", price:110, emoji:"💐"},
+  {name:"Diamond Watch", price:125, emoji:"⌚"},
+  {name:"Gold Crown", price:140, emoji:"👑"},
+  {name:"Treasure Chest", price:150, emoji:"🪙"},
+  {name:"Motorbike", price:180, emoji:"🏍️"},
+  {name:"Sports Car", price:300, emoji:"🏎️"},
+  {name:"Private Jet", price:500, emoji:"✈️"},
+  {name:"Rocket", price:750, emoji:"🚀"},
+  {name:"Galaxy", price:1000, emoji:"💫"},
+  {name:"Luxury Yacht", price:1500, emoji:"🚤"},
+  {name:"Lion 🦁", price:2500, emoji:"🦁"},
+  {name:"Castle 🏰", price:5000, emoji:"🏰"}
 ];
 
 function renderGifts() {
@@ -594,7 +590,7 @@ function renderGifts() {
   GIFTS.forEach((g, index) => {
     container.innerHTML += `
       <div class="gift-item" onclick="sendGift(${index})">
-        <img src="${g.img}" alt="${g.name}">
+        <span class="emoji-icon">${g.emoji}</span>
         <p>${g.name}</p>
         <span>💎 ${g.price}</span>
       </div>
@@ -618,6 +614,35 @@ function closeGiftModal() {
   document.getElementById('giftModal').classList.remove('show');
 }
 
+// RELIABLE AUDIO SYNTHESIZER SOUND SYSTEM
+function playGiftSound(price) {
+  try {
+    let ctx = new (window.AudioContext || window.webkitAudioContext)();
+    let osc = ctx.createOscillator();
+    let gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    if (price < 50) {
+      osc.frequency.setValueAtTime(587.33, ctx.currentTime); // High pitch chime
+      gain.gain.setValueAtTime(0.1, ctx.currentTime);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.3);
+    } else if (price < 200) {
+      osc.frequency.setValueAtTime(880, ctx.currentTime); 
+      gain.gain.setValueAtTime(0.2, ctx.currentTime);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.5);
+    } else {
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(150, ctx.currentTime); // Low engine/roar hum
+      gain.gain.setValueAtTime(0.3, ctx.currentTime);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.8);
+    }
+  } catch(e){}
+}
+
 function sendGift(index) {
   let gift = GIFTS[index];
   let currentDiamonds = parseInt(localStorage.getItem('ltop_diamonds') || '20');
@@ -638,39 +663,20 @@ function sendGift(index) {
   loadUserData();
   closeGiftModal();
 
-  let giftBox = document.getElementById('giftBox');
-  let giftImg = document.getElementById('giftImg');
-  let giftNameDiv = document.getElementById('giftName');
+  // Play Sound Audio
+  playGiftSound(gift.price);
 
-  giftBox.className = "gift-box";
+  // Show TikTok Style Left Notification Banner
+  let banner = document.getElementById('giftNotificationBanner');
+  document.getElementById('bannerAvatar').innerText = username.charAt(1).toUpperCase();
+  document.getElementById('bannerUsername').innerText = username;
+  document.getElementById('bannerGiftName').innerText = gift.name;
+  document.getElementById('bannerEmoji').innerText = gift.emoji;
 
-  let price = gift.price;
-  if(price >= 1 && price <= 30) {
-    giftBox.classList.add('size-small');
-  } else if(price > 30 && price <= 60) {
-    giftBox.classList.add('size-normal');
-  } else if(price > 60 && price <= 100) {
-    giftBox.classList.add('size-medium');
-  } else if(price > 100 && price <= 200) {
-    giftBox.classList.add('size-large');
-  } else {
-    giftBox.classList.add('size-fullscreen');
-  }
-
-  giftImg.src = gift.img;
-  giftNameDiv.innerText = `${username} sent the ${gift.name} 🎁`;
-  
-  giftBox.classList.add('show');
-  giftNameDiv.style.display = 'block';
-
-  try {
-    let audio = new Audio(gift.sound);
-    audio.play();
-  } catch(e) {}
+  banner.style.display = 'flex';
 
   setTimeout(() => {
-    giftBox.classList.remove('show');
-    giftNameDiv.style.display = 'none';
+    banner.style.display = 'none';
   }, 3500);
 }
 
@@ -683,7 +689,5 @@ videos.forEach(v=>{
  let vd2=vd.cloneNode(); vd2.onclick=vd.onclick; m.appendChild(vd2);
 });
 </script>
-<div class="gift-box" id="giftBox"><img id="giftImg" src=""></div>
-<div class="gift-name" id="giftName"></div>
 </body>
 </html>
