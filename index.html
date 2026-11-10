@@ -62,7 +62,7 @@ body,html{width:100%;height:100%;background:#000;color:#fff;overflow:hidden}
 .auth-box h1 span{color:#fe2c55}
 .auth-box p{color:#aaa;font-size:14px;margin-bottom:20px}
 
-/* TIKTOK STYLE TOP HEADER NAVIGATION (Community | Following | For You | Search) */
+/* TIKTOK STYLE TOP HEADER NAVIGATION BAR */
 .tiktok-top-header {
   position: fixed;
   top: 0;
@@ -74,11 +74,41 @@ body,html{width:100%;height:100%;background:#000;color:#fff;overflow:hidden}
   align-items: center;
   justify-content: center;
   gap: 18px;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+  background: linear-gradient(to bottom, rgba(0,0,0,0.85), transparent);
   font-size: 15px;
   font-weight: bold;
   color: #aaa;
 }
+
+.tiktok-live-icon-btn {
+  position: absolute;
+  left: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 0, 85, 0.25);
+  border: 1px solid #fe2c55;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(254,44,85,0.4);
+}
+.tiktok-live-icon-btn span.live-dot {
+  width: 8px;
+  height: 8px;
+  background: #ff0055;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #ff0055;
+  animation: pulseLive 1.2s infinite alternate;
+}
+@keyframes pulseLive {
+  0%{transform:scale(0.8);opacity:0.7}
+  100%{transform:scale(1.3);opacity:1}
+}
+
 .tiktok-top-header span {
   cursor: pointer;
   position: relative;
@@ -108,7 +138,7 @@ body,html{width:100%;height:100%;background:#000;color:#fff;overflow:hidden}
   color: #fff;
 }
 
-/* TIKTOK STYLE GIFT BANNER NOTIFICATION */
+/* GIFT NOTIFICATION BANNER */
 #giftNotificationBanner{
   position:fixed;
   left:12px;
@@ -124,24 +154,12 @@ body,html{width:100%;height:100%;background:#000;color:#fff;overflow:hidden}
   border:1px solid rgba(255,255,255,0.2);
   animation:slideInLeft 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
-
 @keyframes slideInLeft {
   0%{transform:translateX(-120%);opacity:0}
   100%{transform:translateX(0);opacity:1}
 }
-
 .gift-banner-avatar{
-  width:32px;
-  height:32px;
-  border-radius:50%;
-  background:#fe2c55;
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-  font-size:14px;
-  border:2px solid #fff;
+  width:32px; height:32px; border-radius:50%; background:#fe2c55; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:14px; border:2px solid #fff;
 }
 .gift-banner-text{font-size:13px;color:#fff;font-weight:bold;}
 .gift-banner-text span{color:#ffeb3b;}
@@ -149,15 +167,7 @@ body,html{width:100%;height:100%;background:#000;color:#fff;overflow:hidden}
 
 /* CINEMATIC OVERLAY FOR BIG GIFTS */
 #cinematicGiftOverlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.75);
-  z-index:100000;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  pointer-events:none;
+  position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:100000; display:none; align-items:center; justify-content:center; flex-direction:column; pointer-events:none;
 }
 #cinematicGiftOverlay.show{display:flex}
 .cinematic-emoji{font-size:120px;animation: cinematicPop 3s ease forwards;}
@@ -173,7 +183,7 @@ body,html{width:100%;height:100%;background:#000;color:#fff;overflow:hidden}
   0%{opacity:0} 20%{opacity:1} 80%{opacity:1} 100%{opacity:0}
 }
 
-/* GIFT DRAWER (MODAL) */
+/* GIFT DRAWER */
 #giftModal{position:fixed;bottom:-100%;left:0;right:0;background:#111;border-top-left-radius:20px;border-top-right-radius:20px;z-index:99998;transition:bottom 0.3s ease;padding:18px;border-top:1px solid #333}
 #giftModal.show{bottom:0}
 .gift-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-height:290px;overflow-y:auto;margin:15px 0;padding-right:5px}
@@ -188,28 +198,15 @@ body,html{width:100%;height:100%;background:#000;color:#fff;overflow:hidden}
 
 /* SMOOTH VERTICAL SNAP-SCROLL FEED */
 .feed-container{
-  width:100%;
-  height:100%;
-  overflow-y:scroll;
-  scroll-snap-type:y mandatory;
-  -webkit-overflow-scrolling:touch;
+  width:100%; height:100%; overflow-y:scroll; scroll-snap-type:y mandatory; -webkit-overflow-scrolling:touch;
 }
 .feed-item{
-  position:relative;
-  width:100%;
-  height:100%;
-  scroll-snap-align:start;
-  scroll-snap-stop:always;
-  background:#111;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
+  position:relative; width:100%; height:100%; scroll-snap-align:start; scroll-snap-stop:always; background:#111; display:flex; align-items:center; justify-content:center; overflow:hidden;
 }
 
 video, img.live-bg{width:100%;height:100%;object-fit:cover}
 
-/* ACTIONS SIDEBAR (MATCHING SCREENSHOT WITH LIKE, COMMENT, SAVE, SHARE) */
+/* ACTIONS SIDEBAR */
 .actions{position:absolute;right:10px;bottom:75px;display:flex;flex-direction:column;gap:15px;align-items:center;z-index:5}
 .act{width:48px;height:48px;background:rgba(0,0,0,0.3);backdrop-filter:blur(5px);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;border:none;cursor:pointer}
 .act small{display:block;font-size:11px;text-align:center;margin-top:2px;color:#fff;font-weight:bold;text-shadow:0 1px 3px rgba(0,0,0,0.8)}
@@ -221,7 +218,12 @@ video, img.live-bg{width:100%;height:100%;object-fit:cover}
 nav{position:fixed;bottom:0;width:100%;height:60px;background:rgba(0,0,0,0.95);display:flex;justify-content:space-around;align-items:center;border-top:1px solid #222;z-index:20}
 nav button{background:none;border:none;color:#fff;font-size:15px;cursor:pointer}
 nav button.active{color:#fe2c55;font-weight:bold}
-nav .plus{font-size:24px;background:#fff;color:#000;width:42px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:bold}
+
+/* BRAND GRADIENT PLUS BUTTON */
+nav .plus-brand-btn {
+  width: 45px; height: 32px; background: #fff; border-radius: 9px; position: relative; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; color: #000; border: none; cursor: pointer; box-shadow: -4px 0 0 #00f0ff, 4px 0 0 #ffeb3b; transition: transform 0.15s ease;
+}
+nav .plus-brand-btn:active { transform: scale(0.92); }
 
 .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;padding:2px;overflow-y:auto;height:100%}
 .grid video{width:100%;aspect-ratio:9/16;object-fit:cover;background:#222}
@@ -281,7 +283,7 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
 .song-info p{font-size:12px; color:#aaa;}
 .song-use-btn{background:#fe2c55; color:#fff; border:none; padding:6px 14px; border-radius:16px;font-size:12px; font-weight:bold; cursor:pointer;}
 
-/* CAMERA STUDIO WITH AR FILTERS */
+/* CAMERA STUDIO & AR FILTERS WITH L BRANDED SHUTTER BUTTON */
 #cameraStudioPage {
   position:absolute; inset:0; background:#000; z-index:50; display:none; flex-direction:column; overflow:hidden;
 }
@@ -318,7 +320,7 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
   position: absolute; bottom: 15px; left: 0; right: 0; z-index: 5; display: flex; flex-direction: column; align-items: center; gap: 12px;
 }
 .camera-modes-row {
-  display: flex; gap: 20px; align-items: center; font-size: 15px; font-weight: bold; color: #aaa; text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  display: flex; gap: 16px; align-items: center; font-size: 14px; font-weight: bold; color: #aaa; text-shadow: 0 2px 4px rgba(0,0,0,0.8); overflow-x:auto; width:100%; padding:0 15px; justify-content:center;
 }
 .camera-modes-row span.active { color: #fff; background: rgba(0,0,0,0.6); padding: 4px 12px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.3); }
 
@@ -334,18 +336,53 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
 .camera-shutter-row {
   display: flex; align-items: center; justify-content: space-around; width: 100%; padding: 0 25px;
 }
-.camera-shutter-btn {
-  width: 74px; height: 74px; border-radius: 50%; border: 4px solid #fff; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative;
+
+/* BRAND SHUTTER BUTTON (CYAN & YELLOW L BRAND GRADIENT SHADOW) */
+.camera-shutter-btn-brand {
+  width: 76px; height: 76px; border-radius: 50%; border: 4px solid #fff; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; box-shadow: -4px 0 15px rgba(0,240,255,0.6), 4px 0 15px rgba(255,235,59,0.6);
 }
-.camera-shutter-inner {
-  width: 58px; height: 58px; background: #fe2c55; border-radius: 50%; transition: transform 0.2s;
+.camera-shutter-inner-brand {
+  width: 58px; height: 58px; background: linear-gradient(135deg, #00f0ff, #ffeb3b); border-radius: 50%; transition: transform 0.2s; display:flex; align-items:center; justify-content:center; color:#000; font-weight:900; font-size:20px;
 }
-.camera-shutter-btn.recording .camera-shutter-inner {
-  transform: scale(0.6); border-radius: 8px; background: #ff0000;
+.camera-shutter-btn-brand.recording .camera-shutter-inner-brand {
+  transform: scale(0.65); border-radius: 12px; background: #ff0000; color:#fff;
 }
 .camera-effects-drawer-bar {
   display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0 16px; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px); height: 45px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; font-weight: bold;
 }
+
+/* 3-GUEST CALL GRID OVERLAY IN LIVE STREAM */
+#liveCallGridOverlay {
+  position: absolute; top: 70px; right: 12px; display: none; flex-direction: column; gap: 8px; z-index: 10;
+}
+.guest-call-box {
+  width: 100px; height: 130px; border-radius: 12px; background: #222; border: 2px solid #00f0ff; overflow: hidden; position: relative;
+}
+.guest-call-box video, .guest-call-box img { width: 100%; height: 100%; object-fit: cover; }
+.guest-call-name { position: absolute; bottom: 4px; left: 4px; font-size: 10px; background: rgba(0,0,0,0.6); padding: 2px 6px; border-radius: 8px; }
+
+/* 10-SEAT AUDIO ROOM OVERLAY PANEL */
+#audioRoomContainer {
+  position: absolute; inset: 0; background: linear-gradient(180deg, #0d0d1a, #1a1a3a); z-index: 8; display: none; flex-direction: column; align-items: center; padding-top: 80px; padding-bottom: 90px;
+}
+.audio-seats-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; padding: 20px; width: 100%; max-width: 420px;
+}
+.audio-seat {
+  display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer;
+}
+.audio-seat-circle {
+  width: 54px; height: 54px; border-radius: 50%; background: #252545; border: 2px dashed #00f0ff; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; color: #00f0ff; position: relative; box-shadow: 0 0 10px rgba(0,240,255,0.2);
+}
+.audio-seat-circle.occupied { border-style: solid; border-color: #ffeb3b; background: #333; color: #fff; box-shadow: 0 0 12px rgba(255,235,59,0.5); }
+.audio-seat span { font-size: 11px; color: #aaa; text-align: center; }
+.audio-controls-bar {
+  display: flex; gap: 20px; margin-top: auto; padding: 12px 24px; background: rgba(0,0,0,0.6); border-radius: 30px; backdrop-filter: blur(10px);
+}
+.audio-control-btn {
+  width: 50px; height: 50px; border-radius: 50%; background: #333; border: none; color: #fff; font-size: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.audio-control-btn.active { background: #fe2c55; }
 </style>
 </head>
 <body>
@@ -371,7 +408,10 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
 
 <!-- TIKTOK STYLE TOP HEADER NAVIGATION BAR -->
 <div class="tiktok-top-header">
-  <span onclick="switchTopTab(this, 'community')">Community</span>
+  <div class="tiktok-live-icon-btn" onclick="showPage('live','btn-live')">
+    <span class="live-dot"></span> LIVE
+  </div>
+  <span onclick="switchTopTab(this, 'explore')">Explore</span>
   <span onclick="switchTopTab(this, 'following')">Following</span>
   <span class="active" onclick="switchTopTab(this, 'foryou')">For You</span>
   <button class="tiktok-search-btn" onclick="openSearchModal()">🔍</button>
@@ -417,15 +457,15 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
   </div>
 </div>
 
-<!-- LIVE PAGE -->
+<!-- LIVE STREAMING FEED PAGE -->
 <div id="live" class="page" style="padding-top:55px;">
   <div class="feed-container">
     <div class="feed-item">
       <img class="live-bg" src="https://i.pravatar.cc/500?img=12">
-      <div style="position:absolute;top:15px;left:15px;background:red;color:white;padding:4px 10px;border-radius:20px;font-weight:bold;">🔴 LIVE • 1.2K watching</div>
-      <div style="position:absolute;bottom:75px;left:12px;color:white"><b>@sara_live</b><p>Come join my live! ❤️</p></div>
+      <div style="position:absolute;top:15px;left:15px;background:red;color:white;padding:4px 12px;border-radius:20px;font-weight:bold;font-size:13px;">🔴 LIVE • 1.2K watching</div>
+      <div style="position:absolute;bottom:75px;left:12px;color:white"><b>@sara_live</b><p>Come join my live broadcast! ❤️</p></div>
       <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);padding:10px;display:flex;gap:8px;align-items:center">
-        <input placeholder="Say something..." style="flex:1;padding:10px;border-radius:20px;border:none">
+        <input placeholder="Say something in live chat..." style="flex:1;padding:10px;border-radius:20px;border:none">
         <button onclick="openGiftModal()" style="background:#fe2c55;border:none;padding:10px 14px;border-radius:50%;font-size:20px;cursor:pointer">🎁</button>
       </div>
     </div>
@@ -438,11 +478,31 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
   <div class="grid" id="discoverGrid"></div>
 </div>
 
-<!-- PROFESSIONAL CAMERA STUDIO -->
+<!-- PROFESSIONAL CAMERA STUDIO WITH LIVE & 10-SEAT AUDIO ROOM -->
 <div id="cameraStudioPage">
   <video id="liveCameraFeed" autoplay playsinline muted></video>
   <div id="arStickerOverlay">🌸</div>
 
+  <!-- 3-Guest Call Grid Overlay for LIVE Mode -->
+  <div id="liveCallGridOverlay">
+    <div class="guest-call-box"><img src="https://i.pravatar.cc/100?img=15"><span class="guest-call-name">Guest 1</span></div>
+    <div class="guest-call-box"><img src="https://i.pravatar.cc/100?img=20"><span class="guest-call-name">Guest 2</span></div>
+    <div class="guest-call-box"><img src="https://i.pravatar.cc/100?img=25"><span class="guest-call-name">Guest 3</span></div>
+  </div>
+
+  <!-- 10-Seat Audio Room Container Overlay -->
+  <div id="audioRoomContainer">
+    <h3 style="color:#00f0ff;margin-bottom:5px;">🎙️ LTop Audio Room</h3>
+    <p style="font-size:12px;color:#aaa;">10 Seats Available • Tap any seat to join</p>
+    <div class="audio-seats-grid" id="audioSeatsGrid"></div>
+    <div class="audio-controls-bar">
+      <button class="audio-control-btn" id="audioMicToggleBtn" onclick="toggleAudioRoomMic()">🎙️</button>
+      <button class="audio-control-btn" onclick="openGiftModal()">🎁</button>
+      <button class="audio-control-btn active" onclick="leaveAudioSeat()">🚪</button>
+    </div>
+  </div>
+
+  <!-- Top Bar -->
   <div class="camera-top-bar">
     <button class="camera-close-btn" onclick="closeCameraStudio()">✕</button>
     <div class="camera-add-sound-pill" onclick="openSongModal()">
@@ -451,24 +511,29 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
     <div style="width:36px;"></div>
   </div>
 
+  <!-- Right Side Tools Panel -->
   <div class="camera-right-panel">
     <button class="camera-tool-icon" onclick="flipCamera()">🔄<span>Flip</span></button>
     <button class="camera-tool-icon" onclick="toggleCameraFlash()">⚡<span>Flash</span></button>
-    <button class="camera-tool-icon" onclick="toggleTimer()">⏱️<span>Timer</span></button>
-    <button class="camera-tool-icon" onclick="toggleLayoutGrid()">🔲<span>Grid</span></button>
+    <button class="camera-tool-icon" id="liveMicToggleBtn" onclick="toggleLiveMic()">🎙️<span>Mic</span></button>
+    <button class="camera-tool-icon" id="callReqBtn" onclick="handleGuestCallRequest()">📞<span>Call</span></button>
     <button class="camera-tool-icon" onclick="cycleBeautyFilter()">✨<span>Filters</span></button>
     <button class="camera-tool-icon" onclick="openSongModal()">📋<span>Effects</span></button>
   </div>
 
+  <!-- Bottom Panel -->
   <div class="camera-bottom-panel">
+    <!-- Recording & Live Mode Row -->
     <div class="camera-modes-row">
-      <span onclick="setCameraMode(this)">10m</span>
-      <span onclick="setCameraMode(this)">60s</span>
-      <span class="active" onclick="setCameraMode(this)">15s</span>
-      <span onclick="setCameraMode(this)">PHOTO</span>
-      <span onclick="setCameraMode(this)">TEXT</span>
+      <span onclick="setCameraMode(this, 'video')">10m</span>
+      <span onclick="setCameraMode(this, 'video')">60s</span>
+      <span class="active" onclick="setCameraMode(this, 'video')">15s</span>
+      <span onclick="setCameraMode(this, 'photo')">PHOTO</span>
+      <span onclick="setCameraMode(this, 'golive')">GO LIVE 🔴</span>
+      <span onclick="setCameraMode(this, 'audioroom')">Audio Room 🎙️</span>
     </div>
 
+    <!-- AR Filters Carousel Tray -->
     <div class="ar-filters-tray" id="arFiltersTray">
       <div class="ar-filter-thumb active" onclick="applyARFilter(0, 'none', '')">✨</div>
       <div class="ar-filter-thumb" onclick="applyARFilter(1, 'sepia(0.5) contrast(1.2)', '🌸')">🌸</div>
@@ -477,10 +542,11 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
       <div class="ar-filter-thumb" onclick="applyARFilter(4, 'hue-rotate(90deg)', '🌟')">🌟</div>
     </div>
 
+    <!-- Brand Shutter Button Row -->
     <div class="camera-shutter-row">
       <img class="ar-filter-thumb" src="https://i.pravatar.cc/100?img=12" onclick="openSongModal()" style="width:44px;height:44px;min-width:44px;">
-      <div class="camera-shutter-btn" id="shutterBtn" onclick="toggleRecording()">
-        <div class="camera-shutter-inner"></div>
+      <div class="camera-shutter-btn-brand" id="shutterBtn" onclick="toggleRecording()">
+        <div class="camera-shutter-inner-brand" id="shutterLabel">L</div>
       </div>
       <div style="width:44px; height:44px; border-radius:12px; background:rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; cursor:pointer;" onclick="triggerGalleryUpload()">📁</div>
     </div>
@@ -495,9 +561,9 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
 <!-- UPLOAD PAGE -->
 <div id="upload" class="page">
   <div class="box" style="padding-top:20px">
-    <h2>➕ LTop Camera Studio</h2>
-    <p>Tap below to launch professional camera shoot studio:</p>
-    <button class="btn" onclick="openCameraStudio()" style="background:#fe2c55;margin:15px 0;">Launch Camera Shoot 🎥✨</button>
+    <h2>➕ LTop Camera & Live Studio</h2>
+    <p>Tap below to launch professional studio:</p>
+    <button class="btn" onclick="openCameraStudio()" style="background:#fe2c55;margin:15px 0;">Launch Studio 🎥🎙️</button>
   </div>
 </div>
 
@@ -693,7 +759,7 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
 <nav>
   <button id="btn-home" class="active" onclick="showPage('home','btn-home')">Home</button>
   <button id="btn-discover" onclick="showPage('discover','btn-discover')">Discover</button>
-  <button class="plus" onclick="checkAuthAndProceed('cameraStudio')">+</button>
+  <button class="plus-brand-btn" onclick="checkAuthAndProceed('cameraStudio')">+</button>
   <button id="btn-inbox" onclick="checkAuthAndProceed('inbox')">Inbox</button>
   <button id="btn-me" onclick="showPage('me','btn-me')">Me</button>
 </nav>
@@ -720,6 +786,7 @@ window.onload = function() {
   else { document.getElementById('profileGuestView').style.display = 'block'; document.getElementById('profileUserView').style.display = 'none'; }
   renderGifts();
   renderSongs('hot');
+  renderAudioSeats();
   setupVideoAutoplayOnScroll();
 };
 
@@ -773,7 +840,11 @@ function checkAuthAndProceed(pageId) {
 function switchTopTab(tabEl, tabName) {
   document.querySelectorAll('.tiktok-top-header span').forEach(s => s.classList.remove('active'));
   tabEl.classList.add('active');
-  alert(`Switched to ${tabName.toUpperCase()} feed stream.`);
+  if(tabName === 'explore') {
+    showPage('discover', 'btn-discover');
+  } else {
+    showPage('home', 'btn-home');
+  }
 }
 
 function openSearchModal() {
@@ -862,12 +933,8 @@ function logoutUser() {
   if(confirm('Are you sure you want to log out?')) { localStorage.clear(); location.reload(); }
 }
 
-function openProfileSettingsMenu() {
-  document.getElementById('settingsDrawer').style.bottom = '0';
-}
-function closeProfileSettingsMenu() {
-  document.getElementById('settingsDrawer').style.bottom = '-100%';
-}
+function openProfileSettingsMenu() { document.getElementById('settingsDrawer').style.bottom = '0'; }
+function closeProfileSettingsMenu() { document.getElementById('settingsDrawer').style.bottom = '-100%'; }
 
 function showPage(id,btn){
  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -878,16 +945,21 @@ function showPage(id,btn){
    let targetBtn = document.getElementById(btn);
    if(targetBtn) targetBtn.classList.add('active');
  }
- if(id==='home'){
-   let firstVid = document.querySelector('#homeFeed video');
+ if(id==='home' || id==='live'){
+   let firstVid = document.querySelector(`#${id} video`);
    if(firstVid) firstVid.play();
  }
 }
 
-// CAMERA STUDIO & AR FILTERS
+// CAMERA STUDIO & LIVE & 10-SEAT AUDIO ROOM
 let cameraStream = null;
 let currentFacingMode = 'user';
 let flashActive = false;
+let currentStudioMode = 'video';
+let liveMicMuted = false;
+let audioRoomMicMuted = false;
+let joinedSeatIndex = -1;
+let audioSeats = Array(10).fill(null);
 
 async function openCameraStudio() {
   document.getElementById('cameraStudioPage').style.display = 'flex';
@@ -902,6 +974,8 @@ async function openCameraStudio() {
 function closeCameraStudio() {
   if (cameraStream) { cameraStream.getTracks().forEach(track => track.stop()); }
   document.getElementById('cameraStudioPage').style.display = 'none';
+  document.getElementById('liveCallGridOverlay').style.display = 'none';
+  document.getElementById('audioRoomContainer').style.display = 'none';
   showPage('home', 'btn-home');
 }
 
@@ -921,8 +995,102 @@ function toggleCameraFlash() {
   alert(flashActive ? 'Flashlight ON ⚡' : 'Flashlight OFF');
 }
 
-function toggleTimer() { alert('Timer set to 3s ⏱️'); }
-function toggleLayoutGrid() { alert('Grid toggled 🔲'); }
+function toggleLiveMic() {
+  liveMicMuted = !liveMicMuted;
+  if(cameraStream) {
+    cameraStream.getAudioTracks().forEach(track => track.enabled = !liveMicMuted);
+  }
+  let btn = document.getElementById('liveMicToggleBtn');
+  btn.style.background = liveMicMuted ? '#fe2c55' : 'rgba(0,0,0,0.5)';
+  alert(liveMicMuted ? 'Live Mic Muted 🔇' : 'Live Mic Active 🎙️');
+}
+
+function handleGuestCallRequest() {
+  let callGrid = document.getElementById('liveCallGridOverlay');
+  if(callGrid.style.display === 'flex') {
+    callGrid.style.display = 'none';
+    alert('Ended multi-guest video call.');
+  } else {
+    callGrid.style.display = 'flex';
+    alert('Accepted Guest Call Request! 3 Guest seats active on Live stream 📞✨');
+  }
+}
+
+function setCameraMode(el, modeType) {
+  document.querySelectorAll('.camera-modes-row span').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  currentStudioMode = modeType;
+  
+  let callGrid = document.getElementById('liveCallGridOverlay');
+  let audioContainer = document.getElementById('audioRoomContainer');
+  let shutterLabel = document.getElementById('shutterLabel');
+
+  if (modeType === 'golive') {
+    callGrid.style.display = 'none';
+    audioContainer.style.display = 'none';
+    shutterLabel.innerText = '🔴';
+    alert('Switched to GO LIVE broadcast mode! Tap shutter to start streaming.');
+  } else if (modeType === 'audioroom') {
+    callGrid.style.display = 'none';
+    audioContainer.style.display = 'flex';
+    shutterLabel.innerText = '🎙️';
+    alert('Switched to 10-Seat Audio Room Mode!');
+  } else {
+    callGrid.style.display = 'none';
+    audioContainer.style.display = 'none';
+    shutterLabel.innerText = 'L';
+  }
+}
+
+function renderAudioSeats() {
+  let grid = document.getElementById('audioSeatsGrid');
+  grid.innerHTML = '';
+  audioSeats.forEach((user, idx) => {
+    let seatNum = idx + 1;
+    let isOccupied = user !== null;
+    grid.innerHTML += `
+      <div class="audio-seat" onclick="toggleJoinSeat(${idx})">
+        <div class="audio-seat-circle ${isOccupied ? 'occupied' : ''}">
+          ${isOccupied ? user.charAt(1).toUpperCase() : seatNum}
+        </div>
+        <span>${isOccupied ? user : 'Seat ' + seatNum}</span>
+      </div>
+    `;
+  });
+}
+
+function toggleJoinSeat(index) {
+  let username = localStorage.getItem('ltop_user') || '@user';
+  if (audioSeats[index] === null) {
+    if (joinedSeatIndex !== -1) { audioSeats[joinedSeatIndex] = null; }
+    audioSeats[index] = username;
+    joinedSeatIndex = index;
+    alert(`Joined Seat #${index + 1}! 🎙️`);
+  } else if (audioSeats[index] === username) {
+    audioSeats[index] = null;
+    joinedSeatIndex = -1;
+    alert(`Left Seat #${index + 1}.`);
+  } else {
+    alert(`Seat #${index + 1} is occupied by ${audioSeats[index]}`);
+  }
+  renderAudioSeats();
+}
+
+function leaveAudioSeat() {
+  if (joinedSeatIndex !== -1) {
+    audioSeats[joinedSeatIndex] = null;
+    joinedSeatIndex = -1;
+    renderAudioSeats();
+    alert('Left audio seat.');
+  }
+}
+
+function toggleAudioRoomMic() {
+  audioRoomMicMuted = !audioRoomMicMuted;
+  let btn = document.getElementById('audioMicToggleBtn');
+  btn.classList.toggle('active', audioRoomMicMuted);
+  alert(audioRoomMicMuted ? 'Audio Room Mic Muted 🔇' : 'Audio Room Mic Unmuted 🎙️');
+}
 
 function applyARFilter(index, cssFilter, stickerEmoji) {
   let thumbs = document.querySelectorAll('.ar-filter-thumb');
@@ -951,21 +1119,21 @@ function cycleBeautyFilter() {
   applyARFilter(filterIdx, f.css, f.sticker);
 }
 
-function setCameraMode(el) {
-  document.querySelectorAll('.camera-modes-row span').forEach(s => s.classList.remove('active'));
-  el.classList.add('active');
-  alert('Camera Mode: ' + el.innerText);
-}
-
 let isRecording = false;
 function toggleRecording() {
   let btn = document.getElementById('shutterBtn');
   isRecording = !isRecording;
-  if(isRecording) {
-    btn.classList.add('recording'); alert('Recording started 🔴');
+  if (currentStudioMode === 'golive') {
+    alert(isRecording ? 'LIVE stream broadcast started! 🔴' : 'LIVE broadcast ended.');
+  } else if (currentStudioMode === 'audioroom') {
+    alert(isRecording ? 'Audio Room session active 🎙️' : 'Audio Room session ended.');
   } else {
-    btn.classList.remove('recording'); alert('Video recorded successfully! 🎉');
-    closeCameraStudio(); showPage('home', 'btn-home');
+    if(isRecording) {
+      btn.classList.add('recording'); alert('Recording started 🔴');
+    } else {
+      btn.classList.remove('recording'); alert('Video recorded successfully! 🎉');
+      closeCameraStudio(); showPage('home', 'btn-home');
+    }
   }
 }
 
