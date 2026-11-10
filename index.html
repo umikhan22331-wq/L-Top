@@ -283,7 +283,7 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
 .song-info p{font-size:12px; color:#aaa;}
 .song-use-btn{background:#fe2c55; color:#fff; border:none; padding:6px 14px; border-radius:16px;font-size:12px; font-weight:bold; cursor:pointer;}
 
-/* CAMERA STUDIO & AR FILTERS WITH L BRANDED SHUTTER BUTTON */
+/* CAMERA STUDIO & AR FILTERS */
 #cameraStudioPage {
   position:absolute; inset:0; background:#000; z-index:50; display:none; flex-direction:column; overflow:hidden;
 }
@@ -319,10 +319,14 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
 .camera-bottom-panel {
   position: absolute; bottom: 15px; left: 0; right: 0; z-index: 5; display: flex; flex-direction: column; align-items: center; gap: 12px;
 }
+
+/* HORIZONTAL MODES SCROLL ROW (CLEAN & CLEAR) */
 .camera-modes-row {
-  display: flex; gap: 16px; align-items: center; font-size: 14px; font-weight: bold; color: #aaa; text-shadow: 0 2px 4px rgba(0,0,0,0.8); overflow-x:auto; width:100%; padding:0 15px; justify-content:center;
+  display: flex; gap: 14px; align-items: center; font-size: 13px; font-weight: bold; color: #ccc; text-shadow: 0 2px 4px rgba(0,0,0,0.9); overflow-x:auto; width:100%; padding:4px 15px; justify-content:flex-start; scrollbar-width:none;
 }
-.camera-modes-row span.active { color: #fff; background: rgba(0,0,0,0.6); padding: 4px 12px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.3); }
+.camera-modes-row::-webkit-scrollbar { display: none; }
+.camera-modes-row span { white-space: nowrap; cursor: pointer; opacity: 0.8; transition: all 0.2s; }
+.camera-modes-row span.active { color: #fff; opacity: 1; background: rgba(0,0,0,0.7); padding: 5px 14px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.3); font-weight: 900; }
 
 .ar-filters-tray {
   display: flex; gap: 12px; overflow-x: auto; width: 100%; padding: 4px 16px; scrollbar-width: none;
@@ -337,7 +341,7 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
   display: flex; align-items: center; justify-content: space-around; width: 100%; padding: 0 25px;
 }
 
-/* BRAND SHUTTER BUTTON (CYAN & YELLOW L BRAND GRADIENT SHADOW) */
+/* BRAND SHUTTER BUTTON */
 .camera-shutter-btn-brand {
   width: 76px; height: 76px; border-radius: 50%; border: 4px solid #fff; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; box-shadow: -4px 0 15px rgba(0,240,255,0.6), 4px 0 15px rgba(255,235,59,0.6);
 }
@@ -347,11 +351,13 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
 .camera-shutter-btn-brand.recording .camera-shutter-inner-brand {
   transform: scale(0.65); border-radius: 12px; background: #ff0000; color:#fff;
 }
-.camera-effects-drawer-bar {
-  display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0 16px; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px); height: 45px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; font-weight: bold;
+
+/* FLOATING FAVORITES & EFFECTS BUTTON PILL */
+.favorites-pill-btn {
+  position: absolute; left: 16px; bottom: 105px; z-index: 6; background: rgba(0,0,0,0.65); backdrop-filter: blur(10px); padding: 8px 16px; border-radius: 20px; display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: bold; color: #fff; border: 1px solid rgba(255,255,255,0.25); cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
-/* 3-GUEST CALL GRID OVERLAY IN LIVE STREAM */
+/* 3-GUEST CALL GRID OVERLAY */
 #liveCallGridOverlay {
   position: absolute; top: 70px; right: 12px; display: none; flex-direction: column; gap: 8px; z-index: 10;
 }
@@ -478,10 +484,15 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
   <div class="grid" id="discoverGrid"></div>
 </div>
 
-<!-- PROFESSIONAL CAMERA STUDIO WITH LIVE & 10-SEAT AUDIO ROOM -->
+<!-- CAMERA STUDIO WITH CLEAN NAVIGATION MODES & FAVORITES PILL -->
 <div id="cameraStudioPage">
   <video id="liveCameraFeed" autoplay playsinline muted></video>
   <div id="arStickerOverlay">🌸</div>
+
+  <!-- FLOATING FAVORITES PILL BUTTON -->
+  <div class="favorites-pill-btn" onclick="openSongModal()">
+    <span>🔖</span> Favorites & Effects ➔
+  </div>
 
   <!-- 3-Guest Call Grid Overlay for LIVE Mode -->
   <div id="liveCallGridOverlay">
@@ -490,7 +501,7 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
     <div class="guest-call-box"><img src="https://i.pravatar.cc/100?img=25"><span class="guest-call-name">Guest 3</span></div>
   </div>
 
-  <!-- 10-Seat Audio Room Container Overlay -->
+  <!-- 10-Seat Audio Room Overlay Panel -->
   <div id="audioRoomContainer">
     <h3 style="color:#00f0ff;margin-bottom:5px;">🎙️ LTop Audio Room</h3>
     <p style="font-size:12px;color:#aaa;">10 Seats Available • Tap any seat to join</p>
@@ -523,7 +534,7 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
 
   <!-- Bottom Panel -->
   <div class="camera-bottom-panel">
-    <!-- Recording & Live Mode Row -->
+    <!-- Clean Horizontal Scroll Modes Row (Including GO LIVE & Audio Room) -->
     <div class="camera-modes-row">
       <span onclick="setCameraMode(this, 'video')">10m</span>
       <span onclick="setCameraMode(this, 'video')">60s</span>
@@ -549,11 +560,6 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
         <div class="camera-shutter-inner-brand" id="shutterLabel">L</div>
       </div>
       <div style="width:44px; height:44px; border-radius:12px; background:rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; cursor:pointer;" onclick="triggerGalleryUpload()">📁</div>
-    </div>
-
-    <div class="camera-effects-drawer-bar" onclick="openSongModal()">
-      <div style="display:flex; align-items:center; gap:8px;"><span>🔖</span> Favorite effects & filters</div>
-      <span>➔</span>
     </div>
   </div>
 </div>
