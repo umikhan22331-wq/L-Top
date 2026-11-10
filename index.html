@@ -6,7 +6,54 @@
 <title>LTop - Global Live & Video Platform</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#000;color:#fff;overflow:hidden}
+body,html{width:100%;height:100%;background:#000;color:#fff;overflow:hidden}
+
+/* PROFESSIONAL SPLASH SCREEN (1.5 SEC INTRO) */
+#splashScreen{
+  position:fixed;
+  inset:0;
+  background:#000;
+  z-index:999999;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  animation: fadeOutSplash 0.5s ease 1.3s forwards;
+}
+
+.splash-logo-container{
+  text-align:center;
+  animation: splashZoom 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.splash-l{
+  font-size:96px;
+  font-weight:900;
+  color:#fff;
+  line-height:1;
+  text-shadow: 3px 3px 0px #00f0ff, -3px -3px 0px #ffeb3b, 0 0 25px rgba(0,240,255,0.6);
+  letter-spacing: -2px;
+}
+
+.splash-top{
+  font-size:36px;
+  font-weight:800;
+  color:#fff;
+  letter-spacing:6px;
+  margin-top:5px;
+  text-transform:uppercase;
+  text-shadow: 0 0 15px rgba(255,235,59,0.5);
+}
+
+@keyframes splashZoom {
+  0%{transform:scale(0.5);opacity:0}
+  100%{transform:scale(1);opacity:1}
+}
+
+@keyframes fadeOutSplash {
+  0%{opacity:1;visibility:visible}
+  100%{opacity:0;visibility:hidden}
+}
 
 /* AUTH / LOGIN MODAL */
 #authScreen{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:99999;display:none;align-items:center;justify-content:center;padding:20px}
@@ -65,6 +112,46 @@ body{background:#000;color:#fff;overflow:hidden}
   font-size:24px;
 }
 
+/* FULLSCREEN CINEMATIC OVERLAY FOR BIG GIFTS (LION, CARS, ETC.) */
+#cinematicGiftOverlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.75);
+  z-index:100000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  pointer-events:none;
+}
+#cinematicGiftOverlay.show{display:flex}
+.cinematic-emoji{
+  font-size:120px;
+  animation: cinematicPop 3s ease forwards;
+}
+.cinematic-title{
+  margin-top:15px;
+  font-size:24px;
+  color:#ffeb3b;
+  font-weight:bold;
+  text-shadow:0 2px 10px #000;
+  text-align:center;
+  animation: fadeInOut 3s ease forwards;
+}
+
+@keyframes cinematicPop {
+  0%{transform:scale(0.2) rotate(-15deg);opacity:0}
+  30%{transform:scale(1.2) rotate(10deg);opacity:1}
+  70%{transform:scale(1) rotate(0deg);opacity:1}
+  100%{transform:scale(1.8);opacity:0}
+}
+@keyframes fadeInOut {
+  0%{opacity:0}
+  20%{opacity:1}
+  80%{opacity:1}
+  100%{opacity:0}
+}
+
 /* GIFT DRAWER (MODAL) */
 #giftModal{position:fixed;bottom:-100%;left:0;right:0;background:#111;border-top-left-radius:20px;border-top-right-radius:20px;z-index:99998;transition:bottom 0.3s ease;padding:18px;border-top:1px solid #333}
 #giftModal.show{bottom:0}
@@ -77,31 +164,178 @@ body{background:#000;color:#fff;overflow:hidden}
 
 header{position:fixed;top:0;width:100%;text-align:center;padding:12px;z-index:10;background:linear-gradient(#000,transparent);font-size:28px;font-weight:900}
 header b{color:#fff} header span{color:#fe2c55}
-.page{display:none;height:100vh;padding-top:55px;padding-bottom:65px;overflow-y:auto}
+.page{display:none;position:absolute;top:0;left:0;width:100%;height:100%;padding-top:55px;padding-bottom:60px;overflow:hidden}
 .page.active{display:block}
-.videoBox{position:relative;height:calc(100vh - 120px);background:#111;display:flex;align-items:center;justify-content:center;overflow:hidden}
-video{width:100%;height:100%;object-fit:cover}
-.actions{position:absolute;right:10px;bottom:20px;display:flex;flex-direction:column;gap:18px;align-items:center;z-index:5}
+
+/* SMOOTH VERTICAL SNAP-SCROLL FEED CONTAINERS */
+.feed-container{
+  width:100%;
+  height:100%;
+  overflow-y:scroll;
+  scroll-snap-type:y mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+.feed-item{
+  position:relative;
+  width:100%;
+  height:100%;
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+  background:#111;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+video, img.live-bg{width:100%;height:100%;object-fit:cover}
+.actions{position:absolute;right:10px;bottom:80px;display:flex;flex-direction:column;gap:18px;align-items:center;z-index:5}
 .act{width:52px;height:52px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;border:none;cursor:pointer}
 .act small{display:block;font-size:12px;text-align:center;margin-top:2px;color:#fff}
-.info{position:absolute;left:10px;bottom:20px;z-index:5;max-width:75%}
+.info{position:absolute;left:10px;bottom:80px;z-index:5;max-width:75%}
 .info h3{font-size:18px}
 .info p{font-size:13px;color:#ddd;margin-top:4px}
-nav{position:fixed;bottom:0;width:100%;height:60px;background:#000;display:flex;justify-content:space-around;align-items:center;border-top:1px solid #222;z-index:20}
+nav{position:fixed;bottom:0;width:100%;height:60px;background:rgba(0,0,0,0.95);display:flex;justify-content:space-around;align-items:center;border-top:1px solid #222;z-index:20}
 nav button{background:none;border:none;color:#fff;font-size:16px;cursor:pointer}
 nav button.active{color:#fe2c55;font-weight:bold}
 nav .plus{font-size:26px;background:#fff;color:#000;width:45px;border-radius:8px}
-.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;padding:2px}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;padding:2px;overflow-y:auto;height:100%}
 .grid video{width:100%;aspect-ratio:9/16;object-fit:cover;background:#222}
-.box{padding:15px}
+.box{padding:15px;overflow-y:auto;height:100%}
 input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:none;outline:none;background:#222;color:#fff}
 .btn{width:100%;padding:13px;background:#fe2c55;color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer}
-.profile{text-align:center;padding:20px}
+.profile{text-align:center;padding:20px;overflow-y:auto;height:100%}
 .avatar{width:90px;height:90px;border-radius:50%;background:#fe2c55;display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 10px}
-.msg{background:#1a1a1a;padding:12px;border-radius:12px;margin:10px}
+
+/* INBOX STYLING */
+.inbox-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid #1a1a1a; }
+.inbox-header h2 { font-size: 20px; font-weight: bold; }
+.inbox-stories { display: flex; gap: 15px; padding: 12px 16px; overflow-x: auto; border-bottom: 1px solid #1a1a1a; align-items: center; }
+.inbox-story-item { display: flex; flex-direction: column; align-items: center; gap: 5px; min-width: 60px; cursor: pointer; }
+.inbox-story-avatar { width: 54px; height: 54px; border-radius: 50%; border: 2px solid #fe2c55; padding: 2px; object-fit: cover; }
+.inbox-story-item span { font-size: 11px; color: #ccc; }
+.inbox-filters { display: flex; gap: 10px; padding: 12px 16px; align-items: center; overflow-x: auto; }
+.filter-chip { background: #1a1a1a; color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 13px; border: 1px solid #333; cursor: pointer; white-space: nowrap; }
+.filter-chip.active { background: #fff; color: #000; font-weight: bold; }
+.chat-list { padding: 0 16px; overflow-y: auto; max-height: calc(100vh - 290px); }
+.chat-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #111; cursor: pointer; }
+.chat-left { display: flex; align-items: center; gap: 12px; }
+.chat-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; background: #333; }
+.chat-info h4 { font-size: 14px; color: #fff; margin-bottom: 3px; display: flex; align-items: center; gap: 5px; }
+.chat-info p { font-size: 12px; color: #aaa; }
+.chat-right { display: flex; align-items: center; gap: 10px; }
+.badge-count { background: #fe2c55; color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 10px; font-weight: bold; }
+.cam-icon { font-size: 20px; color: #777; cursor: pointer; }
+
+/* CHAT MODAL */
+#chatModal{position:fixed;inset:0;background:#000;z-index:99999;display:none;flex-direction:column;}
+.chat-modal-header{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#111;border-bottom:1px solid #222;}
+.chat-modal-body{flex:1;padding:15px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;}
+.chat-bubble{max-width:75%;padding:10px 14px;border-radius:14px;font-size:14px;}
+.chat-bubble.incoming{background:#222;align-self:flex-start;}
+.chat-bubble.outgoing{background:#fe2c55;color:#fff;align-self:flex-end;}
+.chat-modal-footer{display:flex;padding:12px;background:#111;gap:10px;align-items:center;}
+
+/* SONG SELECTOR BOTTOM SHEET MODAL */
+#songModal{
+  position:fixed; bottom:-100%; left:0; right:0; height:70vh; background:#141414;
+  border-top-left-radius:24px; border-top-right-radius:24px; z-index:99999;
+  transition:bottom 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display:flex; flex-direction:column; box-shadow:0 -10px 30px rgba(0,0,0,0.8); border-top:1px solid #333;
+}
+#songModal.show{bottom:0}
+.song-handle-bar{width:40px; height:4px; background:#555; border-radius:2px; margin:10px auto; cursor:pointer;}
+.song-header-tabs{display:flex; align-items:center; justify-content:space-between; padding:0 16px 12px; border-bottom:1px solid #222;}
+.song-tabs-left{display:flex; gap:20px; align-items:center;}
+.song-tab{font-size:15px; color:#aaa; cursor:pointer; font-weight:bold; position:relative; padding-bottom:4px;}
+.song-tab.active{color:#fff;}
+.song-tab.active::after{content:''; position:absolute; bottom:0; left:0; width:100%; height:3px; background:#fff; border-radius:2px;}
+.song-search-icon{font-size:20px; color:#fff; cursor:pointer; padding:6px; background:#222; border-radius:50%;}
+.song-search-box-wrap{padding:12px 16px; background:#1c1c1c; display:none; border-bottom:1px solid #2c2c2c;}
+.song-list-container{flex:1; overflow-y:auto; padding:10px 16px;}
+.song-row{display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid #1c1c1c; cursor:pointer;}
+.song-row-left{display:flex; align-items:center; gap:12px;}
+.song-thumb{width:48px; height:48px; border-radius:8px; object-fit:cover; background:#2a2a2a;}
+.song-info h4{font-size:14px; color:#fff; margin-bottom:3px;}
+.song-info p{font-size:12px; color:#aaa;}
+.song-use-btn{background:#fe2c55; color:#fff; border:none; padding:6px 14px; border-radius:16px;font-size:12px; font-weight:bold; cursor:pointer;}
+
+/* CAMERA STUDIO WITH AR FILTERS */
+#cameraStudioPage {
+  position:absolute; inset:0; background:#000; z-index:50; display:none; flex-direction:column; overflow:hidden;
+}
+#liveCameraFeed {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;
+}
+#arStickerOverlay {
+  position: absolute; top: 35%; left: 25%; font-size: 56px; z-index: 3; pointer-events: none;
+  animation: floatSticker 2s ease-in-out infinite alternate; display: none;
+}
+@keyframes floatSticker {
+  0% { transform: translateY(0px) rotate(-5deg); }
+  100% { transform: translateY(-10px) rotate(5deg); }
+}
+
+.camera-top-bar {
+  position: absolute; top: 15px; left: 0; right: 0; z-index: 5; display: flex; justify-content: space-between; align-items: center; padding: 0 16px;
+}
+.camera-close-btn { font-size: 24px; color: #fff; background: rgba(0,0,0,0.4); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; }
+.camera-add-sound-pill {
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); padding: 8px 18px; border-radius: 20px;
+  display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: bold; color: #fff; cursor: pointer; border: 1px solid rgba(255,255,255,0.2);
+}
+.camera-right-panel {
+  position: absolute; right: 12px; top: 75px; z-index: 5; display: flex; flex-direction: column; gap: 16px; align-items: center;
+}
+.camera-tool-icon {
+  background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); width: 42px; height: 42px; border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 18px; color: #fff; cursor: pointer; border: none;
+}
+.camera-tool-icon span { font-size: 9px; margin-top: 1px; color: #ddd; }
+
+.camera-bottom-panel {
+  position: absolute; bottom: 15px; left: 0; right: 0; z-index: 5; display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.camera-modes-row {
+  display: flex; gap: 20px; align-items: center; font-size: 15px; font-weight: bold; color: #aaa; text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+.camera-modes-row span.active { color: #fff; background: rgba(0,0,0,0.6); padding: 4px 12px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.3); }
+
+.ar-filters-tray {
+  display: flex; gap: 12px; overflow-x: auto; width: 100%; padding: 4px 16px; scrollbar-width: none;
+}
+.ar-filter-thumb {
+  min-width: 50px; height: 50px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.6); object-fit: cover; cursor: pointer; background: #222; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.ar-filter-thumb.active { border-color: #fe2c55; transform: scale(1.1); }
+
+.camera-shutter-row {
+  display: flex; align-items: center; justify-content: space-around; width: 100%; padding: 0 25px;
+}
+.camera-shutter-btn {
+  width: 74px; height: 74px; border-radius: 50%; border: 4px solid #fff; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative;
+}
+.camera-shutter-inner {
+  width: 58px; height: 58px; background: #fe2c55; border-radius: 50%; transition: transform 0.2s;
+}
+.camera-shutter-btn.recording .camera-shutter-inner {
+  transform: scale(0.6); border-radius: 8px; background: #ff0000;
+}
+.camera-effects-drawer-bar {
+  display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0 16px; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px); height: 45px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; font-weight: bold;
+}
 </style>
 </head>
 <body>
+
+<!-- SPLASH SCREEN INTRO (1.5 SECONDS) -->
+<div id="splashScreen">
+  <div class="splash-logo-container">
+    <div class="splash-l">L</div>
+    <div class="splash-top">Top</div>
+  </div>
+</div>
 
 <!-- LOGIN / SIGNUP MODAL -->
 <div id="authScreen">
@@ -114,32 +348,43 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
   </div>
 </div>
 
-<header><b>L</b><span>Top</span><button onclick="showPage('live')" style="background:#ff0000;color:#fff;border:none;padding:5px 10px;border-radius:15px;margin-left:10px;font-weight:bold;cursor:pointer">● LIVE</button></header>
+<header><b>L</b><span>Top</span><button onclick="showPage('live','btn-live')" style="background:#ff0000;color:#fff;border:none;padding:5px 10px;border-radius:15px;margin-left:10px;font-weight:bold;cursor:pointer">● LIVE</button></header>
 
-<!-- HOME -->
+<!-- HOME FEED -->
 <div id="home" class="page active">
-  <div class="videoBox">
-    <video id="mainVideo" src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" loop playsinline onclick="this.paused?this.play():this.pause()"></video>
-    <div class="actions">
-      <div><button class="act" onclick="like(this)">❤️</button><small id="likeCount">12.5K</small></div>
-      <div><button class="act" onclick="showComment()">💬</button><small>850</small></div>
-      <div><button class="act" onclick="shareApp()">↗️</button><small>Share</small></div>
+  <div class="feed-container" id="homeFeed">
+    <div class="feed-item">
+      <video src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" loop playsinline onclick="this.paused?this.play():this.pause()"></video>
+      <div class="actions">
+        <div><button class="act" onclick="like(this)">❤️</button><small class="likeCount">12.5K</small></div>
+        <div><button class="act" onclick="showComment()">💬</button><small>850</small></div>
+        <div><button class="act" onclick="shareApp()">↗️</button><small>Share</small></div>
+      </div>
+      <div class="info" style="display:flex;align-items:center;gap:10px">
+        <img src="https://i.pravatar.cc/100?img=1" style="width:48px;height:48px;border-radius:50%;border:2px solid white;object-fit:cover">
+        <div><h3 class="displayUsername">@l_top_official</h3><p>Welcome to LTop 🔥 #foryou</p></div>
+      </div>
     </div>
-    <div class="info" style="display:flex;align-items:center;gap:10px">
-      <img src="https://i.pravatar.cc/100" style="width:48px;height:48px;border-radius:50%;border:2px solid white;object-fit:cover">
-      <div>
-        <h3 id="displayUsername">@l_top_official</h3>
-        <p>Welcome to LTop 🔥 #foryou #viral</p>
+    <div class="feed-item">
+      <video src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" loop playsinline onclick="this.paused?this.play():this.pause()"></video>
+      <div class="actions">
+        <div><button class="act" onclick="like(this)">❤️</button><small class="likeCount">8.3K</small></div>
+        <div><button class="act" onclick="showComment()">💬</button><small>420</small></div>
+        <div><button class="act" onclick="shareApp()">↗️</button><small>Share</small></div>
+      </div>
+      <div class="info" style="display:flex;align-items:center;gap:10px">
+        <img src="https://i.pravatar.cc/100?img=2" style="width:48px;height:48px;border-radius:50%;border:2px solid white;object-fit:cover">
+        <div><h3>@sara_khan</h3><p>Amazing scenery! 🌴 #nature</p></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- LIVE PAGE - TIKTOK STYLE -->
+<!-- LIVE PAGE -->
 <div id="live" class="page">
-  <div style="height:calc(100vh - 120px);overflow-y:scroll;scroll-snap-type:y mandatory">
-    <div style="height:100%;scroll-snap-align:start;position:relative;background:#000">
-      <img src="https://i.pravatar.cc/500?img=12" style="width:100%;height:100%;object-fit:cover">
+  <div class="feed-container">
+    <div class="feed-item">
+      <img class="live-bg" src="https://i.pravatar.cc/500?img=12">
       <div style="position:absolute;top:10px;left:10px;background:red;color:white;padding:4px 10px;border-radius:20px">🔴 LIVE • 1.2K watching</div>
       <div style="position:absolute;bottom:70px;left:12px;color:white"><b>@sara_live</b><p>Come join my live! ❤️</p></div>
       <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);padding:10px;display:flex;gap:8px;align-items:center">
@@ -152,29 +397,142 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
 
 <!-- DISCOVER -->
 <div id="discover" class="page">
-  <div class="box"><h2>🔍 Discover</h2><p>Trending Videos</p></div>
+  <div class="box" style="padding-top:20px"><h2>🔍 Discover</h2><p>Trending Videos</p></div>
   <div class="grid" id="discoverGrid"></div>
 </div>
 
-<!-- UPLOAD -->
-<div id="upload" class="page">
-  <div class="box">
-    <h2>➕ Upload Video</h2>
-    <p>Choose your video:</p>
-    <input type="file" id="fileInput" accept="video/*" onchange="previewVideo(event)">
-    <video id="preview" controls style="width:100%;border-radius:12px;display:none;margin:10px 0"></video>
-    <input id="caption" placeholder="Write a caption... #foryou">
-    <button class="btn" onclick="postVideo()">Post Video 🚀</button>
-    <p id="postMsg" style="margin-top:10px;color:#25F4EE"></p>
+<!-- PROFESSIONAL CAMERA STUDIO -->
+<div id="cameraStudioPage">
+  <video id="liveCameraFeed" autoplay playsinline muted></video>
+  <div id="arStickerOverlay">🌸</div>
+
+  <div class="camera-top-bar">
+    <button class="camera-close-btn" onclick="closeCameraStudio()">✕</button>
+    <div class="camera-add-sound-pill" onclick="openSongModal()">
+      <span>🎵</span> <span id="cameraActiveSongTitle">Add sound</span>
+    </div>
+    <div style="width:36px;"></div>
   </div>
+
+  <div class="camera-right-panel">
+    <button class="camera-tool-icon" onclick="flipCamera()">🔄<span>Flip</span></button>
+    <button class="camera-tool-icon" onclick="toggleCameraFlash()">⚡<span>Flash</span></button>
+    <button class="camera-tool-icon" onclick="toggleTimer()">⏱️<span>Timer</span></button>
+    <button class="camera-tool-icon" onclick="toggleLayoutGrid()">🔲<span>Grid</span></button>
+    <button class="camera-tool-icon" onclick="cycleBeautyFilter()">✨<span>Filters</span></button>
+    <button class="camera-tool-icon" onclick="openSongModal()">📋<span>Effects</span></button>
+  </div>
+
+  <div class="camera-bottom-panel">
+    <div class="camera-modes-row">
+      <span onclick="setCameraMode(this)">10m</span>
+      <span onclick="setCameraMode(this)">60s</span>
+      <span class="active" onclick="setCameraMode(this)">15s</span>
+      <span onclick="setCameraMode(this)">PHOTO</span>
+      <span onclick="setCameraMode(this)">TEXT</span>
+    </div>
+
+    <div class="ar-filters-tray" id="arFiltersTray">
+      <div class="ar-filter-thumb active" onclick="applyARFilter(0, 'none', '')">✨</div>
+      <div class="ar-filter-thumb" onclick="applyARFilter(1, 'sepia(0.5) contrast(1.2)', '🌸')">🌸</div>
+      <div class="ar-filter-thumb" onclick="applyARFilter(2, 'brightness(1.4) saturate(1.5)', '💖')">💖</div>
+      <div class="ar-filter-thumb" onclick="applyARFilter(3, 'grayscale(1) contrast(1.4)', '🕶️')">🕶️</div>
+      <div class="ar-filter-thumb" onclick="applyARFilter(4, 'hue-rotate(90deg)', '🌟')">🌟</div>
+    </div>
+
+    <div class="camera-shutter-row">
+      <img class="ar-filter-thumb" src="https://i.pravatar.cc/100?img=12" onclick="openSongModal()" style="width:44px;height:44px;min-width:44px;">
+      <div class="camera-shutter-btn" id="shutterBtn" onclick="toggleRecording()">
+        <div class="camera-shutter-inner"></div>
+      </div>
+      <div style="width:44px; height:44px; border-radius:12px; background:rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; cursor:pointer;" onclick="triggerGalleryUpload()">📁</div>
+    </div>
+
+    <div class="camera-effects-drawer-bar" onclick="openSongModal()">
+      <div style="display:flex; align-items:center; gap:8px;"><span>🔖</span> Favorite effects & filters</div>
+      <span>➔</span>
+    </div>
+  </div>
+</div>
+
+<!-- UPLOAD PAGE -->
+<div id="upload" class="page">
+  <div class="box" style="padding-top:20px">
+    <h2>➕ LTop Camera Studio</h2>
+    <p>Tap below to launch professional camera shoot studio:</p>
+    <button class="btn" onclick="openCameraStudio()" style="background:#fe2c55;margin:15px 0;">Launch Camera Shoot 🎥✨</button>
+  </div>
+</div>
+
+<!-- SONG SELECTOR MODAL -->
+<div id="songModal">
+  <div class="song-handle-bar" onclick="closeSongModal()"></div>
+  <div class="song-header-tabs">
+    <div class="song-tabs-left">
+      <div class="song-tab active" onclick="switchSongTab(this, 'hot')">Hot</div>
+      <div class="song-tab" onclick="switchSongTab(this, 'foryou')">For You</div>
+      <div class="song-tab" onclick="switchSongTab(this, 'favorites')">Favorites</div>
+      <div class="song-tab" onclick="switchSongTab(this, 'recent')">Recent</div>
+    </div>
+    <div class="song-search-icon" onclick="toggleSongSearch()">🔍</div>
+  </div>
+  <div class="song-search-box-wrap" id="songSearchBoxWrap">
+    <input type="text" id="songSearchInput" placeholder="Search artists, songs or audio..." oninput="filterSongs(this.value)" style="margin:0;padding:10px;">
+  </div>
+  <div class="song-list-container" id="songListContainer"></div>
 </div>
 
 <!-- INBOX -->
 <div id="inbox" class="page">
-  <div class="box"><h2>💬 Inbox</h2></div>
-  <div class="msg"><b>@sara_khan</b><p>Wow amazing video! 🔥</p></div>
-  <div class="msg"><b>@ali_123</b><p>Follow back please 🙏</p></div>
-  <div class="msg"><b>@l_top_official</b><p>Welcome to LTop ❤️</p></div>
+  <div class="inbox-header">
+    <h2>Inbox</h2>
+    <div style="display:flex; gap:15px; font-size:20px; cursor:pointer;">
+      <span onclick="openRealSearch()" title="Search Chats">🔍</span>
+      <span onclick="openInboxSettings()" title="Inbox Options">⋯</span>
+    </div>
+  </div>
+  <div id="inboxSearchBox" style="display:none; padding:8px 16px; background:#111;">
+    <input type="text" id="chatSearchInput" placeholder="Search conversations..." oninput="filterChats(this.value)">
+  </div>
+  <div class="inbox-stories">
+    <div class="inbox-story-item" onclick="openCameraStudio()">
+      <div style="position:relative;">
+        <img class="inbox-story-avatar" src="https://i.pravatar.cc/100?img=11">
+        <span style="position:absolute;bottom:0;right:0;background:#25F4EE;color:#000;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;">+</span>
+      </div>
+      <span>Create</span>
+    </div>
+  </div>
+  <div class="inbox-filters">
+    <div class="filter-chip active" onclick="switchFilter(this, 'all')">Main 10</div>
+    <div class="filter-chip" onclick="switchFilter(this, 'requests')">Requests ></div>
+    <div class="filter-chip" onclick="switchFilter(this, 'unread')">Unread 10</div>
+  </div>
+  <div class="chat-list" id="chatListContainer">
+    <div class="chat-row" data-category="unread" onclick="openChat('Activity & Notifications', 'https://i.pravatar.cc/100?img=11')">
+      <div class="chat-left">
+        <div style="width:50px;height:50px;border-radius:50%;background:#fe2c55;display:flex;align-items:center;justify-content:center;font-size:24px;">⚡</div>
+        <div class="chat-info"><h4>Activity & new followers</h4><p>Hammad Afridi33 liked your video</p></div>
+      </div>
+      <div class="chat-right"><span class="badge-count">8</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAT MODAL -->
+<div id="chatModal">
+  <div class="chat-modal-header">
+    <button onclick="closeChat()" style="background:none;border:none;color:#fff;font-size:22px;cursor:pointer;">←</button>
+    <img id="activeChatAvatar" src="" style="width:36px;height:36px;border-radius:50%;object-fit:cover;">
+    <h3 id="activeChatName" style="font-size:16px;">User</h3>
+  </div>
+  <div class="chat-modal-body" id="chatMessageList">
+    <div class="chat-bubble incoming">Hello! Welcome to LTop chat. 🔥</div>
+  </div>
+  <div class="chat-modal-footer">
+    <input type="text" id="chatInputMessage" placeholder="Type a message..." style="flex:1;padding:10px;border-radius:20px;border:none;">
+    <button class="btn" style="width:70px;padding:10px;" onclick="sendChatMessage()">Send</button>
+  </div>
 </div>
 
 <!-- ME (PROFILE) -->
@@ -185,8 +543,10 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
     <p>Log in to access your wallet, earnings & referral bonus.</p>
     <button class="btn" style="margin-top:15px;" onclick="openAuthModal()">Log In / Sign Up 🚀</button>
   </div>
-
   <div class="profile" id="profileUserView" style="display:none;">
+    <div style="display:flex;justify-content:flex-end;padding:0 10px;">
+      <button onclick="openProfileSettingsMenu()" style="background:none;border:none;color:#fff;font-size:24px;cursor:pointer;">☰</button>
+    </div>
     <div class="avatar" id="profileAvatarLetter">U</div>
     <h2 id="profileUsername">@l_top_official</h2>
     <p>10 Following | 1.2K Followers | 12.5K Likes</p>
@@ -211,11 +571,22 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
         <button class="btn" style="padding:8px;font-size:12px;background:#fe2c55;margin-top:5px;" onclick="applyReferralCode()">Claim +50 Referral Bonus 💎</button>
       </div>
     </div>
-
-    <button class="btn" onclick="showPage('settings')">⚙️ App Settings</button>
+    <div class="box" style="padding:10px 0"><h3>My Videos</h3></div>
+    <div class="grid" id="myGrid"></div>
   </div>
-  <div class="box"><h3>My Videos</h3></div>
-  <div class="grid" id="myGrid"></div>
+</div>
+
+<!-- PROFILE SETTINGS DRAWER -->
+<div id="settingsDrawer" style="position:fixed;bottom:-100%;left:0;right:0;height:60vh;background:#141414;border-top-left-radius:24px;border-top-right-radius:24px;z-index:99999;transition:bottom 0.3s ease;padding:20px;border-top:1px solid #333;">
+  <div style="width:40px;height:4px;background:#555;border-radius:2px;margin:0 auto 15px;cursor:pointer;" onclick="closeProfileSettingsMenu()"></div>
+  <h3 style="color:#fe2c55;margin-bottom:15px;text-align:center;">⚙️ Settings & Privacy</h3>
+  <div style="display:flex;flex-direction:column;gap:12px;">
+    <button class="btn" style="background:#222;text-align:left;" onclick="alert('Account & Security: 2FA Enabled')">🔒 Account & Security</button>
+    <button class="btn" style="background:#222;text-align:left;" onclick="alert('Privacy Settings: Account is Public')">👁️ Privacy Control</button>
+    <button class="btn" style="background:#222;text-align:left;" onclick="alert('Creator Tools: Analytics active')">📊 Creator Analytics</button>
+    <button class="btn" style="background:#222;text-align:left;" onclick="alert('Help Center: Submit support ticket')">🆘 Help & Support</button>
+    <button class="btn" style="background:#333;color:#ff4d4d;margin-top:10px;" onclick="logoutUser()">Log Out 🚪</button>
+  </div>
 </div>
 
 <!-- TOP UP MODAL -->
@@ -257,19 +628,7 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
   </div>
 </div>
 
-<!-- SETTINGS PAGE -->
-<div id="settings" class="page">
-  <div class="box">
-    <h2>⚙️ App Settings</h2>
-    <p>Manage your account and preferences</p>
-  </div>
-  <div style="padding: 15px;">
-    <button class="btn" style="background: #222; margin-bottom: 10px;" onclick="showPage('me','btn-me')">Back to Profile</button>
-    <button class="btn" style="background: #333; color: #ff4d4d;" onclick="logoutUser()">Log Out 🚪</button>
-  </div>
-</div>
-
-<!-- GIFT DRAWER MODAL HTML -->
+<!-- GIFT DRAWER MODAL -->
 <div id="giftModal">
   <div style="display:flex; justify-content:space-between; align-items:center;">
     <h3 style="color:#fe2c55;">🎁 LTop Gift Store</h3>
@@ -279,7 +638,7 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
   <div class="gift-grid" id="giftContainer"></div>
 </div>
 
-<!-- TIKTOK STYLE LEFT CORNER NOTIFICATION -->
+<!-- NOTIFICATION BANNER -->
 <div id="giftNotificationBanner">
   <div class="gift-banner-avatar" id="bannerAvatar">L</div>
   <div class="gift-banner-text">
@@ -288,59 +647,59 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
   <div class="gift-banner-emoji" id="bannerEmoji">🌹</div>
 </div>
 
+<!-- CINEMATIC OVERLAY -->
+<div id="cinematicGiftOverlay">
+  <div class="cinematic-emoji" id="cinematicEmoji">🦁</div>
+  <div class="cinematic-title" id="cinematicTitle">@user sent Lion 🦁</div>
+</div>
+
 <nav>
   <button id="btn-home" class="active" onclick="showPage('home','btn-home')">Home</button>
   <button id="btn-discover" onclick="showPage('discover','btn-discover')">Discover</button>
-  <button class="plus" onclick="checkAuthAndProceed('upload')">+</button>
+  <button class="plus" onclick="checkAuthAndProceed('cameraStudio')">+</button>
   <button id="btn-inbox" onclick="checkAuthAndProceed('inbox')">Inbox</button>
   <button id="btn-me" onclick="showPage('me','btn-me')">Me</button>
 </nav>
 
 <script>
-let videos=[
+let videoSamples=[
 "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
 "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
 "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
 "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
 ];
-let vi=0; let likes=12500;
+
+const MOCK_SONGS = [
+  {id:1, title:"LTop Club Anthem", artist:"DJ Luqman", category:"hot", duration:"0:30", img:"https://i.pravatar.cc/100?img=11"},
+  {id:2, title:"Summer Vibes 2026", artist:"Ali Beats", category:"foryou", duration:"0:55", img:"https://i.pravatar.cc/100?img=12"},
+  {id:3, title:"Urdu Rap Flow", artist:"Hammad King", category:"hot", duration:"0:45", img:"https://i.pravatar.cc/100?img=13"},
+  {id:4, title:"Romantic Instrumental", artist:"Sara Melodies", category:"favorites", duration:"1:00", img:"https://i.pravatar.cc/100?img=14"},
+  {id:5, title:"Speed Drive Bass", artist:"Zohan Vlogs", category:"recent", duration:"0:25", img:"https://i.pravatar.cc/100?img=15"}
+];
 
 window.onload = function() {
   let savedUser = localStorage.getItem('ltop_user');
-  if(savedUser) {
-    loadUserData();
-  } else {
-    document.getElementById('profileGuestView').style.display = 'block';
-    document.getElementById('profileUserView').style.display = 'none';
-  }
+  if(savedUser) { loadUserData(); } 
+  else { document.getElementById('profileGuestView').style.display = 'block'; document.getElementById('profileUserView').style.display = 'none'; }
   renderGifts();
+  renderSongs('hot');
+  setupVideoAutoplayOnScroll();
 };
 
-function openAuthModal() {
-  document.getElementById('authScreen').style.display = 'flex';
-}
-function closeAuthModal() {
-  document.getElementById('authScreen').style.display = 'none';
-}
+function openAuthModal() { document.getElementById('authScreen').style.display = 'flex'; }
+function closeAuthModal() { document.getElementById('authScreen').style.display = 'none'; }
 
 function registerUser() {
   let username = document.getElementById('usernameInput').value.trim();
-
-  if(!username) {
-    alert('Please enter your username!');
-    return;
-  }
-
+  if(!username) { alert('Please enter your username!'); return; }
   let diamonds = 20; 
   let myRef = 'LTOP-' + Math.floor(1000 + Math.random() * 9000);
-
   localStorage.setItem('ltop_user', '@' + username);
   localStorage.setItem('ltop_diamonds', diamonds);
   localStorage.setItem('ltop_earned', '0');
   localStorage.setItem('ltop_cash', '0.00');
   localStorage.setItem('ltop_ref', myRef);
   localStorage.setItem('ltop_ref_used', 'false');
-
   closeAuthModal();
   loadUserData();
   alert('Account created successfully! You received 20 Free Diamonds! 💎');
@@ -349,13 +708,11 @@ function registerUser() {
 function loadUserData() {
   let username = localStorage.getItem('ltop_user');
   if(!username) return;
-
   let diamonds = localStorage.getItem('ltop_diamonds') || '20';
   let earned = localStorage.getItem('ltop_earned') || '0';
   let cash = localStorage.getItem('ltop_cash') || '0.00';
   let myRef = localStorage.getItem('ltop_ref') || 'LTOP-9999';
-
-  document.getElementById('displayUsername').innerText = username;
+  document.querySelectorAll('.displayUsername').forEach(el => el.innerText = username);
   document.getElementById('profileUsername').innerText = username;
   document.getElementById('profileAvatarLetter').innerText = username.charAt(1).toUpperCase();
   document.getElementById('diamondBalance').innerText = diamonds;
@@ -363,64 +720,38 @@ function loadUserData() {
   document.getElementById('cashBalance').innerText = parseFloat(cash).toFixed(2);
   document.getElementById('modalDiamondCount').innerText = diamonds;
   document.getElementById('myRefCode').innerText = myRef;
-
   document.getElementById('profileGuestView').style.display = 'none';
   document.getElementById('profileUserView').style.display = 'block';
 }
 
 function checkAuthAndProceed(pageId) {
   let savedUser = localStorage.getItem('ltop_user');
-  if(!savedUser) {
-    alert('Please log in or sign up to use this feature!');
-    openAuthModal();
-  } else {
-    showPage(pageId, 'btn-' + pageId);
-  }
-}
-
-function checkAuthAndAlert(msg) {
-  let savedUser = localStorage.getItem('ltop_user');
-  if(!savedUser) {
-    alert('Please log in first!');
-    openAuthModal();
-  } else {
-    alert(msg);
+  if(!savedUser) { alert('Please log in or sign up to use this feature!'); openAuthModal(); } 
+  else {
+    if(pageId === 'cameraStudio') { openCameraStudio(); } 
+    else { showPage(pageId, 'btn-' + pageId); }
   }
 }
 
 function applyReferralCode() {
   let refInput = document.getElementById('refInputSettings').value.trim();
   let refUsed = localStorage.getItem('ltop_ref_used');
-
-  if(!refInput) {
-    alert('Please enter a referral code.');
-    return;
-  }
-  if(refUsed === 'true') {
-    alert('You have already used a referral code!');
-    return;
-  }
-
+  if(!refInput) { alert('Please enter a referral code.'); return; }
+  if(refUsed === 'true') { alert('You have already used a referral code!'); return; }
   let diamonds = parseInt(localStorage.getItem('ltop_diamonds') || '20');
   diamonds += 50; 
   localStorage.setItem('ltop_diamonds', diamonds);
   localStorage.setItem('ltop_ref_used', 'true');
-
   loadUserData();
   alert('Referral code applied successfully! +50 Diamonds added 🎉');
 }
 
-function openTopUpModal() {
-  document.getElementById('topupModal').style.display = 'flex';
-}
-function closeTopUpModal() {
-  document.getElementById('topupModal').style.display = 'none';
-}
+function openTopUpModal() { document.getElementById('topupModal').style.display = 'flex'; }
+function closeTopUpModal() { document.getElementById('topupModal').style.display = 'none'; }
 function processTopUp() {
   let pkg = parseInt(document.getElementById('topupPackage').value);
   let method = document.getElementById('paymentMethod').value;
   let currentDiamonds = parseInt(localStorage.getItem('ltop_diamonds') || '20');
-
   currentDiamonds += pkg;
   localStorage.setItem('ltop_diamonds', currentDiamonds);
   loadUserData();
@@ -428,26 +759,14 @@ function processTopUp() {
   alert(`Successfully purchased ${pkg} diamonds via ${method.toUpperCase()}! 💎`);
 }
 
-function openWithdrawModal() {
-  document.getElementById('withdrawModal').style.display = 'flex';
-}
-function closeWithdrawModal() {
-  document.getElementById('withdrawModal').style.display = 'none';
-}
+function openWithdrawModal() { document.getElementById('withdrawModal').style.display = 'flex'; }
+function closeWithdrawModal() { document.getElementById('withdrawModal').style.display = 'none'; }
 function processWithdraw() {
   let method = document.getElementById('withdrawMethod').value;
   let details = document.getElementById('accountDetails').value.trim();
   let cash = parseFloat(localStorage.getItem('ltop_cash') || '0.00');
-
-  if(!details) {
-    alert('Please enter your account details for withdrawal!');
-    return;
-  }
-  if(cash <= 0) {
-    alert('You have no cash balance to withdraw!');
-    return;
-  }
-
+  if(!details) { alert('Please enter your account details for withdrawal!'); return; }
+  if(cash <= 0) { alert('You have no cash balance to withdraw!'); return; }
   localStorage.setItem('ltop_cash', '0.00');
   loadUserData();
   closeWithdrawModal();
@@ -457,34 +776,16 @@ function processWithdraw() {
 function exchangeEarnings(type) {
   let earned = parseInt(localStorage.getItem('ltop_earned') || '0');
   let cash = parseFloat(localStorage.getItem('ltop_cash') || '0.00');
-
-  if(earned <= 0) {
-    alert('You have no gift earnings to exchange!');
-    return;
-  }
-
-  let amountToExchange = 0;
-  if(type === 'all') {
-    amountToExchange = earned;
-  } else if(type === 'half') {
-    amountToExchange = Math.floor(earned / 2);
-  }
-
-  if(amountToExchange <= 0) {
-    alert('Amount is too low to exchange.');
-    return;
-  }
-
+  if(earned <= 0) { alert('You have no gift earnings to exchange!'); return; }
+  let amountToExchange = (type === 'all') ? earned : Math.floor(earned / 2);
+  if(amountToExchange <= 0) { alert('Amount is too low to exchange.'); return; }
   let grossPKR = amountToExchange * 2;
   let tax = grossPKR * 0.20;
   let netPKR = grossPKR - tax;
-
   earned -= amountToExchange;
   cash += netPKR;
-
   localStorage.setItem('ltop_earned', earned);
   localStorage.setItem('ltop_cash', cash.toFixed(2));
-
   loadUserData();
   alert(`Exchanged ${amountToExchange} diamonds. Gross: ₨${grossPKR} | 20% Tax: ₨${tax} | Credited: ₨${netPKR.toFixed(2)} 💵`);
 }
@@ -496,43 +797,193 @@ function copyRefCode() {
 }
 
 function logoutUser() {
-  if(confirm('Are you sure you want to log out?')) {
-    localStorage.clear();
-    location.reload();
-  }
+  if(confirm('Are you sure you want to log out?')) { localStorage.clear(); location.reload(); }
+}
+
+function openProfileSettingsMenu() {
+  document.getElementById('settingsDrawer').style.bottom = '0';
+}
+function closeProfileSettingsMenu() {
+  document.getElementById('settingsDrawer').style.bottom = '-100%';
 }
 
 function showPage(id,btn){
  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
- document.getElementById(id).classList.add('active');
+ let target = document.getElementById(id);
+ if(target) target.classList.add('active');
  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
  if(btn) {
    let targetBtn = document.getElementById(btn);
    if(targetBtn) targetBtn.classList.add('active');
  }
- if(id==='home'){let v=document.getElementById('mainVideo'); v.play();}
+ if(id==='home'){
+   let firstVid = document.querySelector('#homeFeed video');
+   if(firstVid) firstVid.play();
+ }
+}
+
+// CAMERA STUDIO & AR FILTERS
+let cameraStream = null;
+let currentFacingMode = 'user';
+let flashActive = false;
+
+async function openCameraStudio() {
+  document.getElementById('cameraStudioPage').style.display = 'flex';
+  try {
+    cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: currentFacingMode }, audio: true });
+    document.getElementById('liveCameraFeed').srcObject = cameraStream;
+  } catch (err) {
+    alert('Camera active in simulation mode.');
+  }
+}
+
+function closeCameraStudio() {
+  if (cameraStream) { cameraStream.getTracks().forEach(track => track.stop()); }
+  document.getElementById('cameraStudioPage').style.display = 'none';
+  showPage('home', 'btn-home');
+}
+
+async function flipCamera() {
+  currentFacingMode = (currentFacingMode === 'user') ? 'environment' : 'user';
+  if (cameraStream) { cameraStream.getTracks().forEach(track => track.stop()); }
+  try {
+    cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: currentFacingMode }, audio: true });
+    document.getElementById('liveCameraFeed').srcObject = cameraStream;
+  } catch(e) {}
+}
+
+function toggleCameraFlash() {
+  flashActive = !flashActive;
+  let feed = document.getElementById('liveCameraFeed');
+  feed.style.filter = flashActive ? 'brightness(1.8) contrast(1.2)' : 'none';
+  alert(flashActive ? 'Flashlight ON ⚡' : 'Flashlight OFF');
+}
+
+function toggleTimer() { alert('Timer set to 3s ⏱️'); }
+function toggleLayoutGrid() { alert('Grid toggled 🔲'); }
+
+function applyARFilter(index, cssFilter, stickerEmoji) {
+  let thumbs = document.querySelectorAll('.ar-filter-thumb');
+  thumbs.forEach((t, i) => {
+    if(i === index) t.classList.add('active'); else t.classList.remove('active');
+  });
+  document.getElementById('liveCameraFeed').style.filter = cssFilter;
+  let sticker = document.getElementById('arStickerOverlay');
+  if(stickerEmoji) {
+    sticker.innerText = stickerEmoji; sticker.style.display = 'block';
+  } else {
+    sticker.style.display = 'none';
+  }
+}
+
+let filterIdx = 0;
+const beautyFiltersList = [
+  {css: 'none', sticker: ''},
+  {css: 'sepia(0.5) contrast(1.2)', sticker: '🌸'},
+  {css: 'brightness(1.4) saturate(1.5)', sticker: '💖'},
+  {css: 'grayscale(1)', sticker: '🕶️'}
+];
+function cycleBeautyFilter() {
+  filterIdx = (filterIdx + 1) % beautyFiltersList.length;
+  let f = beautyFiltersList[filterIdx];
+  applyARFilter(filterIdx, f.css, f.sticker);
+}
+
+function setCameraMode(el) {
+  document.querySelectorAll('.camera-modes-row span').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  alert('Camera Mode: ' + el.innerText);
+}
+
+let isRecording = false;
+function toggleRecording() {
+  let btn = document.getElementById('shutterBtn');
+  isRecording = !isRecording;
+  if(isRecording) {
+    btn.classList.add('recording'); alert('Recording started 🔴');
+  } else {
+    btn.classList.remove('recording'); alert('Video recorded successfully! 🎉');
+    closeCameraStudio(); showPage('home', 'btn-home');
+  }
+}
+
+function triggerGalleryUpload() {
+  let inp = document.createElement('input');
+  inp.type = 'file'; inp.accept = 'video/*,image/*';
+  inp.onchange = e => {
+    if(e.target.files[0]) {
+      alert('File loaded from gallery successfully!');
+      closeCameraStudio(); showPage('home', 'btn-home');
+    }
+  };
+  inp.click();
+}
+
+// SONG SELECTOR
+function openSongModal() { document.getElementById('songModal').classList.add('show'); }
+function closeSongModal() { document.getElementById('songModal').classList.remove('show'); }
+function toggleSongSearch() {
+  let wrap = document.getElementById('songSearchBoxWrap');
+  wrap.style.display = wrap.style.display === 'block' ? 'none' : 'block';
+  if(wrap.style.display === 'block') { document.getElementById('songSearchInput').focus(); }
+}
+
+function renderSongs(category, filterQuery = '') {
+  let container = document.getElementById('songListContainer');
+  container.innerHTML = '';
+  let filtered = MOCK_SONGS.filter(song => {
+    let matchesCategory = (category === 'all' || song.category === category);
+    let matchesQuery = (song.title.toLowerCase().includes(filterQuery.toLowerCase()) || song.artist.toLowerCase().includes(filterQuery.toLowerCase()));
+    return matchesCategory && matchesQuery;
+  });
+  filtered.forEach(song => {
+    container.innerHTML += `
+      <div class="song-row">
+        <div class="song-row-left">
+          <img class="song-thumb" src="${song.img}">
+          <div class="song-info">
+            <h4>${song.title}</h4>
+            <p>${song.artist} · ${song.duration}</p>
+          </div>
+        </div>
+        <button class="song-use-btn" onclick="selectSong('${song.title} - ${song.artist}')">Use</button>
+      </div>
+    `;
+  });
+}
+
+function switchSongTab(tabEl, category) {
+  document.querySelectorAll('.song-tab').forEach(t => t.classList.remove('active'));
+  tabEl.classList.add('active');
+  renderSongs(category, document.getElementById('songSearchInput').value);
+}
+
+function filterSongs(query) {
+  let activeTab = document.querySelector('.song-tab.active');
+  let cat = 'hot';
+  if(activeTab && activeTab.innerText.toLowerCase().includes('for you')) cat = 'foryou';
+  renderSongs(cat, query);
+}
+
+function selectSong(songName) {
+  document.getElementById('cameraActiveSongTitle').innerText = songName;
+  closeSongModal();
+  alert(`Song "${songName}" attached! 🎵`);
 }
 
 function like(el){
  let savedUser = localStorage.getItem('ltop_user');
- if(!savedUser) {
-   alert('Please log in to like videos!');
-   openAuthModal();
-   return;
- }
- likes++; document.getElementById('likeCount').innerText=(likes/1000).toFixed(1)+'K';
- el.style.background='#fe2c55'; alert('Liked ❤️');
+ if(!savedUser) { alert('Please log in!'); openAuthModal(); return; }
+ let countEl = el.parentElement.querySelector('.likeCount');
+ countEl.innerText = (parseFloat(countEl.innerText) + 0.1).toFixed(1) + 'K';
+ el.style.background='#fe2c55'; 
 }
 
 function showComment(){
  let savedUser = localStorage.getItem('ltop_user');
- if(!savedUser) {
-   alert('Please log in to comment!');
-   openAuthModal();
-   return;
- }
+ if(!savedUser) { alert('Please log in!'); openAuthModal(); return; }
  let c=prompt('Write a comment:');
- if(c) alert('Comment posted successfully: '+c);
+ if(c) alert('Comment posted: '+c);
 }
 
 function shareApp(){
@@ -541,47 +992,59 @@ function shareApp(){
  else{prompt('Copy link:',link);}
 }
 
-function previewVideo(e){
- let f=e.target.files[0]; if(!f) return;
- let p=document.getElementById('preview');
- p.src=URL.createObjectURL(f); p.style.display='block'; p.play();
+// INBOX & CHAT
+function openRealSearch() { let sb = document.getElementById('inboxSearchBox'); sb.style.display = sb.style.display === 'none' ? 'block' : 'none'; }
+function filterChats(query) {
+  let rows = document.querySelectorAll('.chat-row');
+  let q = query.toLowerCase();
+  rows.forEach(r => {
+    let name = r.querySelector('h4').innerText.toLowerCase();
+    r.style.display = name.includes(q) ? 'flex' : 'none';
+  });
+}
+function openInboxSettings() { alert('Inbox Settings'); }
+function viewStory(storyName) { alert('Viewing Story: ' + storyName); }
+function switchFilter(chip, type) {
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  chip.classList.add('active');
+}
+function openChat(name, avatar) {
+  document.getElementById('activeChatName').innerText = name;
+  document.getElementById('activeChatAvatar').src = avatar;
+  document.getElementById('chatModal').style.display = 'flex';
+}
+function closeChat() { document.getElementById('chatModal').style.display = 'none'; }
+function sendChatMessage() {
+  let txt = document.getElementById('chatInputMessage').value.trim();
+  if(!txt) return;
+  let msgList = document.getElementById('chatMessageList');
+  msgList.innerHTML += `<div class="chat-bubble outgoing">${txt}</div>`;
+  document.getElementById('chatInputMessage').value = '';
+  setTimeout(() => {
+    msgList.innerHTML += `<div class="chat-bubble incoming">Thanks for connecting on LTop! 🔥</div>`;
+  }, 1000);
 }
 
-function postVideo(){
- let cap=document.getElementById('caption').value;
- document.getElementById('postMsg').innerText='Video posted successfully! 🎉 Caption: '+cap;
- alert('Video posted successfully! 🎉');
- showPage('home','btn-home');
+function setupVideoAutoplayOnScroll() {
+  let feed = document.getElementById('homeFeed');
+  if(!feed) return;
+  let videos = feed.querySelectorAll('video');
+  if(videos.length > 0) videos[0].play();
+  feed.addEventListener('scroll', () => {
+    videos.forEach(v => {
+      let rect = v.getBoundingClientRect();
+      if(rect.top >= 0 && rect.top < window.innerHeight * 0.6) { v.play(); } else { v.pause(); }
+    });
+  }, {passive: true});
 }
 
-// === ALL REAL EMOJI GIFTS ARRAY (NO CARTOON PNGs) ===
+// GIFTS
 const GIFTS = [
-  {name:"Rose", price:1, emoji:"🌹"},
-  {name:"Heart", price:5, emoji:"❤️"},
-  {name:"Coffee", price:10, emoji:"☕"},
-  {name:"Ring 💍", price:15, emoji:"💍"},
-  {name:"Balloon", price:20, emoji:"🎈"},
-  {name:"LTop Star", price:25, emoji:"🌟"},
-  {name:"Ice Cream", price:30, emoji:"🍦"},
-  {name:"Cap", price:35, emoji:"🧢"},
-  {name:"Sunglasses", price:40, emoji:"🕶️"},
-  {name:"Perfume", price:50, emoji:"🧴"},
-  {name:"Cake", price:60, emoji:"🎂"},
-  {name:"Headphones", price:75, emoji:"🎧"},
-  {name:"Guitar", price:90, emoji:"🎸"},
-  {name:"Money Bag", price:100, emoji:"💵"},
-  {name:"Royal Bouquet", price:110, emoji:"💐"},
-  {name:"Diamond Watch", price:125, emoji:"⌚"},
-  {name:"Gold Crown", price:140, emoji:"👑"},
-  {name:"Treasure Chest", price:150, emoji:"🪙"},
-  {name:"Motorbike", price:180, emoji:"🏍️"},
-  {name:"Sports Car", price:300, emoji:"🏎️"},
-  {name:"Private Jet", price:500, emoji:"✈️"},
-  {name:"Rocket", price:750, emoji:"🚀"},
-  {name:"Galaxy", price:1000, emoji:"💫"},
-  {name:"Luxury Yacht", price:1500, emoji:"🚤"},
-  {name:"Lion 🦁", price:2500, emoji:"🦁"},
-  {name:"Castle 🏰", price:5000, emoji:"🏰"}
+  {name:"Apple", price:1, emoji:"🍎"},{name:"Bird", price:2, emoji:"🐦"},{name:"Carrot", price:3, emoji:"🥕"},{name:"Grapes", price:4, emoji:"🍇"},
+  {name:"Bikini", price:5, emoji:"👙"},{name:"Squirrel", price:6, emoji:"🐿️"},{name:"Chili", price:7, emoji:"🌶️"},{name:"Ring", price:8, emoji:"💍"},
+  {name:"Banana", price:9, emoji:"🍌"},{name:"Sad Face", price:10, emoji:"🥺"},{name:"Cucumber", price:11, emoji:"🥒"},{name:"Falafel", price:12, emoji:"🧆"},
+  {name:"Pie", price:13, emoji:"🥧"},{name:"Lollipop", price:14, emoji:"🍭"},{name:"Baby Bottle", price:15, emoji:"🍼"},{name:"Coffee", price:16, emoji:"☕"},
+  {name:"Sports Car", price:300, emoji:"🏎️"},{name:"Private Jet", price:500, emoji:"✈️"},{name:"Lion 🦁", price:2500, emoji:"🦁"},{name:"Castle 🏰", price:5000, emoji:"🏰"}
 ];
 
 function renderGifts() {
@@ -600,95 +1063,43 @@ function renderGifts() {
 
 function openGiftModal() {
   let savedUser = localStorage.getItem('ltop_user');
-  if(!savedUser) {
-    alert('Please log in to send gifts!');
-    openAuthModal();
-    return;
-  }
+  if(!savedUser) { alert('Please log in!'); openAuthModal(); return; }
   document.getElementById('giftModal').classList.add('show');
-  let currentBal = localStorage.getItem('ltop_diamonds') || '20';
-  document.getElementById('modalDiamondCount').innerText = currentBal;
 }
-
-function closeGiftModal() {
-  document.getElementById('giftModal').classList.remove('show');
-}
-
-// RELIABLE AUDIO SYNTHESIZER SOUND SYSTEM
-function playGiftSound(price) {
-  try {
-    let ctx = new (window.AudioContext || window.webkitAudioContext)();
-    let osc = ctx.createOscillator();
-    let gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-
-    if (price < 50) {
-      osc.frequency.setValueAtTime(587.33, ctx.currentTime); // High pitch chime
-      gain.gain.setValueAtTime(0.1, ctx.currentTime);
-      osc.start();
-      osc.stop(ctx.currentTime + 0.3);
-    } else if (price < 200) {
-      osc.frequency.setValueAtTime(880, ctx.currentTime); 
-      gain.gain.setValueAtTime(0.2, ctx.currentTime);
-      osc.start();
-      osc.stop(ctx.currentTime + 0.5);
-    } else {
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(150, ctx.currentTime); // Low engine/roar hum
-      gain.gain.setValueAtTime(0.3, ctx.currentTime);
-      osc.start();
-      osc.stop(ctx.currentTime + 0.8);
-    }
-  } catch(e){}
-}
+function closeGiftModal() { document.getElementById('giftModal').classList.remove('show'); }
 
 function sendGift(index) {
   let gift = GIFTS[index];
   let currentDiamonds = parseInt(localStorage.getItem('ltop_diamonds') || '20');
   let username = localStorage.getItem('ltop_user') || '@user';
-
-  if(currentDiamonds < gift.price) {
-    alert('You do not have enough diamonds! Please top up.');
-    return;
-  }
-
-  currentDiamonds -= gift.price;
-  localStorage.setItem('ltop_diamonds', currentDiamonds);
-
-  let currentEarned = parseInt(localStorage.getItem('ltop_earned') || '0');
-  currentEarned += gift.price;
-  localStorage.setItem('ltop_earned', currentEarned);
-  
+  if(currentDiamonds < gift.price) { alert('Not enough diamonds!'); return; }
+  localStorage.setItem('ltop_diamonds', currentDiamonds - gift.price);
   loadUserData();
   closeGiftModal();
-
-  // Play Sound Audio
-  playGiftSound(gift.price);
-
-  // Show TikTok Style Left Notification Banner
-  let banner = document.getElementById('giftNotificationBanner');
-  document.getElementById('bannerAvatar').innerText = username.charAt(1).toUpperCase();
-  document.getElementById('bannerUsername').innerText = username;
-  document.getElementById('bannerGiftName').innerText = gift.name;
-  document.getElementById('bannerEmoji').innerText = gift.emoji;
-
-  banner.style.display = 'flex';
-
-  setTimeout(() => {
-    banner.style.display = 'none';
-  }, 3500);
+  if (gift.price >= 200) {
+    let overlay = document.getElementById('cinematicGiftOverlay');
+    document.getElementById('cinematicEmoji').innerText = gift.emoji;
+    document.getElementById('cinematicTitle').innerText = `${username} sent ${gift.name}`;
+    overlay.classList.add('show');
+    setTimeout(() => { overlay.classList.remove('show'); }, 3000);
+  } else {
+    let banner = document.getElementById('giftNotificationBanner');
+    document.getElementById('bannerAvatar').innerText = username.charAt(1).toUpperCase();
+    document.getElementById('bannerUsername').innerText = username;
+    document.getElementById('bannerGiftName').innerText = gift.name;
+    document.getElementById('bannerEmoji').innerText = gift.emoji;
+    banner.style.display = 'flex';
+    setTimeout(() => { banner.style.display = 'none'; }, 3500);
+  }
 }
 
-// Fill grids
 let g=document.getElementById('discoverGrid');
 let m=document.getElementById('myGrid');
-videos.forEach(v=>{
- let vd=document.createElement('video'); vd.src=v; vd.muted=true; vd.onclick=()=>{showPage('home','btn-home'); let mv=document.getElementById('mainVideo'); mv.src=v; mv.play();};
+videoSamples.forEach(v=>{
+ let vd=document.createElement('video'); vd.src=v; vd.muted=true; vd.onclick=()=>{showPage('home','btn-home');};
  g.appendChild(vd);
  let vd2=vd.cloneNode(); vd2.onclick=vd.onclick; m.appendChild(vd2);
 });
 </script>
 </body>
 </html>
-    
