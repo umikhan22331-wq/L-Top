@@ -56,7 +56,7 @@ body,html{width:100%;height:100%;background:#000;color:#fff;overflow:hidden}
 }
 
 /* AUTH / LOGIN MODAL */
-#authScreen{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:99999;display:none;align-items:center;justify-content:center;padding:20px}
+#authScreen{position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:99999;display:none;align-items:center;justify-content:center;padding:20px}
 .auth-box{width:100%;max-width:380px;background:#111;padding:25px;border-radius:15px;border:1px solid #222;text-align:center}
 .auth-box h1{font-size:32px;font-weight:900;margin-bottom:5px;color:#fff}
 .auth-box h1 span{color:#fe2c55}
@@ -74,7 +74,7 @@ body,html{width:100%;height:100%;background:#000;color:#fff;overflow:hidden}
   align-items: center;
   justify-content: center;
   gap: 18px;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.85), transparent);
+  background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
   font-size: 15px;
   font-weight: bold;
   color: #aaa;
@@ -167,7 +167,7 @@ body,html{width:100%;height:100%;background:#000;color:#fff;overflow:hidden}
 
 /* CINEMATIC OVERLAY FOR BIG GIFTS */
 #cinematicGiftOverlay{
-  position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:100000; display:none; align-items:center; justify-content:center; flex-direction:column; pointer-events:none;
+  position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:100000; display:none; align-items:center; justify-content:center; flex-direction:column; pointer-events:none;
 }
 #cinematicGiftOverlay.show{display:flex}
 .cinematic-emoji{font-size:120px;animation: cinematicPop 3s ease forwards;}
@@ -193,15 +193,17 @@ body,html{width:100%;height:100%;background:#000;color:#fff;overflow:hidden}
 .gift-item p{font-size:11px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .gift-item span{font-size:11px;color:#fe2c55;font-weight:bold}
 
-.page{display:none;position:absolute;top:0;left:0;width:100%;height:100%;padding-bottom:60px;overflow:hidden}
+/* FIX: SOLID BACKGROUND FOR ALL PAGES TO PREVENT BACKGROUND HOME OVERLAP */
+.page{display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:#000;padding-bottom:60px;overflow:hidden;z-index:2;}
 .page.active{display:block}
+#home{z-index:1;}
 
 /* SMOOTH VERTICAL SNAP-SCROLL FEED */
 .feed-container{
-  width:100%; height:100%; overflow-y:scroll; scroll-snap-type:y mandatory; -webkit-overflow-scrolling:touch;
+  width:100%; height:100%; overflow-y:scroll; scroll-snap-type:y mandatory; -webkit-overflow-scrolling:touch; background:#000;
 }
 .feed-item{
-  position:relative; width:100%; height:100%; scroll-snap-align:start; scroll-snap-stop:always; background:#111; display:flex; align-items:center; justify-content:center; overflow:hidden;
+  position:relative; width:100%; height:100%; scroll-snap-align:start; scroll-snap-stop:always; background:#000; display:flex; align-items:center; justify-content:center; overflow:hidden;
 }
 
 video, img.live-bg{width:100%;height:100%;object-fit:cover}
@@ -215,7 +217,7 @@ video, img.live-bg{width:100%;height:100%;object-fit:cover}
 .info h3{font-size:16px;font-weight:bold;text-shadow:0 1px 3px rgba(0,0,0,0.8)}
 .info p{font-size:13px;color:#ddd;margin-top:4px;text-shadow:0 1px 3px rgba(0,0,0,0.8)}
 
-nav{position:fixed;bottom:0;width:100%;height:60px;background:rgba(0,0,0,0.95);display:flex;justify-content:space-around;align-items:center;border-top:1px solid #222;z-index:20}
+nav{position:fixed;bottom:0;width:100%;height:60px;background:#000;display:flex;justify-content:space-around;align-items:center;border-top:1px solid #222;z-index:20}
 nav button{background:none;border:none;color:#fff;font-size:15px;cursor:pointer}
 nav button.active{color:#fe2c55;font-weight:bold}
 
@@ -225,25 +227,25 @@ nav .plus-brand-btn {
 }
 nav .plus-brand-btn:active { transform: scale(0.92); }
 
-.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;padding:2px;overflow-y:auto;height:100%}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;padding:2px;overflow-y:auto;height:100%;background:#000}
 .grid video{width:100%;aspect-ratio:9/16;object-fit:cover;background:#222}
-.box{padding:15px;overflow-y:auto;height:100%}
+.box{padding:15px;overflow-y:auto;height:100%;background:#000}
 input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:none;outline:none;background:#222;color:#fff}
 .btn{width:100%;padding:13px;background:#fe2c55;color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer}
-.profile{text-align:center;padding:20px;overflow-y:auto;height:100%}
+.profile{text-align:center;padding:20px;overflow-y:auto;height:100%;background:#000}
 .avatar{width:90px;height:90px;border-radius:50%;background:#fe2c55;display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 10px}
 
 /* INBOX STYLING */
-.inbox-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid #1a1a1a; }
+.inbox-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid #1a1a1a; background:#000; }
 .inbox-header h2 { font-size: 20px; font-weight: bold; }
-.inbox-stories { display: flex; gap: 15px; padding: 12px 16px; overflow-x: auto; border-bottom: 1px solid #1a1a1a; align-items: center; }
+.inbox-stories { display: flex; gap: 15px; padding: 12px 16px; overflow-x: auto; border-bottom: 1px solid #1a1a1a; align-items: center; background:#000; }
 .inbox-story-item { display: flex; flex-direction: column; align-items: center; gap: 5px; min-width: 60px; cursor: pointer; }
 .inbox-story-avatar { width: 54px; height: 54px; border-radius: 50%; border: 2px solid #fe2c55; padding: 2px; object-fit: cover; }
 .inbox-story-item span { font-size: 11px; color: #ccc; }
-.inbox-filters { display: flex; gap: 10px; padding: 12px 16px; align-items: center; overflow-x: auto; }
+.inbox-filters { display: flex; gap: 10px; padding: 12px 16px; align-items: center; overflow-x: auto; background:#000; }
 .filter-chip { background: #1a1a1a; color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 13px; border: 1px solid #333; cursor: pointer; white-space: nowrap; }
 .filter-chip.active { background: #fff; color: #000; font-weight: bold; }
-.chat-list { padding: 0 16px; overflow-y: auto; max-height: calc(100vh - 290px); }
+.chat-list { padding: 0 16px; overflow-y: auto; max-height: calc(100vh - 290px); background:#000; }
 .chat-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #111; cursor: pointer; }
 .chat-left { display: flex; align-items: center; gap: 12px; }
 .chat-info h4 { font-size: 14px; color: #fff; margin-bottom: 3px; display: flex; align-items: center; gap: 5px; }
@@ -258,6 +260,22 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
 .chat-bubble.incoming{background:#222;align-self:flex-start;}
 .chat-bubble.outgoing{background:#fe2c55;color:#fff;align-self:flex-end;}
 .chat-modal-footer{display:flex;padding:12px;background:#111;gap:10px;align-items:center;}
+
+/* COMMENTS MODAL BOTTOM SHEET */
+#commentsModal {
+  position: fixed; bottom: -100%; left: 0; right: 0; height: 65vh; background: #141414;
+  border-top-left-radius: 20px; border-top-right-radius: 20px; z-index: 100000;
+  transition: bottom 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex; flex-direction: column; border-top: 1px solid #333; box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
+}
+#commentsModal.show { bottom: 0; }
+.comments-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 1px solid #222; font-weight: bold; font-size: 15px; }
+.comments-list { flex: 1; overflow-y: auto; padding: 12px 16px; display: flex; flex-direction: column; gap: 12px; }
+.comment-row { display: flex; gap: 10px; align-items: flex-start; }
+.comment-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; background: #333; flex-shrink: 0; }
+.comment-content h5 { font-size: 13px; color: #aaa; margin-bottom: 2px; }
+.comment-content p { font-size: 14px; color: #fff; line-height: 1.3; }
+.comments-footer { display: flex; padding: 12px 16px; background: #111; gap: 10px; align-items: center; border-top: 1px solid #222; }
 
 /* SONG SELECTOR MODAL */
 #songModal{
@@ -320,7 +338,6 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
   position: absolute; bottom: 15px; left: 0; right: 0; z-index: 5; display: flex; flex-direction: column; align-items: center; gap: 10px;
 }
 
-/* CLEAN STANDARD MODES ROW (WITHOUT LIVE & AUDIO ROOM IN THIS TOP ROW) */
 .camera-modes-row {
   display: flex; gap: 18px; align-items: center; font-size: 14px; font-weight: bold; color: #ccc; text-shadow: 0 2px 4px rgba(0,0,0,0.9); justify-content: center; width: 100%;
 }
@@ -340,7 +357,6 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
   display: flex; align-items: center; justify-content: space-around; width: 100%; padding: 0 15px;
 }
 
-/* BRAND SHUTTER BUTTON */
 .camera-shutter-btn-brand {
   width: 76px; height: 76px; border-radius: 50%; border: 4px solid #fff; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; box-shadow: -4px 0 15px rgba(0,240,255,0.6), 4px 0 15px rgba(255,235,59,0.6);
 }
@@ -351,12 +367,10 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
   transform: scale(0.65); border-radius: 12px; background: #ff0000; color:#fff;
 }
 
-/* FLOATING FAVORITES & EFFECTS BUTTON PILL */
 .favorites-pill-btn {
   position: absolute; left: 16px; bottom: 125px; z-index: 6; background: rgba(0,0,0,0.65); backdrop-filter: blur(10px); padding: 8px 16px; border-radius: 20px; display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: bold; color: #fff; border: 1px solid rgba(255,255,255,0.25); cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
-/* BOTTOM LIVE & AUDIO ROOM BUTTONS ROW (UNDER SHUTTER BUTTON - GREEN CIRCLES LOCATION) */
 .bottom-live-audio-row {
   display: flex; align-items: center; justify-content: center; gap: 24px; margin-top: 2px; width: 100%;
 }
@@ -440,7 +454,7 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
       <div class="actions">
         <div><button class="act" style="background:#fe2c55;color:#fff;" onclick="followUser(this)">+</button><small>Follow</small></div>
         <div><button class="act" onclick="like(this)">❤️</button><small class="likeCount">14.5K</small></div>
-        <div><button class="act" onclick="showComment()">💬</button><small>670</small></div>
+        <div><button class="act" onclick="openCommentsModal()">💬</button><small class="commentCount">670</small></div>
         <div><button class="act" onclick="saveVideo(this)">🔖</button><small class="saveCount">491</small></div>
         <div><button class="act" onclick="shareApp()">↗️</button><small>165</small></div>
       </div>
@@ -457,7 +471,7 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
       <div class="actions">
         <div><button class="act" style="background:#fe2c55;color:#fff;" onclick="followUser(this)">+</button><small>Follow</small></div>
         <div><button class="act" onclick="like(this)">❤️</button><small class="likeCount">8.3K</small></div>
-        <div><button class="act" onclick="showComment()">💬</button><small>420</small></div>
+        <div><button class="act" onclick="openCommentsModal()">💬</button><small class="commentCount">420</small></div>
         <div><button class="act" onclick="saveVideo(this)">🔖</button><small class="saveCount">210</small></div>
         <div><button class="act" onclick="shareApp()">↗️</button><small>95</small></div>
       </div>
@@ -479,7 +493,7 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
       <img class="live-bg" src="https://i.pravatar.cc/500?img=12">
       <div style="position:absolute;top:15px;left:15px;background:red;color:white;padding:4px 12px;border-radius:20px;font-weight:bold;font-size:13px;">🔴 LIVE • 1.2K watching</div>
       <div style="position:absolute;bottom:75px;left:12px;color:white"><b>@sara_live</b><p>Come join my live broadcast! ❤️</p></div>
-      <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);padding:10px;display:flex;gap:8px;align-items:center">
+      <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);padding:10px;display:flex;gap:8px;align-items:center">
         <input placeholder="Say something in live chat..." style="flex:1;padding:10px;border-radius:20px;border:none">
         <button onclick="openGiftModal()" style="background:#fe2c55;border:none;padding:10px 14px;border-radius:50%;font-size:20px;cursor:pointer">🎁</button>
       </div>
@@ -493,24 +507,21 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
   <div class="grid" id="discoverGrid"></div>
 </div>
 
-<!-- CAMERA STUDIO WITH BOTTOM GO LIVE & AUDIO ROOM BUTTONS -->
+<!-- CAMERA STUDIO -->
 <div id="cameraStudioPage">
   <video id="liveCameraFeed" autoplay playsinline muted></video>
   <div id="arStickerOverlay">🌸</div>
 
-  <!-- FLOATING FAVORITES PILL BUTTON -->
   <div class="favorites-pill-btn" onclick="openSongModal()">
     <span>🔖</span> Favorites & Effects ➔
   </div>
 
-  <!-- 3-Guest Call Grid Overlay for LIVE Mode -->
   <div id="liveCallGridOverlay">
     <div class="guest-call-box"><img src="https://i.pravatar.cc/100?img=15"><span class="guest-call-name">Guest 1</span></div>
     <div class="guest-call-box"><img src="https://i.pravatar.cc/100?img=20"><span class="guest-call-name">Guest 2</span></div>
     <div class="guest-call-box"><img src="https://i.pravatar.cc/100?img=25"><span class="guest-call-name">Guest 3</span></div>
   </div>
 
-  <!-- 10-Seat Audio Room Overlay Panel -->
   <div id="audioRoomContainer">
     <h3 style="color:#00f0ff;margin-bottom:5px;">🎙️ LTop Audio Room</h3>
     <p style="font-size:12px;color:#aaa;">10 Seats Available • Tap any seat to join</p>
@@ -522,7 +533,6 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
     </div>
   </div>
 
-  <!-- Top Bar -->
   <div class="camera-top-bar">
     <button class="camera-close-btn" onclick="closeCameraStudio()">✕</button>
     <div class="camera-add-sound-pill" onclick="openSongModal()">
@@ -531,7 +541,6 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
     <div style="width:36px;"></div>
   </div>
 
-  <!-- Right Side Tools Panel -->
   <div class="camera-right-panel">
     <button class="camera-tool-icon" onclick="flipCamera()">🔄<span>Flip</span></button>
     <button class="camera-tool-icon" onclick="toggleCameraFlash()">⚡<span>Flash</span></button>
@@ -541,9 +550,7 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
     <button class="camera-tool-icon" onclick="openSongModal()">📋<span>Effects</span></button>
   </div>
 
-  <!-- Bottom Panel -->
   <div class="camera-bottom-panel">
-    <!-- Clean Horizontal Modes Row -->
     <div class="camera-modes-row">
       <span onclick="setCameraMode(this, 'video')">10m</span>
       <span onclick="setCameraMode(this, 'video')">60s</span>
@@ -551,7 +558,6 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
       <span onclick="setCameraMode(this, 'photo')">PHOTO</span>
     </div>
 
-    <!-- AR Filters Carousel Tray -->
     <div class="ar-filters-tray" id="arFiltersTray">
       <div class="ar-filter-thumb active" onclick="applyARFilter(0, 'none', '')">✨</div>
       <div class="ar-filter-thumb" onclick="applyARFilter(1, 'sepia(0.5) contrast(1.2)', '🌸')">🌸</div>
@@ -560,7 +566,6 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
       <div class="ar-filter-thumb" onclick="applyARFilter(4, 'hue-rotate(90deg)', '🌟')">🌟</div>
     </div>
 
-    <!-- Brand Shutter Button Row -->
     <div class="camera-shutter-row">
       <img class="ar-filter-thumb" src="https://i.pravatar.cc/100?img=12" onclick="openSongModal()" style="width:44px;height:44px;min-width:44px;">
       <div class="camera-shutter-btn-brand" id="shutterBtn" onclick="toggleRecording()">
@@ -569,7 +574,6 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
       <div style="width:44px; height:44px; border-radius:12px; background:rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; cursor:pointer;" onclick="triggerGalleryUpload()">📁</div>
     </div>
 
-    <!-- REAL WORKING GO LIVE & AUDIO ROOM BUTTONS AT THE EXACT GREEN CIRCLE LOCATIONS BELOW SHUTTER -->
     <div class="bottom-live-audio-row">
       <button class="studio-bottom-action-btn" id="goLiveBottomBtn" onclick="activateStudioMode('golive')">
         🔴 GO LIVE
@@ -587,6 +591,41 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
     <h2>➕ LTop Camera & Live Studio</h2>
     <p>Tap below to launch professional studio:</p>
     <button class="btn" onclick="openCameraStudio()" style="background:#fe2c55;margin:15px 0;">Launch Studio 🎥🎙️</button>
+  </div>
+</div>
+
+<!-- COMMENTS MODAL BOTTOM SHEET -->
+<div id="commentsModal">
+  <div class="comments-header">
+    <span id="commentsCountTitle">670 comments</span>
+    <button onclick="closeCommentsModal()" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;">✕</button>
+  </div>
+  <div class="comments-list" id="commentsListContainer">
+    <div class="comment-row">
+      <img class="comment-avatar" src="https://i.pravatar.cc/100?img=11">
+      <div class="comment-content">
+        <h5>@hammad_afridi</h5>
+        <p>Amazing video! 🔥 Kept rocking bro.</p>
+      </div>
+    </div>
+    <div class="comment-row">
+      <img class="comment-avatar" src="https://i.pravatar.cc/100?img=12">
+      <div class="comment-content">
+        <h5>@sara_khan</h5>
+        <p>So true! Best content on LTop 👏</p>
+      </div>
+    </div>
+    <div class="comment-row">
+      <img class="comment-avatar" src="https://i.pravatar.cc/100?img=15">
+      <div class="comment-content">
+        <h5>@ali_raza</h5>
+        <p>Love this song and vibe! 💖</p>
+      </div>
+    </div>
+  </div>
+  <div class="comments-footer">
+    <input type="text" id="commentInputText" placeholder="Add comment..." style="flex:1;padding:10px;border-radius:20px;border:none;margin:0;">
+    <button class="btn" style="width:70px;padding:10px;margin:0;" onclick="postComment()">Post</button>
   </div>
 </div>
 
@@ -656,8 +695,8 @@ input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;bo
     <div class="chat-bubble incoming">Hello! Welcome to LTop chat. 🔥</div>
   </div>
   <div class="chat-modal-footer">
-    <input type="text" id="chatInputMessage" placeholder="Type a message..." style="flex:1;padding:10px;border-radius:20px;border:none;">
-    <button class="btn" style="width:70px;padding:10px;" onclick="sendChatMessage()">Send</button>
+    <input type="text" id="chatInputMessage" placeholder="Type a message..." style="flex:1;padding:10px;border-radius:20px;border:none;margin:0;">
+    <button class="btn" style="width:70px;padding:10px;margin:0;" onclick="sendChatMessage()">Send</button>
   </div>
 </div>
 
@@ -974,6 +1013,38 @@ function showPage(id,btn){
  }
 }
 
+// COMMENTS SYSTEM
+function openCommentsModal() {
+  document.getElementById('commentsModal').classList.add('show');
+}
+function closeCommentsModal() {
+  document.getElementById('commentsModal').classList.remove('show');
+}
+function postComment() {
+  let txt = document.getElementById('commentInputText').value.trim();
+  if(!txt) { alert('Please write a comment!'); return; }
+  let username = localStorage.getItem('ltop_user') || '@guest_user';
+  let container = document.getElementById('commentsListContainer');
+  container.innerHTML += `
+    <div class="comment-row">
+      <img class="comment-avatar" src="https://i.pravatar.cc/100?img=20">
+      <div class="comment-content">
+        <h5>${username}</h5>
+        <p>${txt}</p>
+      </div>
+    </div>
+  `;
+  document.getElementById('commentInputText').value = '';
+  // Update comment count
+  let countEls = document.querySelectorAll('.commentCount');
+  countEls.forEach(el => {
+    let current = parseInt(el.innerText) + 1;
+    el.innerText = current;
+    document.getElementById('commentsCountTitle').innerText = current + ' comments';
+  });
+  container.scrollTop = container.scrollHeight;
+}
+
 // CAMERA STUDIO & LIVE & 10-SEAT AUDIO ROOM
 let cameraStream = null;
 let currentFacingMode = 'user';
@@ -1248,13 +1319,6 @@ function like(el){
  el.style.background='#fe2c55'; 
 }
 
-function showComment(){
- let savedUser = localStorage.getItem('ltop_user');
- if(!savedUser) { alert('Please log in!'); openAuthModal(); return; }
- let c=prompt('Write a comment:');
- if(c) alert('Comment posted: '+c);
-}
-
 function shareApp(){
  let link=location.href;
  if(navigator.share){navigator.share({title:'LTop',url:link});}
@@ -1272,7 +1336,6 @@ function filterChats(query) {
   });
 }
 function openInboxSettings() { alert('Inbox Settings'); }
-function viewStory(storyName) { alert('Viewing Story: ' + storyName); }
 function switchFilter(chip, type) {
   document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
   chip.classList.add('active');
